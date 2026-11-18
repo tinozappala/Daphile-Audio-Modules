@@ -1,0 +1,6 @@
+PLUGIN_DAPHILECAMILLADSP
+	EN	Daphile · CamillaDSP
+	IT	Daphile · CamillaDSP
+PLUGIN_DAPHILECAMILLADSP_DESC
+	EN	Listening profiles, comparison and equalizer settings.
+	IT	Profili di ascolto, confronto e regolazione del suono.

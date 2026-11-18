@@ -1,0 +1,12 @@
+--- a/src/mod_openssl.c
++++ b/src/mod_openssl.c
+@@ -4454,7 +4454,8 @@
+     }
+ 
+   #if OPENSSL_VERSION_NUMBER < 0x40000000L \
+-   && OPENSSL_VERSION_NUMBER != 0x30500000L \
++   && (OPENSSL_VERSION_NUMBER < 0x30500000L \
++       || OPENSSL_VERSION_NUMBER >= 0x30600000L) \
+    && !defined(BORINGSSL_API_VERSION) \
+    && !defined(LIBRESSL_VERSION_NUMBER)
+   if (log_epoch_secs >= 1792728000) /* 23 Oct 2026 */

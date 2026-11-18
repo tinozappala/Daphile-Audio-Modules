@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+description="Create this installation's native machine identity"
+depend() { before dbus avahi-daemon; }
+start() {
+    if ! grep -qsxE '[a-f0-9]{32}' /etc/machine-id; then
+        tr -d '-' < /proc/sys/kernel/random/uuid > /etc/.machine-id.new
+        chmod 0644 /etc/.machine-id.new
+        mv /etc/.machine-id.new /etc/machine-id
+    fi
+}

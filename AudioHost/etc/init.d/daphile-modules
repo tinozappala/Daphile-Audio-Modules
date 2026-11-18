@@ -1,0 +1,8 @@
+#!/sbin/openrc-run
+description="Initialize generic native DATA module defaults"
+depend() { need diskmount; before ramcache-prepare mediaserver; }
+start() {
+    ebegin "Initializing native modules"
+    /usr/bin/python3.13 -I -B /opt/daphile-ram/bootstrap_release.py modules
+    eend $?
+}

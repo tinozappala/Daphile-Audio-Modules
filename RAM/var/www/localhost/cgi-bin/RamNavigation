@@ -1,0 +1,28 @@
+#!/usr/bin/python3
+"""Read-only RAM navigation asset; no controller, preferences or auth calls."""
+import os
+import sys
+from pathlib import Path
+
+ASSET = Path('/opt/daphile-ram/ram-navigation.js')
+
+def response(method, asset=ASSET):
+    if method not in ('GET', 'HEAD'):
+        return 405, 'text/plain; charset=utf-8', b'Method not allowed\n'
+    return 200, 'text/javascript; charset=utf-8', Path(asset).read_bytes()
+
+def main():
+    method = os.environ.get('REQUEST_METHOD', 'GET')
+    try:
+        status, mime, body = response(method)
+    except OSError:
+        status, mime, body = 503, 'text/plain; charset=utf-8', b'RAM navigation asset unavailable\n'
+    headers = ('Status: ' + str(status) + '\r\nContent-Type: ' + mime +
+               '\r\nContent-Length: ' + str(len(body)) +
+               '\r\nCache-Control: no-cache\r\nX-Content-Type-Options: nosniff\r\n\r\n')
+    sys.stdout.buffer.write(headers.encode('ascii'))
+    if method != 'HEAD':
+        sys.stdout.buffer.write(body)
+
+if __name__ == '__main__':
+    main()

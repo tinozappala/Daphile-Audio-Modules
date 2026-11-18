@@ -1,0 +1,12 @@
+{
+  "name": "audio-rt",
+  "version": 3,
+  "autostart": false,
+  "activatable": true,
+  "status": "implemented runtime trial; full physical validation pending",
+  "factory_meaning": "pre-AutoTune custom Daphile state; not an official firmware factory reset",
+  "validation": "controlled runtime trial; physical full-format matrix pending",
+  "scope": "CPU governor, separate physical cores for USB IRQ/audio output; priorities unchanged",
+  "descriptor_only": true,
+  "decision_implementation": "lib/engine.py:recommend and lib/advanced.py:plan; JSON is not executed"
+}

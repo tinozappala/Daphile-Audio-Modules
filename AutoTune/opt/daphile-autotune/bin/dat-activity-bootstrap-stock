@@ -1,0 +1,29 @@
+"""Explicit root create-once resource bootstrap, never a mutation grant."""
+import argparse,hashlib,json,os,sys
+from pathlib import Path
+sys.dont_write_bytecode=True
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'lib'))
+import audio_activity_lease as kernel
+from autotune_v2.stock_no_ram import observe_native_without_ram
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--expected-boot-sha256',required=True)
+    p.add_argument('--initialize-stock-resource-once',action='store_true')
+    p.add_argument('--observe-only',action='store_true')
+    a=p.parse_args();kernel.root()
+    kernel.need(a.initialize_stock_resource_once != a.observe_only,'EXPLICIT_SINGLE_ADMINISTRATIVE_ACTION_REQUIRED')
+    boot=Path('/proc/sys/kernel/random/boot_id').read_text().strip()
+    kernel.need(hashlib.sha256(boot.encode()).hexdigest()==a.expected_boot_sha256,'OBSERVED_CURRENT_BOOT_REQUIRED')
+    facts=observe_native_without_ram()
+    if a.observe_only:
+        print(json.dumps(dict(status='PASS_REAL_STOCK_SOURCE_ABSENCE_OBSERVATION',facts=facts,
+                              created_or_modified_files=False,authority_conferred=False,
+                              hardware_qualified=False)));return
+    result=kernel.provision_at_real_boot() # Existing layout is validated/preserved, never reset/repaired.
+    kernel.need(Path('/proc/sys/kernel/random/boot_id').read_text().strip()==boot,'BOOT_CHANGED')
+    print(json.dumps(dict(status=result,root_resource=kernel.ROOT,boot_sha256=a.expected_boot_sha256,
+                         ram_absence_observed=facts['status'],authority_conferred=False,
+                         audio_or_service_mutations=False,hardware_qualified=False)))
+
+if __name__=='__main__':main()

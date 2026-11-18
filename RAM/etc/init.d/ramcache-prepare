@@ -1,0 +1,19 @@
+#!/sbin/openrc-run
+description="Prepare native audio file cache in RAM, or recover OFF"
+depend() {
+    local myneed="diskmount"
+    local dconf="/var/daphile/conf/config.sys"
+    grep -qsxE 'net_drive_funcmode_[0-9]+=music' ${dconf} \
+        && myneed="${myneed} netdrives"
+    need ${myneed}
+    after daphile-modules
+    before mediaserver
+}
+start_pre() {
+    /usr/bin/python3.13 -I -B /opt/daphile-ram/bootstrap_release.py ram-config
+}
+start() {
+    ebegin "Preparing RAM audio cache"
+    /usr/bin/python3.13 -I -B /opt/daphile-ram/ramcache.py prepare-boot
+    eend $?
+}

@@ -1,0 +1,10 @@
+--- a/opt/mediaserver/slimserver.pl
++++ b/opt/mediaserver/slimserver.pl
+@@ -416,6 +416,7 @@
+ 
+ 	main::INFOLOG && $log->info("Server Queries init...");
+ 	Slim::Control::Queries->init();
++	require Daphile::Ram::DevModeHTTP; Daphile::Ram::DevModeHTTP::install();
+ 
+ 	main::INFOLOG && $log->info("Server Buttons init...");
+ 	Slim::Buttons::Common::init();

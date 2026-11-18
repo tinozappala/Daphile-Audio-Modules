@@ -1,0 +1,10 @@
+{
+  "name": "experimental",
+  "version": 4,
+  "autostart": false,
+  "activatable": true,
+  "status": "Controlled repeated search with bounded runtime adapters and independent restore; boot options remain separately guarded",
+  "factory_meaning": "pre-AutoTune custom Daphile state; not an official firmware factory reset",
+  "descriptor_only": false,
+  "decision_implementation": "lib/search.py"
+}

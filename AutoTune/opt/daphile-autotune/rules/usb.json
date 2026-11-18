@@ -1,0 +1,38 @@
+{
+  "domain": "usb",
+  "version": 4,
+  "rules": [
+    {
+      "id": "active-dac-pm",
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "field": "dac.verified",
+                "op": "eq",
+                "value": true
+              },
+              {
+                "field": "dac.serial",
+                "op": "eq",
+                "value": true
+              }
+            ]
+          },
+          {
+            "field": "dac.pm",
+            "op": "eq",
+            "value": "auto"
+          }
+        ]
+      },
+      "action": {
+        "type": "profile",
+        "profile": "safe"
+      },
+      "classification": "SAFE",
+      "reason": "Prevent runtime suspend on the verified playing DAC only"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[% PROCESS settings/header.html %]
+<h2>Suono · CamillaDSP</h2>
+[% IF native_panel_present %]
+<p>Scegli un profilo, confronta due regolazioni o modifica i filtri.</p>
+<p><a id="daphile-camilla-panel" href="/cgi-bin/CamillaPlugin/" target="_blank" rel="noopener noreferrer">Apri Ascolto e Taratura</a></p>
+<script src="[% webroot %]plugins/DaphileCamillaDSP/panel.js"></script>
+[% ELSE %]
+<p>Il servizio audio di Daphile richiesto da questo pannello non è disponibile.</p>
+[% END %]
+[% PROCESS settings/footer.html %]

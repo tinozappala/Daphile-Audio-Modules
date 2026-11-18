@@ -1,0 +1,13 @@
+--- a/opt/mediaserver/Slim/Player/Song.pm
++++ b/opt/mediaserver/Slim/Player/Song.pm
+@@ -354,6 +354,10 @@
+ 	assert($track);
+ 	my $url = $redir || $track->url;
+ 
++	# Also protect reconnects and transcoder processes opening the file path.
++	require Daphile::Ram::Continuous;
++	return (undef, 'RAM cache non pronta') unless Daphile::Ram::Continuous::ready($self);
++
+ 	# Reset seekOffset - handlers will set this if necessary
+ 	$self->startOffset(0);
+ 

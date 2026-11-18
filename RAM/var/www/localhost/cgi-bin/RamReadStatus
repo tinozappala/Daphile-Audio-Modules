@@ -1,0 +1,4 @@
+#!/usr/bin/python3
+"""Same-host read-only current track; never sends an audio mutator."""
+import runpy
+runpy.run_path('/opt/daphile-ram/ram_read_status.py',run_name='__main__')

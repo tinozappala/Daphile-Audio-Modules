@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+description="Native NoAuth RAM preference and recovery service"
+command=/usr/bin/python3.13
+command_args="-I -B /opt/daphile-ram/ramcache.py serve"
+command_background=yes
+pidfile=/run/daphile-ram/owner.pid
+output_log=/run/daphile-ram/control.private.log
+error_log=/run/daphile-ram/control.private.log
+depend() {
+    need ramcache-prepare
+    before mediaserver spacd
+}
+start_pre() {
+    (umask 077; touch /run/daphile-ram/control.private.log)
+    chmod 0600 /run/daphile-ram/control.private.log
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "etc/init.d/mediaserver",
+    "input_sha256": "d1fab77c44e4ceab46f27abb49ed6fdd6d4612cc93c5adfc3bc298d7187210de",
+    "output_sha256": "39c990a7dfc99f75abaa023647cfe0d1aa704eccf7c613aece49031654dabd18",
+    "edits": [
+      {
+        "start_line": 69,
+        "remove_lines": 0,
+        "insert_utf8": "\nstop_pre() {\n    /usr/bin/timeout -k 1 5 /usr/bin/python3.13 -I -B /opt/daphile-ram/ramcache.py snapshot-optional > /run/daphile-ram/shutdown-snapshot.private.log 2>&1 || ewarn \"Queue snapshot unavailable; saved state retained\"\n}\n"
+      }
+    ]
+  },
+  {
+    "file": "etc/init.d/lighttpd",
+    "input_sha256": "b4115ce8ad9cd4d3f0ece08d8614917344af427d860cc8cf727775ea3c8e1b19",
+    "output_sha256": "38d5f3a09fb89ede2be76d3a39b24a92c50000a214edb96faee6f3011a9dea60",
+    "edits": [
+      {
+        "start_line": 8,
+        "remove_lines": 0,
+        "insert_utf8": "\tafter mediaserver\n\tbefore ntp-client\n"
+      }
+    ]
+  },
+  {
+    "file": "usr/local/share/mediaserver-init/mediaserver-init.sh",
+    "input_sha256": "a9f79d64ecc11d3177f64eea1d5068098068d355d14cea4fc569d54af4e7afe8",
+    "output_sha256": "cd664a9357e9d12fd8d0f020d88ed0dfe55278fbfdf7c50d5e6573103b3ce1de",
+    "edits": [
+      {
+        "start_line": 67,
+        "remove_lines": 13,
+        "insert_utf8": "    /usr/bin/python3.13 -I -B /opt/daphile-ram/boot_logs.py || return $?\n"
+      }
+    ]
+  }
+]

@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+"""Native base CGI for Audio Setup / AutoTune only."""
+import json,os,sys
+from pathlib import Path
+sys.path.insert(0,'/opt/daphile-autotune/lib')
+
+
+def unique_object(pairs):
+    value={}
+    for key,item in pairs:
+        if key in value:raise ValueError('Duplicate JSON key')
+        value[key]=item
+    return value
+
+
+def main():
+    method=os.environ.get('REQUEST_METHOD','GET')
+    if method=='POST':
+        try:
+            from gui import exchange,check_origin
+            check_origin(os.environ)
+            if os.environ.get('CONTENT_TYPE','').split(';',1)[0]!='application/json':raise ValueError('JSON required')
+            length=int(os.environ.get('CONTENT_LENGTH','0'))
+            if not 0<length<=8192:raise ValueError('Invalid request length')
+            raw=sys.stdin.buffer.read(length)
+            if len(raw)!=length:raise ValueError('Incomplete request')
+            request=json.loads(raw,object_pairs_hook=unique_object,parse_constant=lambda _:(_ for _ in ()).throw(ValueError('Non-finite JSON')))
+            if not isinstance(request,dict):raise ValueError('JSON object required')
+            result=exchange(request)
+        except Exception as exc:result=dict(status='failed',reason=str(exc))
+        print('Content-Type: application/json');print('Cache-Control: no-store');print('X-Content-Type-Options: nosniff');print('')
+        print(json.dumps(result,allow_nan=False));return
+    if method not in ('GET','HEAD'):
+        print('Status: 405 Method Not Allowed');print('Allow: GET, HEAD, POST');print('');return
+    print('Content-Type: text/html; charset=utf-8');print('Cache-Control: no-store');print('X-Frame-Options: SAMEORIGIN')
+    print("Content-Security-Policy: default-src 'self'; frame-ancestors 'self'; object-src 'none'; base-uri 'none'")
+    print('X-Content-Type-Options: nosniff');print('')
+    if method=='GET':sys.stdout.write(Path('/opt/daphile-autotune/core.html').read_text(encoding='utf8'))
+
+
+if __name__=='__main__':main()

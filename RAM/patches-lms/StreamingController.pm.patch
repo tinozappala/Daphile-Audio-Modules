@@ -1,0 +1,23 @@
+--- a/opt/mediaserver/Slim/Player/StreamingController.pm
++++ b/opt/mediaserver/Slim/Player/StreamingController.pm
+@@ -1170,6 +1170,20 @@
+ 		return;
+ 	}
+ 
++	# Await the original-byte RAM copy before opening any stream/pipeline.
++	# The normal callback id also discards completions after user queue changes.
++	if (!$params->{'ramReadyCallback'}) {
++		require Daphile::Ram::Continuous;
++		my $id = ++$self->{'nextTrackCallbackId'};
++		$self->{'nextTrack'} = undef;
++		_setStreamingState($self, TRACKWAIT);
++		Daphile::Ram::Continuous::prepare($song,
++			sub { _nextTrackReady($self, $id, $song, {%$params, song => $song, ramReadyCallback => 1}); },
++			sub { _nextTrackError($self, $id, $song, @_); },
++			sub { $self->{'nextTrackCallbackId'} == $id && $self->{'streamingState'} == TRACKWAIT });
++		return;
++	}
++
+ 	# Allow protocol hander to update $song before streaming - used when song url contains params which may become stale
+ 	# updateOnStream will call either the success or fail callbacks, either immediately or later
+ 	if ( $song->currentTrackHandler()->can('updateOnStream') && !$params->{'updateOnStreamCallback'}) {

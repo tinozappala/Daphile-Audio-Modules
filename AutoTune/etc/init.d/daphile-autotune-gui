@@ -1,0 +1,11 @@
+#!/sbin/openrc-run
+depend() { after diskmount daphile-modules; }
+start() {
+ [ "$(/usr/local/bin/sysvar.sh hw_autotune_gui)" = "enable" ] || return 0
+ /usr/local/bin/dat gui start
+}
+stop() {
+ /usr/local/bin/dat policy-restore stop || return 1
+ [ -S /run/daphile-autotune-gui/control.sock ] || return 0
+ /usr/local/bin/dat gui stop
+}

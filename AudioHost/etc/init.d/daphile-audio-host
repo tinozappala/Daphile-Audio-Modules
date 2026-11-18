@@ -1,0 +1,13 @@
+#!/sbin/openrc-run
+description="Native CamillaDSP and RME standalone module host"
+depend() { need daphile-modules; after mediaserver; }
+start() {
+    ebegin "Starting native audio module host"
+    /usr/bin/python3 /mnt/hdd/system/daphile-audio-host/code/hostctl.py start --root /mnt/hdd/system/daphile-audio-host
+    eend $?
+}
+stop() {
+    ebegin "Stopping native audio module host"
+    /usr/bin/python3 /mnt/hdd/system/daphile-audio-host/code/hostctl.py stop --root /mnt/hdd/system/daphile-audio-host
+    eend $?
+}

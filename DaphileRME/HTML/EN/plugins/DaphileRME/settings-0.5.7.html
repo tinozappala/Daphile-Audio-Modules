@@ -1,0 +1,11 @@
+[% PROCESS settings/header.html %]
+<h2>RME · EQ Studio</h2>
+<p>Leggi e configura il tuo ADI-2 DAC: equalizzatore, uscite, toni, stereo e impostazioni del dispositivo. Aprire il pannello non modifica l’audio.</p>
+[% IF native_panel_present %]
+<p><a id="daphile-rme-panel" href="/cgi-bin/RMEPlugin/" target="_blank" rel="noopener noreferrer">Apri EQ Studio</a></p>
+<script src="[% webroot %]plugins/DaphileRME/panel.js"></script>
+[% ELSE %]
+<p>Il servizio audio locale non risulta installato. Occorre il supporto Daphile Audio Host della build compatibile.</p>
+[% END %]
+<p>Il DAC deve essere collegato via USB e avere MIDI Control attivo. La disponibilità dei controlli viene verificata dal pannello.</p>
+[% PROCESS settings/footer.html %]

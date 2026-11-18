@@ -1,0 +1,7 @@
+{
+  "release_signature": "Tino Zappala",
+  "signature_type": "textual_release_attribution",
+  "cryptographic_signature": false,
+  "show_in_daphile_interface": false,
+  "scope": ["base ISO", "Audio Setup / AutoTune", "optional RME package", "optional CamillaDSP package"]
+}
