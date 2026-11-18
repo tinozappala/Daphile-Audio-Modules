@@ -1,0 +1,25 @@
+{
+  "component": "AutoTune",
+  "version": "B4f",
+  "base_version": "B4e",
+  "integration": "Daphile RAM A7",
+  "changes": [
+    "Capability-based physical ALSA USB/PCI-HDA/HDMI/platform targets",
+    "Global AutoTune serialization and native queue shared lock inherited by recovery",
+    "Repeat-current controlled PCM preserving LMS queue and DSTM preferences",
+    "Exact scheduler observation windows and truthful audio/IRQ coverage",
+    "Uniform CPU sampling and workload-specific network qualification",
+    "Native policy crash recovery and per-cycle locking",
+    "Portable CPU host identity and thermal sensor discovery",
+    "Actionable GUI failures and bounded history",
+    "Serial-less USB connections bound to the current boot and live device inode",
+    "Actual native RT receiver acknowledgment, including device names with spaces",
+    "One logged resource-busy retry before writes within the original deadline",
+    "Validated per-CPU scheduler stream merge using bounded temporary indices",
+    "Explicit GUI explanation when the audio processor context changes",
+    "Reject a CPU-busy restored comparison after verified recovery without retrying or promoting it"
+  ],
+  "maximum_seconds": 1800,
+  "work_seconds": 1500,
+  "recovery_seconds": 300
+}

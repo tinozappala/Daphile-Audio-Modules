@@ -4,7 +4,7 @@
 | --- | --- | --- |
 | RAM | A7 | File di runtime della RC5 ripresi dalla RC6. Servizi, moduli Perl del progetto e interfaccia web provengono dai pacchetti di ricostruzione RC4/RC5. |
 | Audio Host | RC6 | Codice dell’host con RME 0.5.7, script OpenRC e integrazione di bootstrap/consolidamento della ricetta RC6. |
-| AutoTune | B4e | Candidato sorgente B4e con codice, regole, profili di fabbrica e pagina di controllo. |
+| AutoTune | B4f; B4e conservata per la ricetta RC6 | [Edizione B4f completa](AutoTune/B4f-20261118/), rapporto di collaudo e aggiornamento verificato. Le precedenti directory di runtime restano quelle della RC6. |
 | RME | 0.5.7 | Componenti testuali del pacchetto del catalogo RC6. Il relativo archivio proviene dal bundle dell’Audio Host. |
 | Camilla | 0.4.48, derivata dalla 0.4.47 della RC6 | Interfaccia Ascolto e Taratura, importazione REW e confronto A/B sul motore esterno CamillaDSP 4.1.3. |
 | Distribuzione Daphile | fw261118b7rc6 | [Sorgenti, ricette e impronte ISO RC6](ISO-RC6/README.md). La base di costruzione è la RC5. I sorgenti storici di Camilla 0.4.47 accompagnano le ricette. |

@@ -1,0 +1,29 @@
+{
+  "domain": "services",
+  "version": 4,
+  "rules": [
+    {
+      "id": "idle-controller-trial",
+      "when": {
+        "all": [
+          {
+            "field": "dac.verified",
+            "op": "eq",
+            "value": true
+          },
+          {
+            "field": "dac.serial",
+            "op": "eq",
+            "value": true
+          }
+        ]
+      },
+      "action": {
+        "type": "profile",
+        "profile": "low-activity"
+      },
+      "classification": "ADVANCED",
+      "reason": "Measure only declared runtime actions; unknown services retained"
+    }
+  ]
+}

@@ -1,0 +1,925 @@
+{
+  "source_sha256": "728c79effb33b3938349388772a6f8229752d6818713863b5ce1d58c9cea51b1",
+  "sections": [
+    {
+      "section": 1,
+      "title": "PRINCIPI ARCHITETTURALI",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 2,
+      "title": "REGOLA FONDAMENTALE: ANALYZE BEFORE MODIFY",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 3,
+      "title": "HARDWARE DISCOVERY ENGINE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:scan"
+      ],
+      "limitations": "Hardware discovery exists; not every requested descriptor is available on every kernel"
+    },
+    {
+      "section": 4,
+      "title": "DAC DISCOVERY",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/detection.py:selected_dac"
+      ],
+      "limitations": "Verified active USB DAC with serial and PCM owner; idle/ambiguous selection refused"
+    },
+    {
+      "section": 5,
+      "title": "USB TOPOLOGY ANALYSIS",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/detection.py:usb_devices"
+      ],
+      "limitations": "Controller/IRQ topology discovered; motherboard physical labels need user mapping"
+    },
+    {
+      "section": 6,
+      "title": "USB PORT ANALYZER",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/comparison.py:capture",
+        "lib/comparison.py:report"
+      ],
+      "limitations": "Manual port movement/captures; no automatic physical-port enumeration or sound score"
+    },
+    {
+      "section": 7,
+      "title": "USB POWER MANAGEMENT",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 8,
+      "title": "ALSA ANALYSIS",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:alsa_cards"
+      ],
+      "limitations": "Actual PCM parameters; transient XRUNs can be missed, no electrical bit-perfect test"
+    },
+    {
+      "section": 9,
+      "title": "SQUEEZELITE ANALYSIS",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:scan"
+      ],
+      "limitations": "Player flags/version declared syntax; not every possible parameter is optimized"
+    },
+    {
+      "section": 10,
+      "title": "AUTOMATIC ALSA/SQUEEZELITE BUFFER TUNING",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/player.py:tune_buffer",
+        "lib/matrix.py:run"
+      ],
+      "limitations": "Full physical matrix pending; owned silent DSF generation available; other DSD transports are not automatically changed"
+    },
+    {
+      "section": 11,
+      "title": "TEST MATRIX AUDIO",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/matrix.py:inventory",
+        "lib/matrix.py:run"
+      ],
+      "limitations": "Declared PCM and DSD tracked; transport must already match, native/missing samples not passed"
+    },
+    {
+      "section": 12,
+      "title": "CPU TOPOLOGY ANALYZER",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:scan"
+      ],
+      "limitations": "Physical CPU/SMT/NUMA discovery; multiple hardware topologies not validated"
+    },
+    {
+      "section": 13,
+      "title": "CPU AFFINITY ENGINE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/advanced.py:plan",
+        "lib/advanced.py:write"
+      ],
+      "limitations": "Verified output-thread/USB-IRQ affinity, not exhaustive core-assignment optimizer"
+    },
+    {
+      "section": 14,
+      "title": "IRQ ANALYZER",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/detection.py:irq_map"
+      ],
+      "limitations": "IRQ owners/counts; passive observed rates, no exhaustive interrupt tracing"
+    },
+    {
+      "section": 15,
+      "title": "IRQ AFFINITY ENGINE",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/advanced.py:guard",
+        "lib/advanced.py:write"
+      ],
+      "limitations": "USB-only controller ownership and effective-affinity verification"
+    },
+    {
+      "section": 16,
+      "title": "CPU GOVERNOR",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/advanced.py:plan"
+      ],
+      "limitations": "Performance only if driver supports it; no universal governor ranking"
+    },
+    {
+      "section": 17,
+      "title": "C-STATES",
+      "status": "experimental runtime policy implemented",
+      "release_validated": false,
+      "implementation": "experimental runtime policy implemented",
+      "evidence_code": [
+        "lib/power_policy.py"
+      ],
+      "limitations": "Latency-ceiling cpuidle disable trials with rollback; physical policy trial pending"
+    },
+    {
+      "section": 18,
+      "title": "CLOCKSOURCE",
+      "status": "experimental runtime trial implemented",
+      "release_validated": false,
+      "implementation": "experimental runtime trial implemented",
+      "evidence_code": [
+        "lib/power_policy.py"
+      ],
+      "limitations": "Only advertised clocksources, baseline/readback/rollback; physical trial pending"
+    },
+    {
+      "section": 19,
+      "title": "SERVICE ANALYZER",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:scan",
+        "lib/advanced.py:service_plan"
+      ],
+      "limitations": "Only explicitly declared unused optional services can be stopped"
+    },
+    {
+      "section": 20,
+      "title": "PLAYBACK ACTIVITY ANALYZER",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/runtime.py:observe",
+        "lib/activity.py:run"
+      ],
+      "limitations": "Passive CPU/context/I/O activity; observer overhead included"
+    },
+    {
+      "section": 21,
+      "title": "PROCESS WAKEUP ANALYZER",
+      "status": "implemented finite-window scheduler tracing; new-kernel physical validation pending",
+      "release_validated": false,
+      "implementation": "Actual sched_wakeup/sched_switch accounting per process/thread with private tracefs instance and independent cleanup watchdog",
+      "evidence_code": [
+        "lib/scheduler_trace.py",
+        "test_scheduler_trace.py",
+        "test_scheduler_process.py"
+      ],
+      "limitations": "Observed maximum only; loss/unparsed events make results inconclusive; no worst-case latency guarantee"
+    },
+    {
+      "section": 22,
+      "title": "LMS / LIBRARY SCANNING",
+      "status": "local playback-priority automation implemented",
+      "release_validated": false,
+      "implementation": "local playback-priority automation implemented",
+      "evidence_code": [
+        "lib/automation.py"
+      ],
+      "limitations": "Opt-in reduction of scanner nice, restore on playback stop or daemon failure; interval is configurable"
+    },
+    {
+      "section": 23,
+      "title": "UNUSED HARDWARE ANALYZER",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 24,
+      "title": "PROFILI",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/engine.py:recommend",
+        "lib/engine.py:tune"
+      ],
+      "limitations": "Safe/AudioRT/LowActivity runtime; JSON files are descriptors, experimental unavailable"
+    },
+    {
+      "section": 25,
+      "title": "SAFE AUTOTUNE",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/engine.py:tune"
+      ],
+      "limitations": "Verified DAC PM on with observation/rollback"
+    },
+    {
+      "section": 26,
+      "title": "ADVANCED AUTOTUNE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/advanced.py:plan"
+      ],
+      "limitations": "Supported CPU/IRQ/USB/service trials only; no exhaustive adaptive optimizer"
+    },
+    {
+      "section": 27,
+      "title": "EXPERIMENTAL MODE",
+      "status": "not implemented",
+      "release_validated": false,
+      "implementation": "not implemented",
+      "evidence_code": [
+        "lib/engine.py:tune"
+      ],
+      "limitations": "Experimental boot/clocksource changes are explicitly refused"
+    },
+    {
+      "section": 28,
+      "title": "PARAMETER CLASSIFICATION",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 29,
+      "title": "EVIDENCE CLASSIFICATION",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 30,
+      "title": "OPTIMIZATION SCORE",
+      "status": "optional not implemented",
+      "release_validated": false,
+      "implementation": "optional not implemented",
+      "evidence_code": [],
+      "limitations": "No optimization score or audible-quality score is calculated"
+    },
+    {
+      "section": 31,
+      "title": "BASELINE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 32,
+      "title": "TRANSACTIONAL CHANGES",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 33,
+      "title": "LAST KNOWN GOOD",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/engine.py:restore",
+        "lib/player.py:restore_good_buffer"
+      ],
+      "limitations": "Profile and buffer last-known-good with identity guards; only observed-window validation"
+    },
+    {
+      "section": 34,
+      "title": "BOOT FAILURE RECOVERY",
+      "status": "implemented; actual GRUB/kernel fallback, acknowledgement and restoration PASS; physical boot trial pending",
+      "release_validated": false,
+      "implementation": "guarded GRUB recovery implemented; VM verification in progress",
+      "evidence_code": [
+        "lib/boot_recovery.py"
+      ],
+      "limitations": "Next restart uses native options after unacknowledged boot; hard hang may need power cycle; native ext4 only"
+    },
+    {
+      "section": 35,
+      "title": "A/B PROFILE TESTING",
+      "status": "automatic randomized/blinded sessions implemented",
+      "release_validated": false,
+      "implementation": "automatic randomized/blinded sessions implemented",
+      "evidence_code": [
+        "lib/ab_session.py"
+      ],
+      "limitations": "Mapping concealed in this GUI, not privileged external interfaces; complete physical session pending"
+    },
+    {
+      "section": 36,
+      "title": "PERFORMANCE METRICS",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/runtime.py:observe",
+        "lib/activity.py:run"
+      ],
+      "limitations": "No measured maximum scheduling latency, electrical quality or hardware XRUN counter"
+    },
+    {
+      "section": 37,
+      "title": "HARDWARE PROFILE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/detection.py:scan"
+      ],
+      "limitations": "Hardware fingerprint and captures; no universal model database"
+    },
+    {
+      "section": 38,
+      "title": "CONFIGURATION PROFILE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/engine.py:tune",
+        "lib/player.py:tune_buffer"
+      ],
+      "limitations": "Allowlisted configuration journals; not a complete system configuration manager"
+    },
+    {
+      "section": 39,
+      "title": "HARDWARE FINGERPRINT",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 40,
+      "title": "PORTABILITY",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 41,
+      "title": "HP T630",
+      "status": "pending physical validation",
+      "release_validated": false,
+      "implementation": "pending physical validation",
+      "evidence_code": [],
+      "limitations": "T620 model guards exclude T630, but T630 not physically tested"
+    },
+    {
+      "section": 42,
+      "title": "LOGGING",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 43,
+      "title": "DRY RUN",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 44,
+      "title": "CLI",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 45,
+      "title": "FUTURE WEB GUI",
+      "status": "GUI connected to implemented scope",
+      "release_validated": false,
+      "implementation": "GUI connected to implemented scope",
+      "evidence_code": [
+        "bin/AutoTune"
+      ],
+      "limitations": "Twelve original domains and six advanced controls; final packaged runtime pending"
+    },
+    {
+      "section": 46,
+      "title": "GUI CONCEPT",
+      "status": "all original domain pages implemented",
+      "release_validated": false,
+      "implementation": "all original domain pages implemented",
+      "evidence_code": [
+        "lib/dashboard.py"
+      ],
+      "limitations": "Observed data, not-measured states and logs; no invented sound scores"
+    },
+    {
+      "section": 47,
+      "title": "DAC PORT ASSISTANT",
+      "status": "guided physical socket comparison implemented",
+      "release_validated": false,
+      "implementation": "guided physical socket comparison implemented",
+      "evidence_code": [
+        "lib/usb_wizard.py"
+      ],
+      "limitations": "User moves cable; repeated comparable captures; topology-only recommendation"
+    },
+    {
+      "section": 48,
+      "title": "SAFE HANDLING OF NETWORK AUDIO LIBRARIES",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 49,
+      "title": "NETWORK ANALYSIS",
+      "status": "partial: NAS analysis and controlled EEE profile; physical SET test pending",
+      "release_validated": false,
+      "implementation": "Unique default-route PCI NIC EEE on/off with identity guards, NAS preflight/postflight and rollback",
+      "evidence_code": [
+        "lib/network_profiles.py",
+        "lib/network_test.py",
+        "lib/engine.py",
+        "test_network_profiles.py"
+      ],
+      "limitations": "No automatic MTU/offload/routing or NAS remount; no audio-quality claim"
+    },
+    {
+      "section": 50,
+      "title": "NETWORK PROFILE",
+      "status": "partial: NAS analysis and controlled EEE profile; physical SET test pending",
+      "release_validated": false,
+      "implementation": "Unique default-route PCI NIC EEE on/off with identity guards, NAS preflight/postflight and rollback",
+      "evidence_code": [
+        "lib/network_profiles.py",
+        "lib/network_test.py",
+        "lib/engine.py",
+        "test_network_profiles.py"
+      ],
+      "limitations": "No automatic MTU/offload/routing or NAS remount; no audio-quality claim"
+    },
+    {
+      "section": 51,
+      "title": "AUDIO-FOCUSED HEALTH CHECK",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/engine.py:health"
+      ],
+      "limitations": "GUI/LMS/playback/DAC/known-temperature checks; sensor absence remains unknown"
+    },
+    {
+      "section": 52,
+      "title": "FAIL-SAFE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 53,
+      "title": "NO BLIND BLACKLIST",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 54,
+      "title": "NO BLIND USB DISABLE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 55,
+      "title": "NO GENERIC AUDIOPHILE TWEAKS",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 56,
+      "title": "REALTIME PRIORITY",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 57,
+      "title": "STRESS TEST",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/stability.py:run",
+        "lib/activity.py:run"
+      ],
+      "limitations": "Passive observer up to24h; induced stress/memory-leak detection and prolonged physical run incomplete"
+    },
+    {
+      "section": 58,
+      "title": "REPORT",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "bin/dat:main"
+      ],
+      "limitations": "JSON reports and evidence; no complete original conceptual dashboard"
+    },
+    {
+      "section": 59,
+      "title": "EXPORT",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "bin/dat:main"
+      ],
+      "limitations": "Whitelisted export with private fields redacted; original secret configs/disks excluded"
+    },
+    {
+      "section": 60,
+      "title": "VERSIONING",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 61,
+      "title": "SECURITY",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 62,
+      "title": "IMPLEMENTATION PHASES",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [],
+      "limitations": "Implementation staged; all phases not complete"
+    },
+    {
+      "section": 63,
+      "title": "INTEGRAZIONE NELLA ISO IN COMPILAZIONE",
+      "status": "implemented work-image integration",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [],
+      "limitations": "Exact source bytes and firmware presence checked by image audit; full final release pending"
+    },
+    {
+      "section": 64,
+      "title": "NON ROMPERE LE MODIFICHE GI\u00c3\u0192\u00c6\u2019\u00c3\u2020\u00e2\u20ac\u2122\u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u00a1\u00c3\u201a\u00c2\u00ac ESEGUITE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 65,
+      "title": "SOURCE CONTROL DELLE MODIFICHE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 66,
+      "title": "VALIDAZIONE DELLA ISO",
+      "status": "v06 pass6 BIOS/native Samba lifecycle PASS; v07 image static and runtime packaging gates configured; full release pending",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [],
+      "limitations": "Static audits pass on0.2work image;0.3 packaging and full boot/audio validation pending"
+    },
+    {
+      "section": 67,
+      "title": "NON APPLICARE AUTOTUNE DURANTE IL PRIMO BOOT",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 68,
+      "title": "PRIMO AVVIO",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 69,
+      "title": "PERFORMANCE BASELINE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/runtime.py:observe"
+      ],
+      "limitations": "Passive baseline, not complete controlled workload suite"
+    },
+    {
+      "section": 70,
+      "title": "CONTROLLO DI REGRESSIONE",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [
+        "lib/engine.py:compare"
+      ],
+      "limitations": "Conservative regression checks; not complete all-format certification"
+    },
+    {
+      "section": 71,
+      "title": "OPTIMIZATION DECISION ENGINE",
+      "status": "typed JSON interpreter and adaptive trials implemented",
+      "release_validated": false,
+      "implementation": "typed JSON interpreter and adaptive trials implemented",
+      "evidence_code": [
+        "lib/rule_engine.py"
+      ],
+      "limitations": "Allowlisted facts/profiles, repeated objective CPU activity separation; not arbitrary tweak execution"
+    },
+    {
+      "section": 72,
+      "title": "EXAMPLE RULE",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 73,
+      "title": "EXAMPLE IRQ RULE",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/advanced.py:guard"
+      ],
+      "limitations": "Actual USB IRQ guard implementation, not arbitrary example-rule execution"
+    },
+    {
+      "section": 74,
+      "title": "EXAMPLE SERVICE RULE",
+      "status": "implemented scope",
+      "release_validated": false,
+      "implementation": "implemented scope",
+      "evidence_code": [
+        "lib/advanced.py:service_plan"
+      ],
+      "limitations": "Optional allowlist actions; essential/unknown services retained"
+    },
+    {
+      "section": 75,
+      "title": "FINAL TARGET",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [],
+      "limitations": "Original full target not achieved"
+    },
+    {
+      "section": 76,
+      "title": "CRITICAL DESIGN REQUIREMENT",
+      "status": "policy within supported scope; not a full-feature completion claim",
+      "release_validated": false,
+      "implementation": "architecture or safety policy implemented in supported runtime scope",
+      "evidence_code": [
+        "lib/engine.py",
+        "lib/detection.py",
+        "bin/dat"
+      ],
+      "limitations": "See FEATURE_EVIDENCE.json and README for executable actions and validation limits"
+    },
+    {
+      "section": 77,
+      "title": "ATTIVIT\u00c3\u0192\u00c6\u2019\u00c3\u2020\u00e2\u20ac\u2122\u00c3\u0192\u00c2\u00a2\u00c3\u00a2\u00e2\u201a\u00ac\u00c5\u00a1\u00c3\u201a\u00c2\u00ac DA ESEGUIRE ORA",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [],
+      "limitations": "Concrete implementation/testing/images exist; all requested actions not completed"
+    },
+    {
+      "section": 78,
+      "title": "DELIVERABLE FINALI RICHIESTI",
+      "status": "partial",
+      "release_validated": false,
+      "implementation": "partial",
+      "evidence_code": [],
+      "limitations": "Work ISO, sources/changelog/reports exist; final kernel/Samba/boot/full audio release pending"
+    }
+  ],
+  "note": "Coverage distinguishes executable scope, partial implementation, optional/deferred features and physical validation; no full completion claimed.",
+  "updated_utc": "2026-10-06T12:54:23.746233+00:00",
+  "engine_version": "0.7.1",
+  "full_prompt_complete": false
+}

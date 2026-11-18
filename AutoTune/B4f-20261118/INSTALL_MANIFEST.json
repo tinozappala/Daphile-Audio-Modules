@@ -1,0 +1,346 @@
+[
+  {
+    "path": "opt/daphile-autotune/CANDIDATE.json",
+    "sha256": "d6d900f38bab0a9ff1611231d4ddb2fe6333a98dc384fa9e7424f6a6b7db2bc0",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "d0660955f16b65a6d0139f5535a555a88bbb649a4e688b76e7b1c233add1a668"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/core.html",
+    "sha256": "9f523e0a2b446d6cf060fc49e3c8b779ce019ba8cb0dda2e29107482b05c3341",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "1bac149feeaf633a2b8a9efdaaac454dca7c0e22bf457a330edf524dade47d10"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/CORE_README.md",
+    "sha256": "5756d44baf7f4bafffb6e6155feca69225e61a5dcef6ef0704dd43d480edf50e",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "922873ae2d257176aaf269f798eb55852b8126cd87d35caaffd676b6be6e8d68"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/advanced.py",
+    "sha256": "8dca22cc81b754ff4d6d109582c7af50634909ab4d447be91a9cd723fe6c84b0",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "ad644f371edd5cd33350424fcaeec2f0c490c7ddc5808de905b50eb474989c3f"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_context.py",
+    "sha256": "d59ea7a89436850b6c99431ac68ddc92beeeb3575dee44de42dbcced138bdd3c",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "54513ef6569507d77de3c23a46529fb4188c98520e1dc934b34740dffdb03a8b"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_setup.py",
+    "sha256": "dc9f637ffd1d8aa6b688ea12b1c8b03349347e77870d93665902e799b8ccb7cb",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "f50b67e8afd835992cf5d276cc2bb1db16e59b72ae4a893880eeb8cb11524e27"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/budget_guard.py",
+    "sha256": "7b52fb1244d25a3d1d56f3dd77ae3733cb45cefe330462317d29936f122e097d",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "abdcb324a3bff8be70db0491e83badf40b11f1e8e021f2511ae51a4196bc1c93"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/common_activity.py",
+    "sha256": "5910a69b7da1a723d6a12755095a94f54dd9004fa8b6f1b2a097420de0b90f24",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "b07bfb86c9f4410386843633b2c098051fbc8ae4e71e47502eb9fc7f2eeca5a4"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/controlled_workload.py",
+    "sha256": "a6c418f8a48e85ac434313c3be8c2c16aec7a7400fe08c7ff5a9a632273601ff",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "626ddfd666fda5b33c848d4bbeb4b78d4977f4dfb1303179fa813a25b05a34d2"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/current_policy.py",
+    "sha256": "b554e7fd85905e0e272ae91bf7773af40a07f359a083b276d132460a8663b0d5",
+    "mode": 420,
+    "accepted_before_sha256": [
+      null
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/external_intent.py",
+    "sha256": "5e0d9f56a8b8a6fed848a886e0667caa245e86c8fc3a13cbc5a3f4d40125ae18",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "766e6b1808a1fc376858964f332197a8607cd2e55446963b1f43dad689566a6c"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/native_adapter.py",
+    "sha256": "043670c63c4a94de198432eff1ada0d805a91089b9d18142763197fc06834e82",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "dd1e267b77e99c3360848d7f53102ca0ed2a0b06f53a847b1a3c12464c98fa2d"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/native_target.py",
+    "sha256": "c36f41f67860c277bde703be8642e42050851ef8a87b0e0df32fcd3eb03818ce",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "5e14a7bf8ec11bb75174f6e0db5f1cb3cd90d9cc2810cbc4b4c0b9aee1d69c80"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/paired_search.py",
+    "sha256": "ab9348a3336a2a61f1d635e5cf1758019bbcdfd15c2251e376b2ae3101efb40c",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "b21239de405796f9d9cfc225190f82d0c97e0a0308c015aba5bae027d084138c"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/persistence.py",
+    "sha256": "8c4f2368d0815afc2d25f000efd8c23920a76763a44a20027a5591185ee567b5",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "6e60b2e2e195e006573a45a973995778bebde02905ef2573b2760eb1f0845854"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/reference_state.py",
+    "sha256": "0ebc0ab92f67fc9cfdb24f904f8e27a5327dd0597ac958ed2aee08437e89b222",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "2b4130d33e024bb254aef27ec424b3fadcbb62e3917c034845e19ef4a346d487"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/search_scope.py",
+    "sha256": "ea9342c82edaa9751c958c88d9de8dfca8c6494addd7c35c856e8667409665ea",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "5a7e44df6ce377ef2599e9e746b908405b2c35527f6fc4275199a02c93d77784"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/workflow.py",
+    "sha256": "f44c7a5bfce99e0e68acec0c0d15e4df734228f15cdaee7639a17c4361480652",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "9e22d7b28b541bbe36ba2a7cb310c9f8cb99ac100cd5656939555012107f6fc8"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/calibration_budget.py",
+    "sha256": "a9c0dd8ecdf78a2360f11ff2155cb263ff421796a98e5db72597a96dff20339c",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "4714a4b55753bf555f1fb399aa17777bb5ea84de9dbe5de8381d1bf20a607c71"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/detection.py",
+    "sha256": "af100d89451cb09b53fe59bf567fd3db698854a4eb01f54c055e69f9013a9bf6",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "c635abfddada6a5d06378bc63251934c25f53718bed1de8497ac6cfb29546258"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/engine.py",
+    "sha256": "6cedd225ea833e029373fde00d502c697ed74d62e039d03a37bb08d599567368",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "1dd8f24fe6fe66f17738991799ba9e98cbd34336cd7787368ac27746a539d6bf"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/gui.py",
+    "sha256": "46172afb082515d9de1f902efaa4c1e7515606262e78b13df355327dff4c8512",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "b06a3ed4247f9899646fc9abc80828754af514124ac3cf4a3b5cbd84be020b68"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/host_identity.py",
+    "sha256": "674f58f78379b800dbb79172cec8a406beba82c7373be50ba08d63fc941a9c81",
+    "mode": 420,
+    "accepted_before_sha256": [
+      null
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/measure.py",
+    "sha256": "5465b5b1726bc8701a2fa8b98f87f54cabfa3a0494075555f7a53c082fda9a07",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "ae0e0ee85ee57f5be1e42704959a6014b8e3c9281e5dc31787a6e0006de208f1"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/measurement_contract.py",
+    "sha256": "fdedb9f6cae455eefd96c9684282cd18fd72dae2f63a18ae1e364b0c9432d3c4",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "c25303c13f42fcc520434bae2c23f1db8d03fe4224d3f70c9aa4bfa378dc2a13"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/native_coordination.py",
+    "sha256": "1402e8e01d5dd6f807fcb85fc7b944870b067650f43561ebf92aa914bcda6a35",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "f7ee418020d892c5c3c487029c7cf7c39f6ed366e1bdba8af93265bf7738d8f8"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/network_profiles.py",
+    "sha256": "436351d5d72529fbfb7184b5d3cc2dcec6d2f0d3eae37e4ef3f6939be23c9586",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "7cbc6c25604e436d6e06b7e4d01486127e6a985e919087d3aef618dedbfce353"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/physical_audio.py",
+    "sha256": "5cb1d8f16cbb83ebd44ee9de3c4ebd3f60ae5c03a0fabafcaa53cc33a1ae7fef",
+    "mode": 420,
+    "accepted_before_sha256": [
+      null
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/playback_contract.py",
+    "sha256": "0433f882d3ccf0edc560b427d68315a77887369b1361aa8f0cbe35a1a5da8849",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "e6435c42e54a82c586d74f19ef9b2fd4dede6b830d42fa918c3fd9ba6449b816"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/player.py",
+    "sha256": "59f0f9364692b9b6218db59f8a22c01ed3a4cd3fae3482f41f1f96cd5f7240ff",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "b8819eed083921f2a71078f189fc3080b42b76b54d3f0ea4e263eb6fab5e793c"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/power_policy.py",
+    "sha256": "4f16516833120c88d5bac1518861e5fe5aab359ce42061b45c83ec5f03bb5d7b",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "dad77b4e5ed0f78a183eeecb05f7da8a6c0a3e0f1592aba1346aabc7ac2b6b41"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/quiet_playback.py",
+    "sha256": "54104b362789cf9156e842ccce0ba852d81fc0b122ebfa35e8c3d1b7d47a2094",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "80af27b7456feb61aba71bbcc7eacfffb8f9d93019ab60d92c69e38c238faf9c"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/runtime.py",
+    "sha256": "ce24fded7feb2cdc51b1cf91426bf409851026ac3eae000c56870e1723ea3134",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "66708d8d437761245092cd65e73bcecfdfdfffa2025a335c69dc19703dc48d2f"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/runtime_ext.py",
+    "sha256": "a5480d9dec5d52e75eccd06517a49463c774dfd650ed61b1eedb3e05c8941227",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "8963d42a8d1fa6629d3cec645874ba0096807bf83eb4404639fa9cbeed9df028"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/scheduler_trace.py",
+    "sha256": "acca3d45b939b27d4f1c285dc8d6ccdd99aed627dc7ca6af5ec78d0f3cec175b",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "b92473fb5ac4eeadf087d6d6979e055f4d6cf46fc8972c8d8abfe45790d9aafe"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/search.py",
+    "sha256": "89bfff97939f73b91c86e5e43cdc183874750e2a6f5c5d93dc6590c6fa65f5ac",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "6c49c56500d8bf3ef66a4561baae17931f4b03ee53a035cc8c802b72294c66d1"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/session.py",
+    "sha256": "8dd49e202e61cf17f393c3f79b081394df45802623f6a91e79aded61474774c3",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "435696d7b3cf2d8aa14de686488e7e19f96dfc7a136d20b7ab3c6cede7da98c9"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/storage_policy.py",
+    "sha256": "60db53c0322dd8d42ac82d32aa6818514206acb275dd7f6c09521b809b74cad0",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "bd645c90922230792754bb22a616a5cabd8f2744d568e0985183d5aea55997cf"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/telemetry.py",
+    "sha256": "52e39852d52641d563158440f0bea4a143d455dfe9cc86cafc86eb29724fc100",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "c0b5c2667178ebc92e175ede8f84c4bc6ed640eaaca9088bb507af4e60fecd31"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/trace_feed.py",
+    "sha256": "580c4e1429dec51b4b130fce88cbb6b81de24c3bf11a0ccef5a857886b53fc1f",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "962b004aaaea5d5c667e0c6dce0fe3da2361ae2a0b790bb4bd07a126cd328f98"
+    ]
+  },
+  {
+    "path": "opt/daphile-autotune/lib/trace_spool.py",
+    "sha256": "e28049d4fe2fb618613eaa23230aff59a0f7188b259e189010b33f77ebff620c",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "5c1b1352d2fdc8f0c6d3ceac86e77960d074c90959cf549d496d0d9b3e9b536a"
+    ]
+  },
+  {
+    "path": "var/www/localhost/htdocs/js/dat-core.js",
+    "sha256": "1a6dce606565086def78a88dd64cb78c4e9aeb0ceb52d2591826c0fe4248ce57",
+    "mode": 420,
+    "accepted_before_sha256": [
+      "203b24d6eff24a6e06dc12d1f725e15a7258736f993b0d26c2f78ec0cb2ba1f6"
+    ]
+  },
+  {
+    "path": "usr/local/sbin/daphile-audio-policy",
+    "sha256": "4edea7bf3723f8154b349a25b7cd2b1f5c76f48964121fe98f6a054ab093b4fd",
+    "mode": 493,
+    "accepted_before_sha256": [
+      "56b232b8d157595cd074ece9661cd92985a717b68e30ed05ce6ccff8158faa7a"
+    ]
+  }
+]

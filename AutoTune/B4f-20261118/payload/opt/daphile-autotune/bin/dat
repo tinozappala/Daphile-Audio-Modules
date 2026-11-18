@@ -1,0 +1,386 @@
+#!/usr/bin/python3
+import argparse, json, os, sys, tarfile
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'lib'))
+from detection import scan, VERSION
+from runtime import observe
+from engine import STATE, PROFILES, atomic, locked, load, recommend, tune, restore, watchdog, health, ensure_idle_transaction
+
+def main():
+    os.umask(63)
+    p = argparse.ArgumentParser(description='Daphile AutoTune ' + VERSION)
+    p.add_argument('--state', type=Path, default=STATE)
+    s = p.add_subparsers(dest='command', required=True)
+    for name in ['scan', 'analyze', 'report', 'status', 'verify', 'audio-setup']:
+        q = s.add_parser(name)
+        q.add_argument('--output', type=Path)
+    for name in ['baseline', 'benchmark']:
+        q = s.add_parser(name)
+        q.add_argument('--duration', type=int, default=30)
+    q = s.add_parser('tune')
+    q.add_argument('profile', choices=PROFILES)
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--confirm-experimental', action='store_true')
+    q.add_argument('--stop-service', action='append', choices=['bluetooth', 'cupsd', 'crond'], default=[])
+    q = s.add_parser('restore')
+    q.add_argument('target', choices=['previous', 'baseline', 'default', 'pending', 'last-known-good'])
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('profile')
+    q.add_argument('action', choices=['list', 'show', 'activate'])
+    q.add_argument('name', nargs='?', choices=PROFILES)
+    q = s.add_parser('export')
+    q.add_argument('destination', type=Path)
+    q = s.add_parser('buffer-test')
+    q.add_argument('discovery', type=Path)
+    q.add_argument('--duration', type=int, default=5)
+    q.add_argument('--margin', type=float, default=1.5)
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('port')
+    q.add_argument('label')
+    q.add_argument('--duration', type=int, default=30)
+    q = s.add_parser('ab')
+    q.add_argument('label', choices=['A', 'B', 'C', 'D'])
+    q.add_argument('--duration', type=int, default=30)
+    q = s.add_parser('activity')
+    q.add_argument('--duration', type=int, default=30)
+    q = s.add_parser('scheduler')
+    q.add_argument('--duration', type=int, default=10)
+    q = s.add_parser('compare')
+    q.add_argument('kind', choices=['ab', 'ports'])
+    q = s.add_parser('network')
+    q = s.add_parser('stability')
+    q.add_argument('--duration', type=int, default=3600)
+    q = s.add_parser('player-buffer')
+    q.add_argument('ms', type=int)
+    q.add_argument('periods', type=int, choices=[3, 4])
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('matrix')
+    q.add_argument('--margin', type=float, default=1.5)
+    q.add_argument('--generate-dsf', action='store_true')
+    q.add_argument('action', choices=['plan', 'run'])
+    q.add_argument('--dsf', action='append', default=[], help='RATE=/media/music/.../sample.dsf')
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('gui')
+    q.add_argument('action', choices=['serve', 'start', 'stop'])
+    q = s.add_parser('dashboard')
+    q = s.add_parser('automatic')
+    q.add_argument('--acknowledge-current-external-intent', action='store_true')
+    q.add_argument('action', choices=['analyze', 'run', 'status', 'restore', 'resume', 'watchdog', 'acknowledge-external-intent'])
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q.add_argument('--experimental', action='store_true')
+    q = s.add_parser('rules')
+    q = s.add_parser('power')
+    q.add_argument('action', choices=['inventory', 'review', 'plan', 'trial', 'storage'])
+    q.add_argument('--sata-policy', choices=['max_performance','min_power'], default='min_power')
+    q.add_argument('--max-latency', type=int)
+    q.add_argument('--clock')
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--confirm-experimental', action='store_true')
+    q = s.add_parser('boot-profile')
+    q.add_argument('action', choices=['plan', 'stage', 'status', 'restore', 'health'])
+    q.add_argument('--cpus')
+    q.add_argument('--tickless', action='store_true')
+    q.add_argument('--confirm-boot', action='store_true')
+    q = s.add_parser('adaptive')
+    q.add_argument('action', choices=['plan', 'run'])
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--repeats', type=int, default=3)
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q.add_argument('--apply-best', action='store_true')
+    q = s.add_parser('usb-wizard')
+    q.add_argument('action', choices=['start', 'capture', 'capture-auto', 'report', 'status'])
+    q.add_argument('--labels-json')
+    q.add_argument('--label')
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('ab-session')
+    q.add_argument('action', choices=['run', 'status', 'reveal', 'vote', 'recover'])
+    q.add_argument('--profiles-json')
+    q.add_argument('--repeats', type=int, default=2)
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--visible', action='store_true')
+    q.add_argument('--condition')
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('session-watchdog')
+    q.add_argument('transaction')
+    q = s.add_parser('automation')
+    q.add_argument('action', choices=['configure', 'status', 'start', 'stop', 'serve', 'watchdog'])
+    q.add_argument('--enabled', action='store_true')
+    q.add_argument('--playback-priority', action='store_true')
+    q.add_argument('--interval', type=int, default=300)
+    q = s.add_parser('search')
+    q.add_argument('action', choices=['plan', 'run', 'status'])
+    q.add_argument('--duration', type=int, default=30)
+    q.add_argument('--repeats', type=int, default=3)
+    q.add_argument('--commit', action='store_true')
+    q.add_argument('--stages')
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('stress')
+    q.add_argument('--duration', type=int, default=86400)
+    q.add_argument('--passive', action='store_true')
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q = s.add_parser('resources')
+    q = s.add_parser('nas-tuning')
+    q = s.add_parser('human-report')
+    q = s.add_parser('portability')
+    q = s.add_parser('continuous')
+    q.add_argument('action', choices=['configure', 'start', 'stop', 'status', 'serve'])
+    q.add_argument('--enabled', action='store_true')
+    q.add_argument('--confirm-audio-test', action='store_true')
+    q.add_argument('--experimental', action='store_true')
+    q = s.add_parser('hardware-watchdog')
+    q.add_argument('action', choices=['inventory', 'serve'])
+    q.add_argument('--confirm-experimental', action='store_true')
+    q = s.add_parser('policy-restore')
+    q.add_argument('action', choices=['start','stop','status','serve','serve-v2'])
+    q = s.add_parser('startup')
+    q = s.add_parser('watchdog')
+    q.add_argument('transaction')
+    a = p.parse_args()
+    from autotune_v2 import common_activity
+    common_activity.cli_gate(a)
+    if a.command == 'search':
+        import search
+        if a.stages and any((x not in ['scheduling', 'energy', 'network'] for x in a.stages.split(','))):
+            p.error('Unknown search stage')
+        result = search.specs(scan()) if a.action == 'plan' else (load(a.state / 'search.json') if (a.state / 'search.json').exists() else {'status': 'inactive'}) if a.action == 'status' else search.run(a.duration, a.repeats, a.state, a.confirm_audio_test, a.commit, a.stages.split(',') if a.stages else None)
+    elif a.command == 'stress':
+        import stress
+        result = stress.run(a.duration, a.state, not a.passive, a.confirm_audio_test)
+    elif a.command == 'resources':
+        import resources
+        result = resources.status(a.state)
+    elif a.command == 'nas-tuning':
+        import nas_tuning
+        result = nas_tuning.run(a.state)
+    elif a.command == 'human-report':
+        import reporting
+        result = reporting.report(a.state)
+    elif a.command == 'portability':
+        import portability
+        result = portability.report(a.state)
+    elif a.command == 'continuous':
+        import continuous
+        if a.action == 'serve':
+            continuous.serve(a.state)
+            return
+        result = continuous.configure(a.enabled, a.confirm_audio_test, a.experimental, a.state) if a.action == 'configure' else getattr(continuous, a.action)(a.state)
+    elif a.command == 'hardware-watchdog':
+        import hardware_watchdog
+        if a.action == 'serve':
+            hardware_watchdog.serve(a.state, a.confirm_experimental)
+            return
+        result = hardware_watchdog.available()
+    elif a.command == 'automatic' and a.action == 'acknowledge-external-intent':
+        from autotune_v2.workflow import acknowledge_external_intent
+        result = acknowledge_external_intent(a.state, a.acknowledge_current_external_intent)
+    elif a.command == 'automatic':
+        import automatic
+        if a.action == 'watchdog':
+            automatic.watchdog(a.state)
+            return
+        result = automatic.analyze(a.state) if a.action == 'analyze' else automatic.status(a.state) if a.action == 'status' else automatic.restore(a.state) if a.action == 'restore' else automatic.run(a.state, a.confirm_audio_test, a.action == 'resume', a.experimental)
+    elif a.command == 'policy-restore' and a.action == 'serve-v2':
+        from autotune_v2.persistence import serve
+        serve(a.state)
+        return
+    elif a.command == 'policy-restore':
+        import policy_restore
+        result = getattr(policy_restore,a.action)(a.state)
+    elif a.command == 'startup':
+        result = common_activity.startup_v2(a.state)
+    elif a.command == 'dashboard':
+        from dashboard import report
+        result = report(a.state)
+    elif a.command == 'rules':
+        from rule_engine import evaluate
+        result = evaluate(scan())
+    elif a.command == 'power':
+        import power_policy
+        result = __import__('storage_probe').trial(a.sata_policy,a.duration,a.state) if a.action == 'storage' else __import__('power_review').report(scan()) if a.action == 'review' else power_policy.inventory() if a.action == 'inventory' else power_policy.plan(scan(), a.max_latency, a.clock) if a.action == 'plan' else power_policy.trial(a.max_latency, a.clock, a.duration, a.state, a.confirm_experimental)
+    elif a.command == 'boot-profile':
+        import boot_recovery, power_policy
+        if a.cpus is not None:
+            import re
+            if not re.fullmatch('[0-9]+(?:,[0-9]+)*', a.cpus):
+                p.error('CPU identifiers must be comma-separated integers')
+        cpus = [int(x) for x in a.cpus.split(',')] if a.cpus is not None else None
+        if a.action == 'plan':
+            result = power_policy.isolation(scan(), cpus, a.tickless)
+        elif a.action == 'stage':
+            result = boot_recovery.stage(cpus, a.tickless, a.state, a.confirm_boot)
+        elif a.action == 'status':
+            result = boot_recovery.status(a.state)
+        elif a.action == 'restore':
+            result = boot_recovery.restore(a.state)
+        else:
+            result = boot_recovery.health_check(a.state)
+    elif a.command == 'adaptive':
+        import adaptive
+        result = adaptive.plan(a.state) if a.action == 'plan' else adaptive.run(a.duration, a.repeats, a.state, a.confirm_audio_test, a.apply_best)
+    elif a.command == 'usb-wizard':
+        import usb_wizard
+        if a.action == 'start':
+            result = usb_wizard.start(json.loads(a.labels_json or 'null'), a.state)
+        elif a.action == 'capture':
+            result = usb_wizard.capture(a.label or '', a.duration, a.state)
+        elif a.action == 'capture-auto':
+            import usb_auto
+            result = usb_auto.capture(a.label or '', a.duration, a.state, a.confirm_audio_test)
+        elif a.action == 'report':
+            result = usb_wizard.report(a.state)
+        else:
+            result = usb_wizard.progress(load(a.state / 'usb-wizard.json')) if (a.state / 'usb-wizard.json').exists() else {'status': 'inactive'}
+    elif a.command == 'ab-session':
+        import ab_session
+        if a.action == 'run':
+            result = ab_session.run(json.loads(a.profiles_json or 'null'), a.repeats, a.duration, not a.visible, a.state, a.confirm_audio_test)
+        elif a.action == 'vote':
+            result = ab_session.vote(a.condition, a.state)
+        elif a.action == 'recover':
+            if not a.confirm_audio_test:
+                p.error('Explicit --confirm-audio-test required for A/B recovery')
+            result = ab_session.public(ab_session.recover(a.state, load(a.state / 'ab-session.json')))
+        else:
+            result = ab_session.status(a.state, a.action == 'reveal')
+    elif a.command == 'session-watchdog':
+        from ab_session import watchdog as session_watchdog
+        session_watchdog(a.state, a.transaction)
+        return
+    elif a.command == 'automation':
+        import automation
+        if a.action == 'configure':
+            result = automation.configure(a.enabled, a.playback_priority, a.interval, a.state)
+        elif a.action in ['serve', 'watchdog']:
+            getattr(automation, a.action)(a.state)
+            return
+        else:
+            result = getattr(automation, a.action)(a.state)
+    elif a.command == 'audio-setup':
+        from audio_setup import report
+        result = report()
+    elif a.command in ['scan', 'analyze', 'report', 'verify']:
+        h = scan()
+        result = h if a.command == 'scan' else dict(hardware=h, recommendations=recommend(h), status='analysis-only; no optimization applied')
+        if a.command == 'verify':
+            result['health'] = health(h)
+            result['complete_audio_validation'] = False
+    elif a.command == 'status':
+        result = dict(version=VERSION, autostart=False, current=load(a.state / 'current.json') if (a.state / 'current.json').exists() else None)
+    elif a.command in ['baseline', 'benchmark']:
+        if not 30 <= a.duration <= 3600:
+            p.error('Observation duration 30..3600 seconds')
+        result = dict(hardware=scan(), measurement=observe(a.duration), kind='passive benchmark')
+        with locked(a.state) as state:
+            atomic(state / ('baseline.json' if a.command == 'baseline' else 'benchmark.json'), result)
+    elif a.command == 'activity':
+        from activity import run
+        result = run(a.duration)
+        with locked(a.state) as state:
+            atomic(state / 'activity.json', result)
+    elif a.command == 'scheduler':
+        from scheduler_trace import run
+        with locked(a.state) as state:
+            result = run(a.duration)
+            atomic(state / 'scheduler.json', result)
+    elif a.command == 'compare':
+        from comparison import report
+        result = report(a.kind, a.state)
+    elif a.command == 'network':
+        from network_test import audit
+        result = audit()
+        with locked(a.state) as state:
+            atomic(state / 'network.json', result)
+    elif a.command == 'stability':
+        from stability import run
+        result = run(a.duration, a.state)
+    elif a.command == 'player-buffer':
+        if not a.confirm_audio_test:
+            p.error('Explicit --confirm-audio-test required: player restarts briefly')
+        from player import tune_buffer
+        result = tune_buffer(a.ms, a.periods, a.duration, a.state)
+    elif a.command == 'matrix':
+        from matrix import plan, run, validate_dsf
+        if not 10 <= a.duration <= 600:
+            p.error('Matrix duration 10..600 seconds')
+        if a.action == 'run' and (a.generate_dsf or a.dsf):
+            p.error('Sample selection and generation require matrix plan')
+        if a.action == 'plan':
+            samples = {}
+            for spec in a.dsf:
+                rate, path = spec.split('=', 1)
+                validate_dsf(path, int(rate))
+                samples[rate] = path
+            with locked(a.state) as state:
+                ensure_idle_transaction(state)
+                result = plan(samples, a.generate_dsf, a.duration + 45)
+                atomic(state / 'matrix-plan.json', result)
+        else:
+            if not a.confirm_audio_test:
+                p.error('Explicit --confirm-audio-test required: playlist temporarily replaced with test samples')
+            result = run(load(a.state / 'matrix-plan.json'), a.duration, a.state, a.margin)
+    elif a.command == 'gui':
+        from gui import serve, SOCKET
+        import subprocess, signal
+        if os.geteuid() != 0:
+            p.error('GUI broker control requires root SSH')
+        if a.action == 'serve':
+            serve(a.state)
+            return
+        if a.action == 'start':
+            import socket
+            if Path(SOCKET).exists():
+                p.error('Broker socket exists; check running broker first')
+            proc = subprocess.Popen([sys.executable, __file__, '--state', str(a.state), 'gui', 'serve'], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True, close_fds=True)
+            result = dict(status='starting', pid=proc.pid)
+        else:
+            from engine import start_ticks
+            pid = load(Path(SOCKET).parent / 'pid.json')
+            if start_ticks(pid['pid']) != pid['start']:
+                p.error('GUI PID no longer matches')
+            os.kill(pid['pid'], signal.SIGTERM)
+            result = dict(status='stopped')
+    elif a.command == 'tune':
+        result = tune(a.profile, a.duration, a.state, a.confirm_experimental, a.stop_service)
+    elif a.command == 'restore':
+        result = restore(a.target, a.state, a.confirm_audio_test)
+    elif a.command == 'buffer-test':
+        if not a.confirm_audio_test:
+            p.error('Explicit --confirm-audio-test required; DAC must be free')
+        from buffer_test import run
+        result = run(load(a.discovery), a.duration, margin=a.margin)
+        with locked(a.state) as state:
+            atomic(state / 'buffer-test.json', result)
+    elif a.command in ['ab', 'port']:
+        from comparison import capture
+        result = capture('ab' if a.command == 'ab' else 'ports', a.label, a.duration, a.state)
+    elif a.command == 'watchdog':
+        watchdog(a.state, a.transaction)
+        return
+    elif a.command == 'profile':
+        if a.action == 'activate':
+            result = tune(a.name or 'safe', state=a.state)
+            print(json.dumps(result, indent=2))
+            return
+        result = {'profiles': PROFILES, 'scope': 'Explicit hardware-aware runtime trials; no profile autostart'} if a.action == 'list' else recommend(scan(), a.name or 'safe')
+    elif a.command == 'export':
+        import reporting
+        result = reporting.export(a.destination, a.state)
+    if getattr(a, 'output', None):
+        with a.output.open('x') as out:
+            os.chmod(a.output, 384)
+            out.write(json.dumps(result, indent=2) + chr(10))
+    else:
+        print(json.dumps(result, indent=2))
+    from cli_result import exit_code
+    code = exit_code(a.command, getattr(a, 'action', None), result)
+    if code:
+        sys.exit(code)
+if __name__ == '__main__':
+    try:
+        main()
+    except (OSError, ValueError, RuntimeError, KeyError) as e:
+        print(json.dumps({'status': 'failed', 'reason': str(e)}), file=sys.stderr)
+        sys.exit(1)

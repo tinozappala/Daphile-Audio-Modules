@@ -1,0 +1,2255 @@
+## OBIETTIVO
+
+Integrare nella nuova ISO Daphile attualmente in compilazione un modulo avanzato denominato provvisoriamente:
+
+**Daphile AutoTune / Hardware-Aware Audio Optimization Engine**
+
+Il modulo deve eseguire automaticamente:
+
+- rilevamento completo dell'hardware;
+- identificazione del DAC realmente utilizzato;
+- identificazione della porta USB, hub, controller e percorso PCIe associati al DAC;
+- analisi della topologia CPU;
+- analisi ALSA e Squeezelite;
+- analisi IRQ e interrupt;
+- analisi dei servizi attivi;
+- analisi dell'attività di sistema durante la riproduzione;
+- individuazione di configurazioni potenzialmente subottimali;
+- applicazione controllata di ottimizzazioni;
+- benchmarking automatico;
+- verifica della stabilità;
+- generazione di profili;
+- rollback automatico;
+- comparazione A/B tra configurazioni.
+
+L'obiettivo NON deve essere applicare indiscriminatamente generici "audiophile tweaks".
+
+L'obiettivo deve essere invece costruire un sistema:
+
+**hardware-aware, measurement-driven, conservative, reversible e self-validating.**
+
+Ogni modifica deve essere applicata solo dopo aver identificato correttamente l'hardware e verificato che il relativo intervento sia tecnicamente appropriato.
+
+---
+
+# 1. PRINCIPI ARCHITETTURALI
+
+Implementare AutoTune inizialmente come sottosistema il più possibile separato dal core Daphile.
+
+Evitare, salvo reale necessità, modifiche invasive ai componenti fondamentali della distribuzione.
+
+Preferire un'architettura del tipo:
+
+```text
+/opt/daphile-autotune/
+
+    bin/
+        dat-scan
+        dat-cpu
+        dat-usb
+        dat-alsa
+        dat-dac
+        dat-irq
+        dat-network
+        dat-storage
+        dat-services
+        dat-runtime
+        dat-benchmark
+        dat-optimize
+        dat-verify
+        dat-profile
+        dat-restore
+
+    lib/
+        detection/
+        optimization/
+        validation/
+        profiles/
+
+    rules/
+        cpu.rules
+        usb.rules
+        alsa.rules
+        irq.rules
+        network.rules
+        services.rules
+        storage.rules
+
+    profiles/
+        default/
+        safe/
+        rt/
+        low-activity/
+        experimental/
+
+    state/
+        hardware.json
+        baseline.json
+        current.json
+        last-known-good.json
+
+    logs/
+        autotune.log
+        benchmark.log
+        changes.log
+```
+
+L'architettura può essere modificata se tecnicamente opportuno, purché vengano mantenuti:
+
+- modularità;
+- reversibilità;
+- tracciabilità;
+- separazione detection/decision/action;
+- possibilità di integrare successivamente il sistema nella GUI Daphile.
+
+---
+
+# 2. REGOLA FONDAMENTALE: ANALYZE BEFORE MODIFY
+
+Nessuna ottimizzazione deve essere applicata senza che siano stati completati:
+
+1. hardware discovery;
+2. topology discovery;
+3. DAC discovery;
+4. USB path discovery;
+5. ALSA analysis;
+6. current Daphile/Squeezelite configuration analysis;
+7. baseline capture.
+
+Il flusso deve essere:
+
+```text
+SCAN
+ ↓
+ANALYZE
+ ↓
+CLASSIFY
+ ↓
+RECOMMEND
+ ↓
+SNAPSHOT
+ ↓
+APPLY
+ ↓
+TEST
+ ↓
+VERIFY
+ ↓
+COMMIT or ROLLBACK
+```
+
+Separare chiaramente:
+
+```text
+DETECTION
+DECISION
+ACTION
+VALIDATION
+```
+
+---
+
+# 3. HARDWARE DISCOVERY ENGINE
+
+Creare una scansione completa del sistema utilizzando, quando disponibili:
+
+```bash
+lscpu
+cat /proc/cpuinfo
+lsusb
+lsusb -t
+lspci
+lspci -nnk
+aplay -l
+aplay -L
+cat /proc/asound/cards
+cat /proc/interrupts
+cat /proc/softirqs
+find /sys/bus/usb/devices
+find /sys/class/sound
+find /sys/class/net
+find /sys/devices/system/cpu
+```
+
+e le corrispondenti strutture `/sys`.
+
+Il sistema deve rilevare almeno:
+
+### CPU
+
+- vendor;
+- modello;
+- architettura;
+- numero CPU logiche;
+- core fisici;
+- thread per core;
+- SMT/HyperThreading;
+- NUMA se presente;
+- governor disponibili;
+- governor corrente;
+- scaling driver;
+- frequenza minima/massima;
+- turbo/boost;
+- C-state disponibili;
+- clocksource;
+- kernel utilizzato;
+- eventuale kernel realtime/preempt;
+- CPU affinity corrente;
+- eventuali CPU isolate.
+
+### Memoria
+
+- RAM totale;
+- RAM disponibile;
+- swap;
+- hugepages se rilevanti;
+- eventuali anomalie di memoria.
+
+### PCIe
+
+- controller USB;
+- controller SATA/NVMe;
+- NIC;
+- audio HDMI;
+- Wi-Fi;
+- Bluetooth;
+- altri controller rilevanti.
+
+### Storage
+
+- dispositivi;
+- filesystem;
+- mount;
+- supporti locali;
+- supporti di sistema;
+- supporti contenenti libreria musicale, se identificabili.
+
+### Network
+
+- interfaccia utilizzata;
+- driver;
+- velocità;
+- duplex;
+- offloading;
+- interrupt;
+- eventuali interfacce inutilizzate.
+
+---
+
+# 4. DAC DISCOVERY
+
+Il modulo deve identificare automaticamente il DAC effettivamente configurato/utilizzato da Daphile/Squeezelite.
+
+Non limitarsi a rilevare tutti i dispositivi ALSA.
+
+Determinare:
+
+```text
+DAC selezionato da Daphile
+        ↓
+ALSA card
+        ↓
+ALSA PCM device
+        ↓
+USB device
+        ↓
+USB port
+        ↓
+USB hub
+        ↓
+root hub
+        ↓
+USB controller
+        ↓
+PCI device
+        ↓
+IRQ
+```
+
+Generare una struttura simile:
+
+```json
+{
+  "dac": {
+    "name": "Aqua La Scala MKII Optologic",
+    "alsa_card": 2,
+    "alsa_device": 0,
+    "vid": "xxxx",
+    "pid": "xxxx",
+    "usb_speed": "480M",
+    "usb_path": "3-2",
+    "root_hub": "usb3",
+    "controller": "0000:00:14.0",
+    "irq": 124
+  }
+}
+```
+
+L'identificazione deve essere robusta anche dopo reboot.
+
+Usare, quando disponibili:
+
+- VID;
+- PID;
+- serial number;
+- ALSA ID;
+- USB physical path;
+- product string.
+
+Non affidarsi esclusivamente al numero statico `hw:X,Y`, poiché può cambiare.
+
+---
+
+# 5. USB TOPOLOGY ANALYSIS
+
+Ricostruire l'intera topologia USB.
+
+Per ogni porta/controller determinare:
+
+- USB version;
+- negotiated speed;
+- root hub;
+- hub intermedi;
+- dispositivi condivisi;
+- controller;
+- PCI address;
+- IRQ;
+- driver;
+- autosuspend;
+- runtime PM;
+- eventuali errori/reset osservabili.
+
+Per la porta utilizzata dal DAC produrre un report:
+
+```text
+DAC USB PATH
+
+Aqua La Scala
+    └── USB 2.0 High-Speed
+        └── Port 3-2
+            └── Root Hub usb3
+                └── xHCI controller
+                    └── PCI 0000:00:14.0
+                        └── IRQ 124
+```
+
+---
+
+# 6. USB PORT ANALYZER
+
+Implementare un sistema capace di valutare le porte USB disponibili.
+
+Il punteggio deve essere basato esclusivamente su parametri tecnicamente osservabili.
+
+Valutare per esempio:
+
+- controller dedicato/condiviso;
+- root hub condiviso;
+- numero di periferiche concorrenti;
+- presenza Wi-Fi/Bluetooth sullo stesso controller;
+- IRQ condivisi;
+- traffico osservato;
+- errori;
+- reset;
+- runtime power management;
+- USB speed.
+
+Esempio:
+
+```text
+USB PORT ANALYSIS
+
+Port A
+Controller shared
+Wi-Fi present
+IRQ shared
+Score: 61
+
+Port B
+Dedicated root hub
+No competing devices
+Independent IRQ
+Score: 94
+
+Port C
+Internal hub
+Multiple devices
+Score: 70
+```
+
+Fornire una raccomandazione:
+
+```text
+RECOMMENDED DAC USB PORT: PORT B
+```
+
+IMPORTANTE:
+
+Non dichiarare che una porta "suona meglio".
+
+Definire il punteggio esclusivamente come:
+
+**USB topology / isolation / activity score.**
+
+---
+
+# 7. USB POWER MANAGEMENT
+
+Analizzare:
+
+```text
+power/control
+autosuspend
+runtime_status
+runtime_active_time
+runtime_suspended_time
+```
+
+del dispositivo DAC e del relativo percorso USB.
+
+Se appropriato:
+
+```text
+DAC autosuspend = disabled
+```
+
+La modifica deve riguardare esclusivamente il DAC o il suo specifico ramo quando possibile.
+
+Evitare modifiche globali non necessarie.
+
+---
+
+# 8. ALSA ANALYSIS
+
+Rilevare:
+
+- scheda ALSA utilizzata;
+- PCM device;
+- access mode;
+- sample format;
+- sample rates;
+- bit depth;
+- period size;
+- buffer size;
+- eventuale mmap;
+- hardware parameters;
+- USB Audio Class;
+- DSD capability;
+- DoP/native DSD se rilevabile.
+
+Determinare le capacità effettive del DAC.
+
+Generare una capability matrix:
+
+```text
+PCM
+
+44.1 kHz       supported
+48 kHz         supported
+88.2 kHz       supported
+96 kHz         supported
+176.4 kHz      supported
+192 kHz        supported
+352.8 kHz      supported
+384 kHz        supported
+
+DSD
+
+DSD64          supported
+DSD128         supported
+DSD256         supported
+DSD512         unknown/not supported
+```
+
+Non forzare modalità non dichiarate dal dispositivo.
+
+---
+
+# 9. SQUEEZELITE ANALYSIS
+
+Individuare:
+
+- binary utilizzato;
+- versione;
+- command line;
+- configurazione Daphile;
+- parametri effettivi.
+
+Analizzare almeno:
+
+```text
+-a ALSA parameters
+-b buffers
+-p realtime priority
+-r sample rates
+-D DSD
+-R resampling
+-C timeout/power behavior
+-o output device
+```
+
+e altri parametri rilevanti presenti nella specifica versione installata.
+
+NON assumere che il comportamento di versioni differenti di Squeezelite sia identico.
+
+Prima di modificare parametri, rilevare la versione e verificarne la sintassi.
+
+---
+
+# 10. AUTOMATIC ALSA/SQUEEZELITE BUFFER TUNING
+
+Implementare un benchmark progressivo.
+
+Esempio:
+
+```text
+ALSA buffer:
+
+100 ms
+80 ms
+60 ms
+50 ms
+40 ms
+30 ms
+25 ms
+20 ms
+15 ms
+10 ms
+```
+
+Per ogni valore:
+
+- avviare test;
+- riprodurre campione appropriato;
+- controllare errori;
+- controllare XRUN;
+- controllare ALSA underrun;
+- controllare USB reset;
+- controllare CPU scheduling;
+- controllare log.
+
+Determinare:
+
+```text
+minimum_stable_buffer
+```
+
+Poi applicare margine di sicurezza configurabile.
+
+Esempio:
+
+```text
+minimum stable = 18 ms
+recommended = 30 ms
+```
+
+Non usare necessariamente 30 ms come valore fisso.
+
+Derivarlo dai test.
+
+---
+
+# 11. TEST MATRIX AUDIO
+
+Creare una test matrix compatibile con il DAC rilevato.
+
+Quando possibile testare:
+
+```text
+44.1/16
+44.1/24
+48/24
+88.2/24
+96/24
+176.4/24
+192/24
+352.8/24
+384/24
+
+DSD64
+DSD128
+DSD256
+DSD512
+```
+
+Testare esclusivamente i formati supportati.
+
+Se opportuno generare internamente segnali audio semplici senza dipendere da file esterni.
+
+---
+
+# 12. CPU TOPOLOGY ANALYZER
+
+Rilevare:
+
+- physical cores;
+- logical CPUs;
+- SMT;
+- cache topology;
+- socket;
+- NUMA;
+- current affinity.
+
+Costruire una mappa:
+
+```text
+CPU0
+CPU1
+CPU2
+CPU3
+...
+```
+
+Identificare i processi principali:
+
+```text
+Squeezelite audio output
+Squeezelite decoder
+LMS
+network
+storage
+kernel workers
+```
+
+---
+
+# 13. CPU AFFINITY ENGINE
+
+Implementare, se tecnicamente appropriato, strategie di CPU affinity.
+
+Esempio concettuale:
+
+```text
+CPU0 = kernel / housekeeping / NIC
+CPU1 = LMS / miscellaneous
+CPU2 = Squeezelite decoder
+CPU3 = USB audio / audio output
+```
+
+QUESTO È SOLO UN ESEMPIO.
+
+Non applicarlo staticamente.
+
+Calcolare la distribuzione in funzione del numero di core realmente disponibili.
+
+Per CPU dual-core o CPU molto limitate usare regole differenti.
+
+---
+
+# 14. IRQ ANALYZER
+
+Analizzare:
+
+```bash
+cat /proc/interrupts
+```
+
+Identificare almeno:
+
+- USB controller IRQ;
+- NIC IRQ;
+- storage IRQ;
+- timer;
+- audio-related IRQ.
+
+Controllare:
+
+- IRQ affinity;
+- IRQ sharing;
+- irqbalance;
+- interrupt rate.
+
+Costruire una mappa:
+
+```text
+IRQ → device → CPU affinity → interrupts/sec
+```
+
+---
+
+# 15. IRQ AFFINITY ENGINE
+
+Se supportato e appropriato, distribuire gli IRQ in maniera coerente con il profilo.
+
+Esempio:
+
+```text
+NIC IRQ          CPU0
+storage IRQ      CPU1
+USB audio IRQ    CPU3
+```
+
+oppure strategia alternativa in funzione della CPU.
+
+Non isolare un core in modo tale da degradare stabilità o provocare starvation.
+
+---
+
+# 16. CPU GOVERNOR
+
+Analizzare il governor esistente.
+
+NON assumere:
+
+```text
+performance = migliore audio
+```
+
+Supportare strategie differenti:
+
+### SAFE
+
+Mantenere comportamento più vicino possibile al sistema originale.
+
+### AUDIO-RT
+
+Favorire scheduling prevedibile.
+
+### LOW-ACTIVITY
+
+Favorire riduzione dell'attività di sistema e dei wakeup.
+
+### EXPERIMENTAL
+
+Consentire impostazioni più aggressive.
+
+Registrare sempre:
+
+```text
+before
+after
+reason
+```
+
+---
+
+# 17. C-STATES
+
+Rilevare:
+
+- C-state disponibili;
+- stato corrente;
+- policy del sistema.
+
+Non disabilitare automaticamente deep C-state.
+
+Valutare gli effetti tramite benchmark:
+
+- wakeups;
+- latency;
+- interrupts;
+- CPU load;
+- stability.
+
+Classificare eventuali modifiche come:
+
+```text
+ADVANCED
+```
+
+o:
+
+```text
+EXPERIMENTAL
+```
+
+se non supportate da evidenza sufficiente.
+
+---
+
+# 18. CLOCKSOURCE
+
+Analizzare:
+
+```text
+current_clocksource
+available_clocksource
+```
+
+Non modificare automaticamente il clocksource se non esiste una ragione misurabile.
+
+Se vengono testate alternative:
+
+- benchmark;
+- verificare stabilità;
+- conservare baseline;
+- rollback automatico.
+
+---
+
+# 19. SERVICE ANALYZER
+
+Identificare i servizi attivi.
+
+Valutare almeno:
+
+```text
+Wi-Fi
+Bluetooth
+Avahi
+Samba
+NFS
+cron
+logging
+LMS scanner
+udisks
+HDMI audio
+printing
+unused network services
+```
+
+NON disabilitare servizi necessari all'utilizzo reale di Daphile.
+
+Classificare ogni servizio:
+
+```text
+REQUIRED
+OPTIONAL
+UNUSED
+UNKNOWN
+```
+
+Solo `UNUSED` può essere candidato alla disattivazione automatica.
+
+---
+
+# 20. PLAYBACK ACTIVITY ANALYZER
+
+Durante la riproduzione raccogliere:
+
+```text
+CPU usage
+per-core CPU usage
+interrupts/sec
+softirqs/sec
+context switches/sec
+wakeups/sec
+network activity
+disk activity
+USB activity
+memory
+process activity
+```
+
+Produrre qualcosa come:
+
+```text
+PLAYBACK SYSTEM ACTIVITY
+
+CPU                     4.2 %
+Interrupts/sec          1821
+Context switches/sec     746
+Wakeups/sec               93
+Disk I/O                   low
+Network                  stable
+USB errors                   0
+XRUN                         0
+```
+
+---
+
+# 21. PROCESS WAKEUP ANALYZER
+
+Identificare processi che generano attività durante la riproduzione.
+
+Esempio:
+
+```text
+PROCESS              WAKEUPS/S
+
+squeezelite          38
+kernel                21
+LMS                   14
+smbd                   8
+avahi                   5
+...
+```
+
+Fornire raccomandazioni.
+
+Esempio:
+
+```text
+LMS library scan active during playback.
+
+Recommendation:
+defer library scanning while audio playback is active.
+```
+
+---
+
+# 22. LMS / LIBRARY SCANNING
+
+Verificare se LMS sta eseguendo:
+
+- scansione;
+- metadata processing;
+- artwork processing;
+- database maintenance.
+
+Se possibile introdurre una modalità:
+
+```text
+PLAYBACK PRIORITY MODE
+```
+
+che sospenda o riduca attività non essenziali durante la riproduzione.
+
+Alla fine della riproduzione ripristinare il comportamento normale.
+
+---
+
+# 23. UNUSED HARDWARE ANALYZER
+
+Individuare hardware presente ma non utilizzato:
+
+```text
+Wi-Fi
+Bluetooth
+HDMI audio
+secondary NIC
+secondary sound cards
+unused USB controller
+serial ports
+etc.
+```
+
+Non disabilitare automaticamente hardware incerto.
+
+Classificazione:
+
+```text
+SAFE TO DISABLE
+PROBABLY UNUSED
+UNKNOWN
+REQUIRED
+```
+
+Solo il primo gruppo può entrare in `SAFE AUTOTUNE`.
+
+---
+
+# 24. PROFILI
+
+Implementare almeno:
+
+## DEFAULT
+
+Daphile originale.
+
+## SAFE
+
+Solo modifiche a basso rischio e chiaramente reversibili.
+
+## AUDIO RT
+
+Ottimizzazioni orientate a:
+
+- scheduling;
+- latency;
+- IRQ;
+- audio process priority.
+
+## LOW ACTIVITY
+
+Ottimizzazioni orientate a:
+
+- riduzione wakeups;
+- riduzione servizi;
+- riduzione attività concorrente;
+- minimizzazione processi inutili.
+
+## EXPERIMENTAL
+
+Parametri aggressivi o non universalmente vantaggiosi.
+
+---
+
+# 25. SAFE AUTOTUNE
+
+`SAFE AUTOTUNE` può includere, dopo verifica:
+
+- DAC USB autosuspend disable;
+- corretto device ALSA;
+- Squeezelite realtime scheduling;
+- buffer tuning conservativo;
+- sospensione di hardware wireless inutilizzato;
+- disabilitazione di audio devices inutilizzati;
+- correzione affinity palesemente errata;
+- ottimizzazione non distruttiva.
+
+Non deve modificare:
+
+- BIOS;
+- firmware;
+- filesystem;
+- partition table;
+- bootloader;
+
+salvo futura implementazione esplicita e separata.
+
+---
+
+# 26. ADVANCED AUTOTUNE
+
+Può includere:
+
+- CPU affinity;
+- IRQ affinity;
+- governor;
+- selected C-state policy;
+- clocksource testing;
+- service isolation;
+- CPU core isolation;
+- advanced USB power management.
+
+Tutte le modifiche devono essere reversibili.
+
+---
+
+# 27. EXPERIMENTAL MODE
+
+Inserire qui:
+
+- aggressive C-state restrictions;
+- fixed CPU frequency;
+- extreme IRQ isolation;
+- isolcpus/nohz_full/rcu_nocbs se tecnicamente compatibili;
+- alternative clocksource;
+- aggressive VM parameters;
+- advanced USB controller tuning;
+- service shutdown aggressivo.
+
+Richiedere conferma esplicita prima dell'applicazione.
+
+---
+
+# 28. PARAMETER CLASSIFICATION
+
+Ogni parametro deve essere classificato:
+
+```text
+SAFE
+ADVANCED
+EXPERIMENTAL
+UNSUPPORTED
+```
+
+e avere metadati:
+
+```json
+{
+  "parameter": "usb_autosuspend",
+  "class": "SAFE",
+  "current": "enabled",
+  "recommended": "disabled",
+  "device": "DAC",
+  "reason": "...",
+  "reversible": true
+}
+```
+
+---
+
+# 29. EVIDENCE CLASSIFICATION
+
+Distinguere esplicitamente:
+
+### OBJECTIVELY MEASURABLE
+
+- XRUN;
+- underrun;
+- CPU latency;
+- wakeup;
+- IRQ;
+- reset;
+- error;
+- load;
+- activity.
+
+### ENGINEERING ASSUMPTION
+
+Ottimizzazione plausibile ma senza prova diretta di miglioramento sonoro.
+
+### EXPERIMENTAL/AUDIOPHILE
+
+Tweak non dimostrabile direttamente via software.
+
+Il sistema NON deve mai trasformare una correlazione tecnica in una falsa dichiarazione del tipo:
+
+```text
+sound quality improved by 17%
+```
+
+Questo deve essere vietato.
+
+---
+
+# 30. OPTIMIZATION SCORE
+
+È possibile calcolare un:
+
+```text
+SYSTEM AUDIO OPTIMIZATION SCORE
+```
+
+ma il punteggio deve rappresentare soltanto:
+
+- stabilità;
+- isolamento;
+- attività;
+- configurazione;
+- scheduling;
+- USB topology;
+- errori;
+- realtime readiness.
+
+Non deve rappresentare una misura della qualità sonora.
+
+Esempio:
+
+```text
+BEFORE: 68/100
+AFTER: 91/100
+```
+
+con breakdown:
+
+```text
+USB topology       92
+Realtime           95
+IRQ isolation      88
+Background load    90
+Audio stability   100
+```
+
+---
+
+# 31. BASELINE
+
+Prima di modificare qualunque parametro creare:
+
+```text
+BASELINE-YYYYMMDD-HHMMSS
+```
+
+contenente:
+
+- hardware;
+- servizi;
+- configurazione;
+- Squeezelite;
+- ALSA;
+- sysctl;
+- CPU;
+- IRQ;
+- USB;
+- network;
+- moduli;
+- kernel parameters;
+- file modificati.
+
+---
+
+# 32. TRANSACTIONAL CHANGES
+
+Ogni ciclo di tuning deve funzionare come una transazione:
+
+```text
+BEGIN
+SNAPSHOT
+APPLY
+TEST
+VERIFY
+
+if PASS:
+    COMMIT
+
+if FAIL:
+    ROLLBACK
+```
+
+Nessuna modifica deve essere considerata valida finché la verifica non è terminata.
+
+---
+
+# 33. LAST KNOWN GOOD
+
+Conservare almeno:
+
+```text
+factory/default
+baseline
+last-known-good
+current
+```
+
+Se il nuovo profilo provoca problemi:
+
+```text
+restore last-known-good
+```
+
+---
+
+# 34. BOOT FAILURE RECOVERY
+
+Valutare l'implementazione di un meccanismo:
+
+```text
+Boot with AutoTune profile
+        ↓
+health check
+        ↓
+if successful:
+    mark boot OK
+else:
+    increment failure counter
+```
+
+Dopo N failure:
+
+```text
+restore last-known-good
+```
+
+Se l'architettura di Daphile rende questa implementazione pericolosa, predisporre almeno una modalità manuale sicura da boot/recovery.
+
+---
+
+# 35. A/B PROFILE TESTING
+
+Implementare profili:
+
+```text
+A = Daphile default
+B = Safe AutoTune
+C = Low Activity
+D = Audio RT
+```
+
+Consentire switching semplice.
+
+Prevedere eventualmente:
+
+```text
+BLIND A/B MODE
+```
+
+in cui durante il test l'utente non sappia quale profilo è attivo.
+
+Lo scopo è evitare confirmation bias durante ascolti comparativi.
+
+---
+
+# 36. PERFORMANCE METRICS
+
+Registrare prima/dopo:
+
+```text
+XRUN
+USB reset
+USB errors
+CPU load
+max CPU load
+per-core load
+interrupt rate
+context switches
+wakeups
+disk activity
+network activity
+audio process priority
+buffer latency
+```
+
+---
+
+# 37. HARDWARE PROFILE
+
+Produrre:
+
+```text
+hardware.json
+```
+
+con almeno:
+
+```json
+{
+  "system": {},
+  "cpu": {},
+  "memory": {},
+  "kernel": {},
+  "usb": {},
+  "dac": {},
+  "alsa": {},
+  "network": {},
+  "storage": {},
+  "irq": {},
+  "services": {},
+  "squeezelite": {}
+}
+```
+
+---
+
+# 38. CONFIGURATION PROFILE
+
+Produrre:
+
+```text
+profile.json
+```
+
+Esempio:
+
+```json
+{
+  "profile": "low-activity",
+  "version": 1,
+  "created": "...",
+  "hardware_id": "...",
+  "changes": [],
+  "benchmark": {},
+  "validation": {},
+  "status": "validated"
+}
+```
+
+---
+
+# 39. HARDWARE FINGERPRINT
+
+Generare un fingerprint non dipendente esclusivamente da MAC address.
+
+Usare combinazione di:
+
+```text
+CPU
+motherboard identifiers
+PCI topology
+USB controller topology
+DAC identity
+```
+
+Scopo:
+
+impedire che un profilo molto hardware-specific venga applicato ciecamente a una macchina differente.
+
+---
+
+# 40. PORTABILITY
+
+Il sistema deve essere utilizzabile non solo su HP t630.
+
+Il target iniziale può essere HP t630, ma l'architettura deve funzionare su:
+
+- HP thin client;
+- Dell/Wyse;
+- x86_64 generic PC;
+- sistemi Intel;
+- sistemi AMD;
+
+quando supportati da Daphile.
+
+---
+
+# 41. HP T630
+
+Per HP t630 effettuare particolare analisi di:
+
+- CPU;
+- USB controller;
+- porte USB;
+- Wi-Fi;
+- Bluetooth;
+- NIC;
+- storage;
+- audio HDMI;
+- eventuale hardware inutilizzato.
+
+Non hardcodare tuttavia le conclusioni.
+
+Prima rilevare la revisione hardware reale.
+
+---
+
+# 42. LOGGING
+
+Produrre log leggibili.
+
+Esempio:
+
+```text
+[DAPHILE AUTOTUNE]
+
+19:34:02 hardware scan started
+19:34:03 CPU AMD GX-420GI detected
+19:34:03 4 logical CPUs detected
+19:34:04 USB DAC detected
+19:34:04 DAC path: 3-2
+19:34:04 controller: 0000:00:10.0
+19:34:05 autosuspend: enabled
+19:34:05 recommendation: disable DAC autosuspend
+...
+```
+
+Ogni modifica:
+
+```text
+OLD VALUE
+NEW VALUE
+REASON
+STATUS
+ROLLBACK ACTION
+```
+
+---
+
+# 43. DRY RUN
+
+Implementare:
+
+```text
+autotune --analyze
+```
+
+o equivalente.
+
+Questo comando:
+
+- non modifica nulla;
+- produce report;
+- produce recommendations;
+- crea eventualmente baseline;
+- mostra cosa verrebbe modificato.
+
+---
+
+# 44. CLI
+
+Predisporre una CLI utilizzabile anche senza interfaccia web.
+
+Possibile schema:
+
+```bash
+dat scan
+dat analyze
+dat report
+
+dat tune safe
+dat tune rt
+dat tune low-activity
+dat tune experimental
+
+dat benchmark
+
+dat profile list
+dat profile show
+dat profile activate
+
+dat restore previous
+dat restore baseline
+dat restore default
+
+dat status
+dat verify
+```
+
+La sintassi definitiva può essere differente.
+
+---
+
+# 45. FUTURE WEB GUI
+
+Preparare API/backend affinché successivamente possa essere aggiunta una pagina:
+
+```text
+Settings
+    └── Audio
+          └── AutoTune
+```
+
+con sezioni:
+
+```text
+SYSTEM
+DAC
+USB
+ALSA
+CPU
+IRQ
+NETWORK
+SERVICES
+BENCHMARK
+PROFILES
+LOGS
+```
+
+---
+
+# 46. GUI CONCEPT
+
+Esempio:
+
+```text
+DAPHILE AUTOTUNE
+
+System
+✓ CPU analyzed
+✓ RT kernel detected
+✓ RAM analyzed
+
+DAC
+✓ Aqua La Scala detected
+✓ USB Audio Class detected
+✓ ALSA device verified
+
+USB
+✓ Controller detected
+✓ Root hub identified
+! Autosuspend enabled
+
+Squeezelite
+✓ Device valid
+! Buffers can be optimized
+
+IRQ
+✓ USB IRQ identified
+! Affinity optimization available
+
+Optimization Score
+Current: 74 / 100
+
+[ANALYZE]
+[SAFE AUTOTUNE]
+[ADVANCED]
+[BENCHMARK]
+[RESTORE]
+```
+
+---
+
+# 47. DAC PORT ASSISTANT
+
+Implementare se possibile modalità guidata:
+
+```text
+STEP 1
+
+Connect DAC to USB port A
+[TEST]
+
+STEP 2
+
+Move DAC to USB port B
+[TEST]
+
+STEP 3
+
+Move DAC to USB port C
+[TEST]
+```
+
+Il software registra automaticamente la topologia.
+
+Risultato:
+
+```text
+Port A     71
+Port B     94  ← recommended
+Port C     76
+```
+
+---
+
+# 48. SAFE HANDLING OF NETWORK AUDIO LIBRARIES
+
+Non compromettere:
+
+- SMB;
+- NFS;
+- NAS access;
+- LMS remote access;
+- Daphile web interface.
+
+Qualunque ottimizzazione network deve preservare le funzionalità fondamentali.
+
+---
+
+# 49. NETWORK ANALYSIS
+
+Rilevare:
+
+- NIC;
+- driver;
+- link speed;
+- duplex;
+- errors;
+- drops;
+- IRQ;
+- offload features.
+
+Valutare tecnicamente:
+
+```text
+TSO
+GSO
+GRO
+RX/TX checksum
+interrupt moderation
+EEE
+```
+
+Non disabilitare automaticamente funzioni senza benchmark.
+
+---
+
+# 50. NETWORK PROFILE
+
+Se opportuno supportare:
+
+```text
+network/default
+network/low-latency
+network/low-activity
+```
+
+ma mantenere questa parte secondaria rispetto all'audio locale USB.
+
+---
+
+# 51. AUDIO-FOCUSED HEALTH CHECK
+
+Prima e dopo AutoTune eseguire:
+
+```text
+DAC accessible
+ALSA device valid
+Squeezelite running
+LMS reachable
+audio stream starts
+no XRUN
+no USB reset
+network reachable
+web GUI reachable
+library reachable
+```
+
+Solo in caso PASS:
+
+```text
+PROFILE VALIDATED
+```
+
+---
+
+# 52. FAIL-SAFE
+
+Se una modifica interrompe:
+
+- audio;
+- rete;
+- web interface;
+- LMS;
+- mount NAS;
+
+rollback automatico.
+
+---
+
+# 53. NO BLIND BLACKLIST
+
+Non blacklistare globalmente moduli kernel basandosi solo sul loro nome.
+
+Prima verificare:
+
+```text
+driver
+device
+usage
+dependency
+```
+
+---
+
+# 54. NO BLIND USB DISABLE
+
+Non spegnere:
+
+```text
+usb1
+usb2
+usb3
+```
+
+in maniera statica.
+
+Prima ricostruire la topologia e identificare esattamente dove è collegato il DAC.
+
+---
+
+# 55. NO GENERIC AUDIOPHILE TWEAKS
+
+NON implementare automaticamente modifiche del tipo:
+
+```text
+disable everything
+set all CPUs performance
+disable all C states
+disable all USB hubs
+disable all networking
+maximum RT priority everywhere
+```
+
+senza:
+
+- analisi;
+- benchmark;
+- verifica;
+- rollback.
+
+---
+
+# 56. REALTIME PRIORITY
+
+Studiare i processi Squeezelite realmente attivi.
+
+Assegnare priorità realtime solo quando appropriato.
+
+Non utilizzare automaticamente priorità estreme come 99.
+
+Evitare starvation di kernel/network/storage.
+
+---
+
+# 57. STRESS TEST
+
+Dopo tuning eseguire test prolungato, compatibilmente con i tempi di compilazione/test.
+
+Controllare:
+
+```text
+XRUN
+memory leak
+process crash
+USB disconnect
+network failure
+LMS failure
+kernel warning
+```
+
+---
+
+# 58. REPORT
+
+Generare report testuale:
+
+```text
+DAPHILE AUTOTUNE REPORT
+
+SYSTEM
+...
+
+DAC
+...
+
+USB
+...
+
+CPU
+...
+
+IRQ
+...
+
+SQUEEZELITE
+...
+
+CHANGES
+...
+
+BENCHMARK BEFORE
+...
+
+BENCHMARK AFTER
+...
+
+WARNINGS
+...
+
+FINAL STATUS
+VALIDATED
+```
+
+---
+
+# 59. EXPORT
+
+Permettere export di:
+
+```text
+hardware.json
+profile.json
+report.txt
+logs.tar.gz
+```
+
+utile per futura analisi tecnica.
+
+---
+
+# 60. VERSIONING
+
+Il modulo deve avere versione indipendente.
+
+Esempio:
+
+```text
+Daphile AutoTune Engine
+Version 0.1.0
+```
+
+Memorizzare anche:
+
+```text
+Daphile version
+kernel version
+Squeezelite version
+LMS version
+```
+
+nel report.
+
+---
+
+# 61. SECURITY
+
+Non aprire servizi di rete non necessari.
+
+Non inserire password nei log.
+
+Sanificare:
+
+- SMB credentials;
+- tokens;
+- SSH keys;
+- usernames sensibili.
+
+---
+
+# 62. IMPLEMENTATION PHASES
+
+Procedere per fasi.
+
+## PHASE 1
+
+Read-only hardware scanner.
+
+Implementare:
+
+```text
+CPU
+USB
+DAC
+ALSA
+IRQ
+network
+services
+Squeezelite
+```
+
+Nessuna modifica.
+
+## PHASE 2
+
+Baseline + profile engine + rollback.
+
+## PHASE 3
+
+Safe AutoTune.
+
+## PHASE 4
+
+Benchmark engine.
+
+## PHASE 5
+
+Advanced profiles.
+
+## PHASE 6
+
+Web GUI integration.
+
+## PHASE 7
+
+A/B testing.
+
+Non iniziare dalle modifiche più invasive.
+
+---
+
+# 63. INTEGRAZIONE NELLA ISO IN COMPILAZIONE
+
+Prima di integrare:
+
+1. individuare l'esatta struttura della nuova ISO Daphile già in lavorazione;
+2. identificare filesystem root;
+3. identificare persistent storage;
+4. identificare il sistema di configurazione Daphile;
+5. identificare startup scripts/system services;
+6. identificare i file relativi a Squeezelite;
+7. identificare come Daphile conserva impostazioni persistenti.
+
+NON assumere una normale distribuzione Debian/Ubuntu.
+
+Adattare l'implementazione alla reale architettura Daphile presente nella ISO.
+
+---
+
+# 64. NON ROMPERE LE MODIFICHE GIÀ ESEGUITE
+
+Questa ISO contiene già aggiornamenti e personalizzazioni.
+
+Prima di modificare qualsiasi componente:
+
+- inventariare le modifiche già presenti;
+- non sovrascriverle;
+- non riportare librerie a versioni precedenti;
+- non eliminare patch;
+- non sostituire configurazioni esistenti senza diff.
+
+Quando necessario utilizzare:
+
+```text
+diff
+backup
+merge
+validation
+```
+
+---
+
+# 65. SOURCE CONTROL DELLE MODIFICHE
+
+Creare un changelog dettagliato.
+
+Per ogni file:
+
+```text
+FILE
+ORIGINAL HASH
+NEW HASH
+CHANGE
+REASON
+ROLLBACK
+```
+
+---
+
+# 66. VALIDAZIONE DELLA ISO
+
+Prima di considerare terminato il lavoro verificare almeno:
+
+```text
+ISO boots
+Daphile starts
+web GUI works
+NIC works
+DHCP works
+static IP unaffected
+NAS mounts work
+LMS starts
+Squeezelite starts
+USB DAC detected
+audio playback works
+reboot works
+shutdown works
+settings persist
+AutoTune baseline works
+AutoTune restore works
+```
+
+---
+
+# 67. NON APPLICARE AUTOTUNE DURANTE IL PRIMO BOOT
+
+Default:
+
+```text
+AutoTune installed = YES
+AutoTune active = NO
+```
+
+L'utente deve poter avviare:
+
+```text
+Analyze
+```
+
+prima di applicare modifiche.
+
+SAFE AutoTune può eventualmente essere attivato manualmente.
+
+---
+
+# 68. PRIMO AVVIO
+
+Al primo avvio:
+
+```text
+AutoTune module detected.
+
+No optimization has been applied.
+
+Run hardware analysis?
+```
+
+Oppure lasciare il modulo accessibile senza prompt invasivi.
+
+---
+
+# 69. PERFORMANCE BASELINE
+
+Registrare almeno 30-60 secondi di attività normale prima della modifica, quando tecnicamente possibile.
+
+Confrontare con equivalente intervallo dopo il tuning.
+
+Evitare confronti tra condizioni non equivalenti.
+
+---
+
+# 70. CONTROLLO DI REGRESSIONE
+
+Una modifica deve essere rifiutata se:
+
+```text
+XRUN increases
+USB errors appear
+interrupt latency worsens significantly
+CPU load increases abnormally
+network becomes unstable
+DAC loses formats
+LMS fails
+```
+
+---
+
+# 71. OPTIMIZATION DECISION ENGINE
+
+Strutturare possibilmente ogni regola come:
+
+```text
+IF condition
+AND compatibility
+AND safety
+THEN recommendation
+
+IF selected_profile permits
+THEN apply
+
+RUN validation
+
+IF validation fails
+THEN rollback
+```
+
+---
+
+# 72. EXAMPLE RULE
+
+```text
+IF
+    selected audio device is USB
+AND
+    USB runtime PM is enabled
+AND
+    device is actively used as DAC
+
+THEN
+    recommend disabling autosuspend
+    for this device only
+
+CLASS = SAFE
+REVERSIBLE = YES
+```
+
+---
+
+# 73. EXAMPLE IRQ RULE
+
+```text
+IF
+    DAC controller IRQ shares CPU with high-rate NIC IRQ
+AND
+    system has >= 4 logical CPUs
+AND
+    suitable alternative CPU exists
+
+THEN
+    propose IRQ affinity separation
+
+CLASS = ADVANCED
+```
+
+---
+
+# 74. EXAMPLE SERVICE RULE
+
+```text
+IF
+    Bluetooth hardware exists
+AND
+    no Bluetooth audio/input device is active
+AND
+    Bluetooth is not required by Daphile
+
+THEN
+    recommend disable Bluetooth service
+
+CLASS = SAFE or ADVANCED
+depending on implementation risk.
+```
+
+---
+
+# 75. FINAL TARGET
+
+Al completamento deve essere possibile ottenere un risultato simile:
+
+```text
+DAPHILE AUTOTUNE
+
+Hardware analysis completed.
+
+System:
+HP t630
+
+CPU:
+4 logical CPUs
+
+DAC:
+Aqua La Scala MKII Optologic
+
+Connection:
+USB Audio
+
+USB controller:
+AMD xHCI
+
+DAC USB path:
+3-2
+
+RT kernel:
+active
+
+Audio format:
+bit-perfect
+
+USB errors:
+0
+
+XRUN:
+0
+
+
+OPTIMIZATION
+
+USB            OPTIMIZED
+ALSA           OPTIMIZED
+Squeezelite    OPTIMIZED
+IRQ            OPTIMIZED
+CPU            OPTIMIZED
+Services       OPTIMIZED
+
+System Optimization Score
+
+Before        71 / 100
+After         93 / 100
+
+
+Profile:
+
+LOW-ACTIVITY / AUDIO-RT HYBRID
+
+Status:
+
+VALIDATED
+
+
+[RESTORE BASELINE]
+[EXPORT REPORT]
+```
+
+---
+
+# 76. CRITICAL DESIGN REQUIREMENT
+
+La priorità deve essere:
+
+```text
+1. STABILITY
+2. REVERSIBILITY
+3. CORRECTNESS
+4. MEASURABILITY
+5. PERFORMANCE
+6. EXPERIMENTATION
+```
+
+Mai sacrificare stabilità e riproducibilità per una modifica teoricamente "audiophile".
+
+---
+
+# 77. ATTIVITÀ DA ESEGUIRE ORA
+
+Sulla ISO Daphile attualmente in compilazione:
+
+1. analizzare la struttura reale del sistema;
+2. individuare il punto migliore di integrazione;
+3. implementare PHASE 1;
+4. testare;
+5. implementare baseline/profile/rollback;
+6. testare;
+7. implementare Safe AutoTune;
+8. testare;
+9. implementare benchmark;
+10. aggiungere Advanced/Experimental solo dopo aver validato le fasi precedenti;
+11. integrare infine la GUI, se tecnicamente fattibile senza compromettere stabilità.
+
+Procedere autonomamente nelle decisioni tecniche ragionevoli.
+
+Non fermare il lavoro per dettagli minori che possono essere determinati mediante analisi diretta della ISO e del sistema.
+
+Se una funzione proposta non è tecnicamente realizzabile nell'architettura Daphile attuale, non simularla: documentare chiaramente il limite e implementare la migliore alternativa tecnicamente corretta.
+
+---
+
+# 78. DELIVERABLE FINALI RICHIESTI
+
+Al termine fornire:
+
+1. nuova ISO aggiornata;
+2. versione identificabile della ISO;
+3. modulo Daphile AutoTune funzionante;
+4. sorgenti/script creati;
+5. elenco completo dei file modificati;
+6. changelog dettagliato;
+7. backup delle configurazioni originali;
+8. descrizione dell'architettura AutoTune;
+9. lista completa delle ottimizzazioni implementate;
+10. lista delle ottimizzazioni non implementate e relativo motivo;
+11. risultati dei test;
+12. procedura di rollback;
+13. procedura per eseguire AutoTune;
+14. procedura per esportare il report;
+15. eventuali problemi o limitazioni ancora presenti.
+
+Il lavoro non deve limitarsi a produrre una proposta teorica.
+
+Deve procedere con l'analisi della ISO, l'implementazione concreta, i test e la generazione della nuova immagine avviabile, nei limiti degli strumenti effettivamente disponibili nell'ambiente di lavoro.
+
+## RISULTATO ATTESO
+
+Trasformare Daphile da sistema configurato prevalentemente tramite parametri statici a sistema capace di:
+
+**rilevare automaticamente l'hardware, comprendere la propria topologia audio, determinare le ottimizzazioni applicabili, verificarle empiricamente e mantenere automaticamente una configurazione stabile e reversibile.**

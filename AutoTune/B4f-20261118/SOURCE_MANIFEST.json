@@ -1,0 +1,746 @@
+[
+  {
+    "path": "opt/daphile-autotune/bin/AutoTune",
+    "sha256": "a41138a95849ab205be9509065556a0ed3579d386edfb1cbb9ce92daa4fe58dc",
+    "bytes": 1998,
+    "mode": 493
+  },
+  {
+    "path": "opt/daphile-autotune/bin/dat",
+    "sha256": "4bb04bbbe95f0410ad27f7c160708ff4c872b8696d1090e536fed7c0da80d9d5",
+    "bytes": 20009,
+    "mode": 493
+  },
+  {
+    "path": "opt/daphile-autotune/bin/dat-activity-bootstrap-stock",
+    "sha256": "fc9c78905389787bd77a963f22925f3432cdb5ad18832086de551621e5f1c790",
+    "bytes": 1751,
+    "mode": 493
+  },
+  {
+    "path": "opt/daphile-autotune/CANDIDATE.json",
+    "sha256": "d6d900f38bab0a9ff1611231d4ddb2fe6333a98dc384fa9e7424f6a6b7db2bc0",
+    "bytes": 1293,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/core.html",
+    "sha256": "9f523e0a2b446d6cf060fc49e3c8b779ce019ba8cb0dda2e29107482b05c3341",
+    "bytes": 4524,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/CORE_README.md",
+    "sha256": "5756d44baf7f4bafffb6e6155feca69225e61a5dcef6ef0704dd43d480edf50e",
+    "bytes": 3744,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/KERNEL_PROVENANCE_0910.json",
+    "sha256": "b9eb1b44eaf3629ecd83cdaf0508673eb48a26b8089b63b110c3c08a545d1590",
+    "bytes": 2240,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/KERNEL_PROVENANCE_095.json",
+    "sha256": "d798909669ce6da975de81a41aa350bae9d5f1b7d1a3f29e8bf7db1b39d31502",
+    "bytes": 2182,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/KERNEL_PROVENANCE_097.json",
+    "sha256": "b9eb1b44eaf3629ecd83cdaf0508673eb48a26b8089b63b110c3c08a545d1590",
+    "bytes": 2240,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/KERNEL_PROVENANCE_098.json",
+    "sha256": "b9eb1b44eaf3629ecd83cdaf0508673eb48a26b8089b63b110c3c08a545d1590",
+    "bytes": 2240,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/KERNEL_PROVENANCE_099.json",
+    "sha256": "b9eb1b44eaf3629ecd83cdaf0508673eb48a26b8089b63b110c3c08a545d1590",
+    "bytes": 2240,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/ab_session.py",
+    "sha256": "32bdf652ca699854b7ce221676a71cd1383feb3d529498bfc22a599d96452981",
+    "bytes": 9211,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/activity.py",
+    "sha256": "0d2d2cda37bf4b45c213aa8aaa6dbd277048b215ee56d402cd012707a18e4b1e",
+    "bytes": 4167,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/adaptive.py",
+    "sha256": "d2374f8df3eb771fcc0da244dce8ca688c4873bdbfde84d822a28bbe9410db5a",
+    "bytes": 3353,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/advanced.py",
+    "sha256": "8dca22cc81b754ff4d6d109582c7af50634909ab4d447be91a9cd723fe6c84b0",
+    "bytes": 12521,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_activity_lease.py",
+    "sha256": "7816d6d49e7f079401f91a2ad3a56ae78573dc2e50b131e5e9b9ea0430e81cbd",
+    "bytes": 20699,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_context.py",
+    "sha256": "d59ea7a89436850b6c99431ac68ddc92beeeb3575dee44de42dbcced138bdd3c",
+    "bytes": 13152,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_setup.py",
+    "sha256": "dc9f637ffd1d8aa6b688ea12b1c8b03349347e77870d93665902e799b8ccb7cb",
+    "bytes": 6140,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/audio_trace.py",
+    "sha256": "101420e846f526742fe654a5b3daaefb0cb39e5d063824d94b27ab3924458710",
+    "bytes": 2593,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/automatic.py",
+    "sha256": "555172ff93107c3342808ac4d2ed2309e1a8605386cea46047eef58e8c41ca9e",
+    "bytes": 45567,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/automation.py",
+    "sha256": "471e56814bd01df79145761bbecefe547be11787c8c6c3983adc172fb31ca4ec",
+    "bytes": 6678,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/__init__.py",
+    "sha256": "7e02849387b1f8bc07f0d0a1a75cb1603f5337d77ba33171aaa3bdb33c40e2b1",
+    "bytes": 122,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/acceptance.py",
+    "sha256": "47ef137f01c1c9b16287bd33b4a7cc59c4c2f1e25f4beab85d9f1b448f665400",
+    "bytes": 15896,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/accounting.py",
+    "sha256": "8e460fdf5458c6262e58b59b745d6ec0691dd148b5dc86ac0e0c800736ebe11c",
+    "bytes": 590,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/adaptive_plan.py",
+    "sha256": "3dd8a0cc5e74d23a5a6131706a8d9d3f52c0461547a79e615e8cde12bc9a66fc",
+    "bytes": 6753,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/admission_recovery.py",
+    "sha256": "dd31841826ff4ae3ca5d5f8152ac032595c17d6e4418aac1519174176e387ee1",
+    "bytes": 7246,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/budget_guard.py",
+    "sha256": "7b52fb1244d25a3d1d56f3dd77ae3733cb45cefe330462317d29936f122e097d",
+    "bytes": 30110,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/common_activity.py",
+    "sha256": "5910a69b7da1a723d6a12755095a94f54dd9004fa8b6f1b2a097420de0b90f24",
+    "bytes": 19617,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/controlled_workload.py",
+    "sha256": "a6c418f8a48e85ac434313c3be8c2c16aec7a7400fe08c7ff5a9a632273601ff",
+    "bytes": 21530,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/current_policy.py",
+    "sha256": "b554e7fd85905e0e272ae91bf7773af40a07f359a083b276d132460a8663b0d5",
+    "bytes": 10903,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/external_intent.py",
+    "sha256": "5e0d9f56a8b8a6fed848a886e0667caa245e86c8fc3a13cbc5a3f4d40125ae18",
+    "bytes": 13544,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/legacy_reference.py",
+    "sha256": "b8ff9c58d445ed3f6c04c3166f6eec330a7da67c79fe7bc7b386fe0ad586fa0e",
+    "bytes": 3501,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/native_adapter.py",
+    "sha256": "043670c63c4a94de198432eff1ada0d805a91089b9d18142763197fc06834e82",
+    "bytes": 24824,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/native_config_status.py",
+    "sha256": "d3c3e21e05574a2cabd403bc156f80feae5efc7e6fe37dd01c60cac57420a37c",
+    "bytes": 2980,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/native_target.py",
+    "sha256": "c36f41f67860c277bde703be8642e42050851ef8a87b0e0df32fcd3eb03818ce",
+    "bytes": 4663,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/paired_search.py",
+    "sha256": "ab9348a3336a2a61f1d635e5cf1758019bbcdfd15c2251e376b2ae3101efb40c",
+    "bytes": 22517,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/persistence.py",
+    "sha256": "8c4f2368d0815afc2d25f000efd8c23920a76763a44a20027a5591185ee567b5",
+    "bytes": 27588,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/policy_custody.py",
+    "sha256": "5bce7fef6fdb501a04b519826819b645ffd74d4fadd18b4ec4ad444b88f13d9c",
+    "bytes": 48165,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/ram_off_binding.py",
+    "sha256": "ba4e950fa2cfeb0a6978d68b38e7525a3bef5ce02788ee54abd5942d89e54c69",
+    "bytes": 110,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/reference_migration.py",
+    "sha256": "7cac21534b3b65407d4b851fa2f67159fa71113f53daa91d9103d34dad3eeb0d",
+    "bytes": 10192,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/reference_state.py",
+    "sha256": "0ebc0ab92f67fc9cfdb24f904f8e27a5327dd0597ac958ed2aee08437e89b222",
+    "bytes": 9126,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/search_reference.py",
+    "sha256": "32b151c947ec79f834d33df68cbadb5b58b92fd0412e7eca3313603c4881e251",
+    "bytes": 4638,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/search_scope.py",
+    "sha256": "ea9342c82edaa9751c958c88d9de8dfca8c6494addd7c35c856e8667409665ea",
+    "bytes": 12656,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/STOCK_NATIVE_PINS.json",
+    "sha256": "fed6c364a0790ecea4abc846d578c5be547fcaa7c230777cf156f3cac69e9be2",
+    "bytes": 3469,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/stock_no_ram.py",
+    "sha256": "ff1f66d734fc43e412dc22a83888b9f57ec2f840f956ef140319b4afb38eaa19",
+    "bytes": 9224,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/autotune_v2/workflow.py",
+    "sha256": "f44c7a5bfce99e0e68acec0c0d15e4df734228f15cdaee7639a17c4361480652",
+    "bytes": 41794,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/boot_recovery.py",
+    "sha256": "0612102680d94d558c9c7fe8816d8d64b5986f647f7db0e903652175e974b59e",
+    "bytes": 12244,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/buffer_preferences.py",
+    "sha256": "19100a9ebe14fd3886c8b8cd2370d36e7b84fa4ff427be30aeb6e86fbcb85b5e",
+    "bytes": 2683,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/buffer_search.py",
+    "sha256": "964c8b3e617e8bfbbb73e09ee9fcf4b45064e8cce620407c31124d2e94845997",
+    "bytes": 2344,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/buffer_test.py",
+    "sha256": "acd875f2517010dacd3b591e5f6131e22c572e871a91ddde954f02b3012b6cac",
+    "bytes": 4054,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/calibration_budget.py",
+    "sha256": "a9c0dd8ecdf78a2360f11ff2155cb263ff421796a98e5db72597a96dff20339c",
+    "bytes": 10604,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/cli_result.py",
+    "sha256": "0ed246a724a0c56422e8c309bf35a3c885ad39edfa82e31e39852222e68a69e2",
+    "bytes": 2273,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/companion_migration.py",
+    "sha256": "5d4e430d406b7ea144d64b9528b74ac10aaf5b0f18d1d9b3d62ad38ca699154a",
+    "bytes": 4792,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/comparison.py",
+    "sha256": "08549553d09a8f77099145a87866a0afff03f88eadbed6453ed5efc981af5c2c",
+    "bytes": 6135,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/continuous.py",
+    "sha256": "8401982187f6872eda4a43734d3aaa2f282f9d9e9e0a9291e1a3781d9d797866",
+    "bytes": 9225,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/core_policy.py",
+    "sha256": "8327dfb7f1d79b2b8a27932675b2cc0163a760706b49f5e32693a031d71df5e7",
+    "bytes": 5275,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/dashboard.py",
+    "sha256": "f5ab676a1f15148f189448361fd949e66a9c8177741586738879eb4c3ccea7d9",
+    "bytes": 1454,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/detection.py",
+    "sha256": "af100d89451cb09b53fe59bf567fd3db698854a4eb01f54c055e69f9013a9bf6",
+    "bytes": 17560,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/dsf_fixture.py",
+    "sha256": "4e3f87334718344aa4a33935b2657aaafea7b09335d44d0c888f1879df9c0bcd",
+    "bytes": 5504,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/engine.py",
+    "sha256": "6cedd225ea833e029373fde00d502c697ed74d62e039d03a37bb08d599567368",
+    "bytes": 33890,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/gui.py",
+    "sha256": "46172afb082515d9de1f902efaa4c1e7515606262e78b13df355327dff4c8512",
+    "bytes": 32154,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/hardware_watchdog.py",
+    "sha256": "66215ceb8c874348d9ed9c505d70be8ddfd77daeee23e4bebb037b67a0731546",
+    "bytes": 2716,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/host_identity.py",
+    "sha256": "674f58f78379b800dbb79172cec8a406beba82c7373be50ba08d63fc941a9c81",
+    "bytes": 1310,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/instrument_worker.py",
+    "sha256": "81cb4e85c3b8aca19dde5b5275972a2309e832d4a4a285108c87fa09a940f55f",
+    "bytes": 602,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/irq_route_restore.py",
+    "sha256": "3cc15bef89fb4c62eab83dfd695f20cf1c4f71fd5a7aa4339342eee6c63a80a9",
+    "bytes": 1648,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/matrix.py",
+    "sha256": "ae311ed25c8d7a44984759622acae5fb5f5e1759f2a0f376d381a27ae3d178ce",
+    "bytes": 12783,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/measure.py",
+    "sha256": "5465b5b1726bc8701a2fa8b98f87f54cabfa3a0494075555f7a53c082fda9a07",
+    "bytes": 7051,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/measurement_contract.py",
+    "sha256": "fdedb9f6cae455eefd96c9684282cd18fd72dae2f63a18ae1e364b0c9432d3c4",
+    "bytes": 27206,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/nas_tuning.py",
+    "sha256": "1905c2a921c395ee1be42212d8c23d696a76bc4c7de811d5bf82d67d167cea24",
+    "bytes": 7228,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/native_companion.py",
+    "sha256": "b3abdc566c474591711244dab7fc848b45b1cafef6b1500e1eae52b81ef7a0bb",
+    "bytes": 1250,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/native_coordination.py",
+    "sha256": "1402e8e01d5dd6f807fcb85fc7b944870b067650f43561ebf92aa914bcda6a35",
+    "bytes": 13601,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/network_profiles.py",
+    "sha256": "436351d5d72529fbfb7184b5d3cc2dcec6d2f0d3eae37e4ef3f6939be23c9586",
+    "bytes": 4046,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/network_test.py",
+    "sha256": "966d0f149418df82ba85a69f4425a4b4cd704847e5907f416c23e944f7989592",
+    "bytes": 4437,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/physical_audio.py",
+    "sha256": "5cb1d8f16cbb83ebd44ee9de3c4ebd3f60ae5c03a0fabafcaa53cc33a1ae7fef",
+    "bytes": 8756,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/playback_contract.py",
+    "sha256": "0433f882d3ccf0edc560b427d68315a77887369b1361aa8f0cbe35a1a5da8849",
+    "bytes": 7853,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/playback_guard.py",
+    "sha256": "9fcd6c7020e8b063de0dbc5a54dcd9dda96d995271c210d91b99e70d3ed8e5d9",
+    "bytes": 1718,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/playback_start.py",
+    "sha256": "51b944febcefe92838c94eba5d6b706527a570ca34093fd93ca796689f861db4",
+    "bytes": 1432,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/player.py",
+    "sha256": "59f0f9364692b9b6218db59f8a22c01ed3a4cd3fae3482f41f1f96cd5f7240ff",
+    "bytes": 16276,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/policy_restore.py",
+    "sha256": "c692bff827453d592a3286e6500e5b024ad781b97c71d861f9f06b128347ee44",
+    "bytes": 11361,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/portability.py",
+    "sha256": "0a13ab27c0ec245e185a846f0e52ae3663072aff1a55a15c361ecc2d45330d66",
+    "bytes": 1802,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/power_policy.py",
+    "sha256": "4f16516833120c88d5bac1518861e5fe5aab359ce42061b45c83ec5f03bb5d7b",
+    "bytes": 7453,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/power_review.py",
+    "sha256": "aa1bc116fd7e01c213ff3947cc5fd5d265fc0bc7925e4f93811da12e32e1348e",
+    "bytes": 11686,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/process_guard.py",
+    "sha256": "b610e95caec8255c6b869f20d5f7f351b1e942f5bcbba034b6c065290df9044d",
+    "bytes": 1147,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/quiet_playback.py",
+    "sha256": "54104b362789cf9156e842ccce0ba852d81fc0b122ebfa35e8c3d1b7d47a2094",
+    "bytes": 5544,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/reporting.py",
+    "sha256": "5d11c261412a22a41243adfa45b15c016968fc6749b85d5e395114237ae5dbed",
+    "bytes": 14001,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/resources.py",
+    "sha256": "6d86690c9c0d7ba5240f922df9fbad60391da1b66a6485e83ff880a30f935fe7",
+    "bytes": 3081,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/rollback_order.py",
+    "sha256": "54340b29bd766548abb318d8df6e74d2886b4ff6ddb7ee8b2a0bcd8c7bf53941",
+    "bytes": 1327,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/rule_engine.py",
+    "sha256": "e6ec5131ad3596ae0e1e926787d43937ec38560ef81a8f4b00923a49744d20a3",
+    "bytes": 6144,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/runtime.py",
+    "sha256": "ce24fded7feb2cdc51b1cf91426bf409851026ac3eae000c56870e1723ea3134",
+    "bytes": 4106,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/runtime_ext.py",
+    "sha256": "a5480d9dec5d52e75eccd06517a49463c774dfd650ed61b1eedb3e05c8941227",
+    "bytes": 10227,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/runtime_summary.py",
+    "sha256": "41f00e05f69530fa92f459ffe0694566de01c5662471041f70e7fc28c40176dd",
+    "bytes": 4909,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/scheduler_trace.py",
+    "sha256": "acca3d45b939b27d4f1c285dc8d6ccdd99aed627dc7ca6af5ec78d0f3cec175b",
+    "bytes": 19827,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/search.py",
+    "sha256": "89bfff97939f73b91c86e5e43cdc183874750e2a6f5c5d93dc6590c6fa65f5ac",
+    "bytes": 17166,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/session.py",
+    "sha256": "8dd49e202e61cf17f393c3f79b081394df45802623f6a91e79aded61474774c3",
+    "bytes": 11740,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/stability.py",
+    "sha256": "a541a006653ece7013d54451445597e808ca99503f36823b8e33be187c073784",
+    "bytes": 4283,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/storage_policy.py",
+    "sha256": "60db53c0322dd8d42ac82d32aa6818514206acb275dd7f6c09521b809b74cad0",
+    "bytes": 4964,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/storage_probe.py",
+    "sha256": "5c85bccbc23b4d930022fb99c4ed6ac4c6bb86d75636a199c3d90f97925a7d64",
+    "bytes": 5805,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/stress.py",
+    "sha256": "13489a1b0ffcba08215b7e4069bf99cfad4f8280722dff9b01113800d423dd0c",
+    "bytes": 13173,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/t630.py",
+    "sha256": "3685dce04d6e53ef7702c40c8f32d2c5f2f44e1d5d42138cc888a636ead80fb1",
+    "bytes": 3854,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/telemetry.py",
+    "sha256": "52e39852d52641d563158440f0bea4a143d455dfe9cc86cafc86eb29724fc100",
+    "bytes": 7214,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/thermal_policy.py",
+    "sha256": "36026c8e026a18e7504b865821c3b4119cfa446dc4c74760734d6d9b8c84702a",
+    "bytes": 1469,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/trace_completion.py",
+    "sha256": "bde0c46331269f43ce4f7d5d733b55232cd0f5eccc32d6165c2351cfb34150fc",
+    "bytes": 369,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/trace_feed.py",
+    "sha256": "580c4e1429dec51b4b130fce88cbb6b81de24c3bf11a0ccef5a857886b53fc1f",
+    "bytes": 20902,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/trace_spool.py",
+    "sha256": "e28049d4fe2fb618613eaa23230aff59a0f7188b259e189010b33f77ebff620c",
+    "bytes": 10922,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/usb_auto.py",
+    "sha256": "f78a1c622191472f731c363c98bf9744584f4b8d697837a0b9f2b7247ff8f3fb",
+    "bytes": 2467,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/usb_target.py",
+    "sha256": "1ba55215c60f644f5327e5439612886a42cf79fbe2c96c1237965174e1db727e",
+    "bytes": 1434,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/lib/usb_wizard.py",
+    "sha256": "ebbf27aae30eb77b35572e5fa38c126bbe4ca980e6ef4fdb4dadc58ce01eaf88",
+    "bytes": 4732,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/audio-rt/profile.json",
+    "sha256": "04cdf5d022135178c56a04b857d0129728f8d6749bcd0d610f8e9526d68ecd45",
+    "bytes": 581,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/default/profile.json",
+    "sha256": "b478949c711c77f94cbbb077372831497073e8c60ca4a34c8ed2cb187be3fa9e",
+    "bytes": 504,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/experimental/profile.json",
+    "sha256": "5e5a141583f1d3c2b6d0a6e0e0f57af837f69d60c5c5e55de25cac518a9c1ffb",
+    "bytes": 408,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/low-activity/profile.json",
+    "sha256": "31a8acffbf5ad3098325ef1dcf9fe84d625fd4599594ad7d2cf13d5b7bbc37b0",
+    "bytes": 586,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/network-stable/profile.json",
+    "sha256": "1f3f2eadb509af88e6bf0c047f0d89b47004e6a660cfc04d95bb45b92638fbaa",
+    "bytes": 199,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/safe/profile.json",
+    "sha256": "d34ceabf03cb4864c006fc7f3e6741fb633bd32b6fe71675e90dd9309789df95",
+    "bytes": 526,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/profiles/t630-fixed/profile.json",
+    "sha256": "2886ea802f3f68e5d554fd4b7646f42ff2fb5e22ee44902da37af61c6fe26f90",
+    "bytes": 405,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/REQUEST.txt",
+    "sha256": "728c79effb33b3938349388772a6f8229752d6818713863b5ce1d58c9cea51b1",
+    "bytes": 33066,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/REQUIREMENTS.json",
+    "sha256": "2b20b06871b0f194ac7d6188d04af2175e04867773f927d22a29b7e92974de7c",
+    "bytes": 34212,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/alsa.json",
+    "sha256": "dffe64624bf73460f2d1448e4f557346f7fda6e9f9310ea2e05a77eb53e5f527",
+    "bytes": 59,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/cpu.json",
+    "sha256": "5a4b6b1cf765c083998ce9baf130a1a013ab46e85197d8a8948a5835f71a5b0b",
+    "bytes": 840,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/irq.json",
+    "sha256": "e48ed7cf992a86fbe403b23612eb5bda4bf4014b477d31898ac5e70f42b7f630",
+    "bytes": 58,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/network.json",
+    "sha256": "7474887fe0700c0c1af4bb6e014cdeae679ce571fc13f00f769b88028a5d57f2",
+    "bytes": 62,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/services.json",
+    "sha256": "4fca417cfc7346c9d85048a4977539742b588a219d143516e28ae41b6ca5ffa2",
+    "bytes": 619,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/storage.json",
+    "sha256": "ed9e6824994f1344de5fb07674ae751800ffc2a83b7db3354db439e92cbea005",
+    "bytes": 62,
+    "mode": 420
+  },
+  {
+    "path": "opt/daphile-autotune/rules/usb.json",
+    "sha256": "52b85345611451d6f86d33816cf9751d38ddec8d2629bb83bf382fe8ac2b158d",
+    "bytes": 802,
+    "mode": 420
+  },
+  {
+    "path": "usr/local/sbin/daphile-audio-policy",
+    "sha256": "4edea7bf3723f8154b349a25b7cd2b1f5c76f48964121fe98f6a054ab093b4fd",
+    "bytes": 12675,
+    "mode": 493
+  }
+]

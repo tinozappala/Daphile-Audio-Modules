@@ -1,0 +1,58 @@
+{
+  "release": "6.12.111-rt21-daphile-v6",
+  "current_image_inheritance": "exact immutable fw2610071938 kernel/initrd/modules retained; full rootfs inheritance checked by builder",
+  "upstream_sources": [
+    {
+      "url": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.111.tar.xz",
+      "path": "sources\\linux-6.12.111.tar.xz",
+      "bytes": 148583092,
+      "sha256": "9e59dc67624188fa12a6601f9598499cd6662a9066be572b59f935e3d7849810"
+    },
+    {
+      "url": "https://www.kernel.org/pub/linux/kernel/projects/rt/6.12/patch-6.12.111-rt21.patch.xz",
+      "path": "sources\\patch-6.12.111-rt21.patch.xz",
+      "bytes": 18188,
+      "sha256": "8b9b7b59f0372e1e70b5fd99729765d335928ef0a0196fb1e869afc45fc69b55"
+    }
+  ],
+  "artifact_validation": {
+    "release": "6.12.111-rt21-daphile-v6",
+    "artifact_hashes_verified": {
+      "kernel-stage.tar.gz": true,
+      "samba-stage.tar.gz": true,
+      "kernel/kernel": true,
+      "kernel/kernel.config": true
+    },
+    "modules": 1843,
+    "all_module_vermagic_matches": true,
+    "embedded_config_matches": true,
+    "rt_patch_reverse_dry_run_passed": true,
+    "original_configuration_reproduced": false,
+    "current_complete_Daphile_vendor_patch_set_verified": false
+  },
+  "historical_official_Daphile_patches": {
+    "url": "https://www.daphile.com/gpl-src/00-Daphile-patches/",
+    "files": 32,
+    "categories": [
+      "Audio-Scan",
+      "busybox",
+      "faad2",
+      "grub",
+      "grub:2",
+      "kexec-tools-2.0.4-r2",
+      "logitechmediaserver",
+      "openrc",
+      "sox",
+      "squeezelite"
+    ],
+    "manifest_sha256": "af3045aaaa5208e3296b745cba910e44e4b9bf3b6839ba753cf3853b37071cf7",
+    "scope": "Historical official material; not proof of the complete 25.05 or current vendor patch set"
+  },
+  "limits": [
+    "Original vendor kernel configuration not reproduced",
+    "Complete current vendor kernel patch set not verified; historical published patches cannot establish completeness"
+  ],
+  "autotune_revision": "0.9.5",
+  "kernel_changed_by_this_revision": false,
+  "inheritance": "Exact fw1938kernel/initrd, modules and configuration retained and audited by immutable image builder"
+}

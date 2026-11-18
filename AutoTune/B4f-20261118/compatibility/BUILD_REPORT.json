@@ -1,0 +1,89 @@
+{
+  "status": "PASS_CANDIDATE_COMPOSITION_ONLY",
+  "component": "DaphileCamillaDSP",
+  "version": "0.4.49",
+  "base": {
+    "version": "0.4.47",
+    "archive": "DaphileCamillaDSP-0.4.47.zip",
+    "bytes": 3116734,
+    "sha1": "1a66e23ee2d78452b8b0ad02152b4ce705e13c77",
+    "sha256": "f0194ae2b1aeba2303f9ccf3c5a923aaf35534aade8c24626e6e9833a6cb5729",
+    "approved_entry_sha256": "e9b7b0b1ee701ea56d170d32797ee081c46fd1b42a24b380f01666c7c368a40b"
+  },
+  "candidate": {
+    "archive": "DaphileCamillaDSP-0.4.49.zip",
+    "bytes": 3117081,
+    "sha1": "9cbaadfb091ec318d54edf1072d7cb55fe731ae2",
+    "sha256": "64427d58da63f8383148fd8c5742fcb559186d9fdbce56806b5ba061096dfb27",
+    "minTarget": "9.1.1",
+    "maxTarget": "9.1.1"
+  },
+  "member_count": 39,
+  "changed_members": [
+    {
+      "path": "backend/native_player.py",
+      "before_sha256": "3a3f108378e78eedfce5efd19c55a3c2aa1464e975843d9303fad95efe572817",
+      "sha256": "22a2e57ed5ef76984b27f5e1845de82c54036355872444ed7561feee5fc5f7b4"
+    },
+    {
+      "path": "backend/peq/__init__.py",
+      "before_sha256": "860a142337f748d7857d82f71fc6c8ddf182dfba2b56a04884d7042b90f4d2db",
+      "sha256": "bcd7f287a2165c2e1922824faaa31a53c100b8b464483d22fa3241596f6c18fc"
+    },
+    {
+      "path": "install.xml",
+      "before_sha256": "3787c63fc8788c6e9b7702a7ac0896ba1d2216d8a9961db4107e142d2c349433",
+      "sha256": "3eb93667aa7d0352d71801dff406df51e790d87e87200139d36b9bc198f58241"
+    }
+  ],
+  "untouched_members": 36,
+  "checks": {
+    "exact_base": true,
+    "prototype_sha_verified": true,
+    "crc_pass": true,
+    "unsafe_members_absent": true,
+    "complete_approved_member_set": true,
+    "exactly_three_changed_members": true,
+    "all_other_member_bytes_identical": true,
+    "archive_modes_preserved": true,
+    "plugin_and_api_version_49": true,
+    "classic_gui_47_bytes_identical": true,
+    "engine_binary_identical": true,
+    "historical_provenance_identical": true,
+    "sha1_sha256_and_relative_module_hashes_verified": true
+  },
+  "guard_fixture": {
+    "file": "LINUX_FIXTURE_BENCHMARK.json",
+    "sha256": "3ea8b7242803bb42377277461777e3cab9d0949c15a4b1874058dcd78a4c3079",
+    "status": "PASS",
+    "cases": 45,
+    "scope": "local fixtures only; production untouched",
+    "kind": "regular-file-fixture-only",
+    "rounds": 6,
+    "iterations_per_round": 1000,
+    "output_checksums_equal": true,
+    "median_cpu_ns_per_call": {
+      "old": 1899072.814,
+      "new": 559171.2925
+    },
+    "median_cpu_reduction_percent": 70.55556330553631,
+    "qualifier": "No live procfs/audio or whole-worker CPU qualification; JSON/checksum overhead included equally"
+  },
+  "semantics": {
+    "guard_interval_ms": 2,
+    "classic_ui_base": "0.4.47",
+    "experimental_ui_48_included": false,
+    "routing_changed": false,
+    "dop_gate_changed": false,
+    "peq_algorithms_changed": false
+  },
+  "historical_metadata_note": "backend/PROVENANCE.json is unchanged historical metadata inherited from 0.4.47; this external report identifies the 0.4.49 maintenance candidate.",
+  "limits": [
+    "Composition and regular-file fixtures only; no native install or live audio qualification by this builder.",
+    "The measured reduction concerns guard reader calls, not total worker CPU or audio quality.",
+    "The original target platform and LMS limits are preserved."
+  ],
+  "production_updated": false,
+  "github_repository_updated": false,
+  "source_047_archive_unchanged": true
+}

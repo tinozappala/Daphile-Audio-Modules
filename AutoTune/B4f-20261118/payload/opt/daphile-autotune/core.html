@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Audio Setup / AutoTune</title><link rel="stylesheet" href="/css/dat-core.css?v=cd7016765d5c1d50"><script defer src="/js/dat-core.js?v=1a6dce606565086d"></script></head>
+<body><main>
+<header><span class="eyebrow">DAPHILE · AUDIO SETUP</span><h1>Ottimizza il tuo sistema audio</h1>
+<p>AutoTune confronta il sistema attuale con le alternative disponibili. Applica i cambiamenti che superano le prove e conserva i parametri quando il beneficio non è dimostrato.</p></header>
+<section aria-labelledby="state-title"><div class="row"><h2 id="state-title">Il tuo sistema</h2><span id="connection" role="status">Collegamento…</span></div>
+<p id="summary" aria-live="polite">Preparazione della lettura.</p><div id="hardware" class="facts"></div>
+<p id="usb-diagnostic-note" class="diagnostic-note" hidden></p>
+<div id="runtime-summary" class="runtime-view" hidden>
+<div class="runtime-heading"><h3>CPU e percorso audio</h3><div><span id="runtime-at"></span><button id="runtime-read" class="secondary compact" disabled>Rileggi</button></div></div>
+<div class="runtime-cards">
+<article class="runtime-card cpu-card"><h4>CPU</h4><div id="runtime-cpu-main" class="runtime-value"></div><p id="runtime-governor"></p><div id="runtime-cpus" class="cpu-chips"></div><small id="runtime-isolation"></small></article>
+<article class="runtime-card irq-card"><h4>Interrupt USB del DAC</h4><div id="runtime-irq-main" class="runtime-value"></div><p id="runtime-irq-placement"></p><div id="runtime-irq-counters" class="irq-counters"></div><small>Conteggi per CPU dall’avvio, non interrupt al secondo.</small></article>
+<article class="runtime-card scheduling-card"><h4>Schedulatori e priorità</h4><div id="runtime-priorities" class="priority-list"></div><small>Valori letti dal kernel, senza modifiche.</small></article>
+</div>
+<details class="runtime-details"><summary>Dettagli dei thread audio e USB</summary><div class="table-wrap"><table><thead><tr><th>Ruolo</th><th>Thread</th><th>CPU consentite</th><th>Schedulatore</th><th>Priorità</th></tr></thead><tbody id="runtime-threads"></tbody></table></div></details>
+</div>
+<p>Il sistema e i parametri POWER vengono letti automaticamente all’apertura.</p></section>
+<section aria-labelledby="tune-title"><h2 id="tune-title">Configura con AutoTune</h2>
+<p>Le prove possono ripetere o interrompere temporaneamente la riproduzione. Durata massima: 30 minuti, compreso il recupero. Salva prima le modifiche nella pagina Settings.</p>
+<p>La configurazione salvata viene ricontrollata dopo il riavvio, quando il lettore è attivo. Se modifichi Settings, AutoTune conserva le tue scelte e richiede una nuova calibrazione.</p>
+<div class="actions"><button id="configure" disabled>Avvia AutoTune</button><button id="cancel" class="secondary" disabled>Interrompi e recupera</button></div>
+<div id="progress-box" hidden><progress id="progress" max="100"></progress><p id="progress-text" aria-live="polite"></p></div>
+<div id="result" role="status"></div><p id="thermal-result" hidden></p></section>
+<details id="power"><summary>Parametri POWER e criteri di scelta</summary><p>Ogni controllo mantiene un esito esplicito: prova misurata, preferenza conservata, non applicabile o verifica necessaria.</p><button id="power-read" class="secondary">Verifica tutti i parametri POWER</button><div class="table-wrap"><table><thead><tr><th>Parametro</th><th>Valore salvato</th><th>Decisione</th><th>Motivo</th></tr></thead><tbody id="power-rows"></tbody></table></div></details>
+<details><summary>Controlli avanzati e recupero</summary><div class="actions"><button id="analyze" class="secondary">Aggiorna analisi</button><button id="setup" class="secondary">Leggi audio attuale</button><button id="restore" class="secondary">Ripristina configurazione precedente</button><button id="stability" class="secondary">Osserva la stabilità per 60 secondi</button><button id="search" class="secondary" disabled>Confronto esteso non disponibile</button></div><p>Per confrontare le impostazioni usa AutoTune, con durata massima totale di 30 minuti. Le finestre osservate non certificano tutti i formati o gli intervalli fra campioni.</p><pre id="diagnostic" tabindex="0"></pre></details>
+<footer>I risultati descrivono le misure raccolte e i parametri verificati. Una riduzione del carico non dimostra un miglioramento sonoro.</footer>
+</main></body></html>

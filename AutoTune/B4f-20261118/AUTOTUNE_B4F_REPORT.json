@@ -1,0 +1,171 @@
+{
+  "component": "Daphile AutoTune",
+  "version": "B4f",
+  "date": "2026-11-18",
+  "status": "VERIFIED_NATIVE_RUN_AND_PORTABLE_FIXTURES",
+  "delivery": {
+    "type": "separate-update-and-complete-module-source",
+    "base": "RC6 fw261118b7rc6 / AutoTune B4e",
+    "existing_ISO_changed": false,
+    "credentials_or_private_configuration_in_generic_bundle": false
+  },
+  "changes": [
+    "Readiness before audio mutations; real native AutoTune/queue locks inherited by recovery workers.",
+    "Controlled PCM with repeat-current; preserve playlist order, duplicates, flags and user configuration.",
+    "Capability-based physical ALSA USB, PCI/HDA, HDMI and platform targets; host fallback and portable CPU sensors.",
+    "USB without serial bound to the live connection and boot; non-USB avoids USB-only controls.",
+    "Native RT receiver path fix and exact token acknowledgment; USB protection remains enabled.",
+    "Uniform CPU sampling, exact scheduler observation window and bounded completion of already-open waits.",
+    "Validated per-CPU chronological merge with temporary indices; real clock regressions and event loss remain failures.",
+    "One logged pre-write baseline retry only for isolated CPU pressure, within the original deadline.",
+    "CPU-busy restored windows reject the comparison after verified recovery, without retry or promotion; zero complete comparisons remains inconclusive.",
+    "Crash-safe policy metadata recovery, conditional undo and per-cycle native locking.",
+    "Report-only probes removed from repeated scans; explicit inconclusive outcomes and actionable GUI explanations.",
+    "Byte-verified update installer with private backup, idempotent verification and rollback."
+  ],
+  "camilla_maintenance": {
+    "version": "0.4.49",
+    "release": "64427d58da63f8383148fd8c5742fcb559186d9fdbce56806b5ba061096dfb27",
+    "source_files_verified": 39,
+    "alive_and_ready": true,
+    "installation_preserved_queue_and_presets": true,
+    "previous_release_retained": true,
+    "guard_interval_ms": 2,
+    "classic_gui_preserved": true,
+    "changed_members": [
+      "backend/native_player.py",
+      "backend/peq/__init__.py",
+      "install.xml"
+    ],
+    "regular_file_fixture_cases": 45,
+    "fixture_cpu_reduction_percent": 70.5556,
+    "fixture_scope": "Guard reader on regular files only; not total worker CPU, live procfs or sound quality.",
+    "experimental_ui_048_preserved_in_github": true
+  },
+  "portable_validation": {
+    "environment": "Linux/root fixtures; hardware capabilities modeled where physical hardware is absent",
+    "scheduler_cases": 45,
+    "scheduler_cases_status": "PASS",
+    "scopes": [
+      "USB/PCI/HDA/HDMI/platform identification",
+      "1/2/4/64 CPU topologies and 64-stream trace merge",
+      "serial-less USB connection identity and Linux file descriptors",
+      "DMI alternatives and CPU/SoC thermal sensors",
+      "startup/death recovery, actual flock inheritance and pending-recovery admission",
+      "LMS queue/repeat preservation",
+      "policy metadata crashes, CAS and undo",
+      "deadline interruption and bounded baseline retry",
+      "historical read compatibility",
+      "GUI/bootstrap/cost paths",
+      "native Python/Perl RT receiver",
+      "six isolated Linux installer scenarios and full installed-source readback"
+    ]
+  },
+  "physical_validation": {
+    "environment": "HP t620, Linux 6.12.117-rt23-daphile-v6, RME ADI-2 DAC; local controlled PCM",
+    "job": "e6254646201b4c16b589a0656515c8f8",
+    "automatic_status": "retained-current",
+    "duration_seconds": 659.2210431089989,
+    "summary": {
+      "screened": 3,
+      "qualified": 0,
+      "qualified_families": 0,
+      "qualification_attempted": 0,
+      "deferred": 36,
+      "combinations_tested": 0,
+      "combinations_accepted": 0,
+      "complete_optimization": false
+    },
+    "reference_pairs": 3,
+    "observation_windows": 18,
+    "alternatives_compared": 3,
+    "complete_comparisons": 3,
+    "calibration_qualified": true,
+    "comparison_outcome": "alternatives-compared",
+    "trace_protocols": [
+      "scheduler-observation-window-tail-v2"
+    ],
+    "qualified_observation_windows": 18,
+    "rejected_observation_windows": 0,
+    "qualified_maximum_core_cpu_percent": 71.71717171717172,
+    "scheduler_accounting_versions": [
+      "runnable-interval-v5-per-cpu-merge"
+    ],
+    "scheduler_order_all_validated": true,
+    "scheduler_delivery_backtracks": 0,
+    "scheduler_merged_windows": 0,
+    "completed_tail_intervals": 1,
+    "maximum_core_cpu_percent": 71.71717171717172,
+    "maximum_trace_collector_cpu_percent": 12.520451378545326,
+    "maximum_temperature_c": 54.125,
+    "maximum_decode_cpu_seconds": 14.032867099,
+    "queue_unchanged": true,
+    "protected_configuration_hashes_unchanged": true,
+    "native_system_configuration_unchanged": true,
+    "native_audio_preferences_unchanged": true,
+    "fixture_absent": true,
+    "native_locks_free": {
+      "autotune.lock": true,
+      "queue.lock": true
+    },
+    "checks": {
+      "qualified_terminal": true,
+      "actual_alternatives": true,
+      "no_error": true,
+      "queue_unchanged": true,
+      "protected_configuration_unchanged": true,
+      "activity_complete": true,
+      "native_audio_configuration_unchanged": true,
+      "fixture_absent": true,
+      "locks_free": true,
+      "actual_qualified_windows": true,
+      "corrected_scheduler_accounting": true,
+      "trace_instances_absent": true,
+      "only_intended_workers": true,
+      "configured_readback": true,
+      "camilla_maintenance_active": true
+    }
+  },
+  "native_coordination": {
+    "exact_claim_token_acknowledged": true,
+    "worker_identity_matches": true,
+    "native_rt_deferred": true,
+    "usb_power_control": "on",
+    "native_errors": []
+  },
+  "trace_failure_resolution": {
+    "preserved_raw_sha256": "26a38a9379247e3ebe56e961c68569feb128501b21762bb517f62d0d7c8ae6b5",
+    "preserved_raw_events": 107876,
+    "raw_global_backtracks": 1,
+    "per_cpu_regressions": 0,
+    "corrected_replay_clock_errors": 0,
+    "recovered_wake_to_run_sample_ns": 15000,
+    "old_job_requalified": false,
+    "native_readonly_replay_cpu_seconds": 21.845316189,
+    "original_single_pass_replay_cpu_seconds": 9.946801285,
+    "performance_note": "Additional ordering validation costs CPU; no decoder speedup is claimed for the final v5.",
+    "kernel_internal_cause": "Not established; concurrent per-CPU delivery is consistent with the preserved evidence."
+  },
+  "private_recovery": {
+    "file": "AUTOTUNE_B4F_RECUPERO_E_COLLAUDI_20261118.private.zip",
+    "bytes": 16616462,
+    "sha256": "d96aee9bfdad85df45d34ddaa2723110ac191f507e12d9bdaa328ffd44710df5"
+  },
+  "limits": [
+    "Hardware portability fixtures do not certify every physical device or architecture.",
+    "The existing Daphile ISO is x86_64; this delivery does not create an ARM ISO.",
+    "Local PCM calibration does not qualify NAS playback, every rate/codec/DSD, bit-perfect output or analog sound quality.",
+    "No global optimum or audible improvement is claimed; deferred candidates remain explicit in the run.",
+    "The original 1800-second total budget includes the recovery reserve."
+  ],
+  "resources": {
+    "new_Cloud_jobs": 0,
+    "new_VMs": 0,
+    "production_services_to_preserve": [
+      "LMS",
+      "CamillaDSP",
+      "RME",
+      "AutoTune GUI"
+    ]
+  }
+}

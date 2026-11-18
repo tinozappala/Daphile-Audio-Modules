@@ -1,0 +1,15 @@
+{
+  "name": "t630-fixed",
+  "scope": "Explicit runtime trial",
+  "autostart": false,
+  "hardware": "HP t630 Thin Client with four physical cores and verified USB DAC",
+  "housekeeping_cpus": [
+    0,
+    1
+  ],
+  "usb_irq_cpu": 2,
+  "output_cpu": 3,
+  "boot_isolation_changed": false,
+  "rt_priorities_changed": false,
+  "validation": "Explicit runtime trial only; no hardware qualification is implied"
+}

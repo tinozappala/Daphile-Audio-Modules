@@ -1,0 +1,38 @@
+{
+  "domain": "cpu",
+  "version": 4,
+  "rules": [
+    {
+      "id": "independent-cpu-trial",
+      "when": {
+        "all": [
+          {
+            "all": [
+              {
+                "field": "dac.verified",
+                "op": "eq",
+                "value": true
+              },
+              {
+                "field": "dac.serial",
+                "op": "eq",
+                "value": true
+              }
+            ]
+          },
+          {
+            "field": "cpu.physical_cores",
+            "op": "ge",
+            "value": 3
+          }
+        ]
+      },
+      "action": {
+        "type": "profile",
+        "profile": "audio-rt"
+      },
+      "classification": "ADVANCED",
+      "reason": "Measure separated audio/USB affinity and supported performance governor"
+    }
+  ]
+}

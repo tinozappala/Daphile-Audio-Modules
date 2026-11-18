@@ -28,3 +28,11 @@ I tre archivi in `sistema/` raccolgono i sorgenti per chi integra una ISO compat
 Ogni archivio ha un inventario con l’impronta SHA-256 dei singoli file. Con la cartella completa su Linux, `sha256sum -c SHA256SUMS.txt` verifica i download. Con Python 3, `python3 verifica.py` verifica anche il contenuto degli ZIP e la versione dichiarata da ciascun plugin. Entrambi i controlli leggono solamente i file scaricati. [Manifest delle versioni](manifest.json) · [Condizioni di distribuzione e riferimenti](LICENZE.md)
 
 Tino Zappala, Milano - 2026
+
+## AutoTune B4f — aggiornamento successivo alla RC6
+
+[Scarica lo ZIP originale: aggiornamento e sorgenti](Daphile-AutoTune-B4f-SORGENTI-E-AGGIORNAMENTO-20261118.zip?raw=1) · [Guida](../AutoTune/B4f-20261118/LEGGIMI_AUTOTUNE_B4F_IT.md) · [Rapporto di collaudo](../AutoTune/B4f-20261118/AUTOTUNE_B4F_REPORT.json) · [Metadati del bundle](Daphile-AutoTune-B4f-SORGENTI-E-AGGIORNAMENTO-20261118.BUNDLE.json)
+
+L’archivio conserva i byte della consegna finale. La guida descrive l’installazione verificata e il recupero; il rapporto separa il risultato della prova nativa dalle fixture di portabilità. La ISO RC6 e il precedente ZIP B4e restano disponibili per la ricostruzione della distribuzione.
+
+Dimensione: 3619190 byte. SHA-256: `71772ef58e03434c18ee540f3f10b9b9bfec4318a22b3cb399ecdcf50154db85`.

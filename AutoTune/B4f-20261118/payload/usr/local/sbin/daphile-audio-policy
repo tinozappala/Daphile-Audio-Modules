@@ -1,0 +1,222 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Cwd qw(abs_path);
+use File::Basename qw(dirname basename);
+use File::Path qw(make_path);
+use JSON::PP;
+use Fcntl qw(:flock);
+use Digest::SHA ();
+use Time::HiRes ();
+
+my $test = @ARGV && $ARGV[0] =~ /^--test-root=(.+)$/ ? $1 : '';
+my $json = grep { $_ eq '--json' } @ARGV;
+my $boot = grep { $_ eq '--boot' } @ARGV;
+my $restore = grep { $_ eq '--restore' } @ARGV;
+my $ports_only = grep { $_ eq '--ports-only' } @ARGV;
+my ($sys,$proc,$run)=("$test/sys","$test/proc","$test/run/daphile-audio-policy");
+make_path($run);
+open my $lock,'>',"$run/lock" or die $!;
+flock($lock,LOCK_EX|($json?0:LOCK_NB)) or exit 0;
+my (@actions,@errors,@dacs,@threads,@unsupported_ports);
+my (%saved,%saved_threads);
+sub readval {
+ my ($p)=@_;open my $f,'<',$p or return '';
+ local $/;my $s=<$f>; $s='' unless defined $s;$s =~ s/\s+$//;return $s;
+}
+if (-f "$run/original.json") { eval {%saved=%{decode_json(readval("$run/original.json"))};}; }
+if (-f "$run/thread-original.json") {eval {%saved_threads=%{decode_json(readval("$run/thread-original.json"))};};}
+sub save_json {
+ my ($path,$data)=@_;my $tmp="$path.$$";
+ my $f;
+ unless(open $f,'>',$tmp){push @errors,"save $path: $!";return 0;}
+ unless(print $f encode_json($data)){push @errors,"write $path: $!";close $f;unlink $tmp;return 0;}
+ unless(close $f){push @errors,"flush $path: $!";unlink $tmp;return 0;}
+ unless(rename $tmp,$path){push @errors,"replace $path: $!";unlink $tmp;return 0;}
+ return 1;
+}
+sub change {
+ my ($p,$value,$why)=@_;return if $ports_only && $p !~ m{/disable$};return unless -f $p;
+ my $old=readval($p);
+ if ($p =~ m{/usb2_hardware_lpm$}) {$old='1' if $old eq 'enabled';$old='0' if $old eq 'disabled';}
+ return if $old eq $value;
+ $saved{$p}=$old unless exists $saved{$p};
+ return unless save_json("$run/original.json",\%saved);
+ if(open my $f,'>',$p){
+  my $payload="$value\n";
+  my $bytes=syswrite($f,$payload);my $closed=close $f;my $observed=readval($p);
+  if($p =~ m{/usb2_hardware_lpm$}){$observed='1' if $observed eq 'enabled';$observed='0' if $observed eq 'disabled';}
+  if(defined($bytes) && $bytes==length($payload) && $closed && $observed eq $value){push @actions,{path=>$p,previous=>$old,current=>$observed,reason=>$why};}
+  else {push @errors,"write/readback $p: expected $value, observed $observed ($!)";}
+ }else {push @errors,"open $p: $!";}
+}
+sub pref {
+ my ($key,$fallback)=@_;return $fallback if $test;
+ open my $f,'-|','/usr/local/bin/sysvar.sh',$key or return $fallback;
+ my $s=<$f>;close $f;chomp $s if defined $s;
+ return defined $s && length $s ? $s : $fallback;
+}
+if ($restore) {
+ for my $p(sort keys %saved){change($p,$saved{$p},'restore');}
+ for my $tid($ports_only ? () : keys %saved_threads){
+  my $s=readval("$proc/$tid/stat");next unless $s =~ /^\d+ \(.*\) (.*)$/;
+  my @f=split /\s+/,$1;next unless $f[19] eq $saved_threads{$tid}{start};
+  if (!$test && system('/usr/bin/chrt','-f','-p',$saved_threads{$tid}{priority},$tid)!=0) {push @errors,"restore priority for TID $tid failed";}
+ }
+ warn join("\n",@errors)."\n" if @errors;
+ exit(@errors?1:0);
+}
+my $ports=pref('hw_audio_usb_empty_ports','on');
+
+# A root-owned diagnostic hold survives native configuration regeneration.
+# It suspends ONLY empty-port gating, leaving DAC protection and RT unchanged.
+sub usb_diagnostic_hold {
+ my $folder="$test/mnt/hdd/daphile-autotune";
+ my $path="$folder/usb-port-diagnostic-hold.json";
+ return 0 if -l $folder || -l $path || !-f $path;
+ my @parent=stat($folder);my @f=stat($path);
+ return 0 unless @parent && @f && $parent[4]==0 && ($parent[2]&0022)==0 && $f[4]==0 && ($f[2]&0777)==0600 && $f[7]<4096;
+ my $value;eval {$value=decode_json(readval($path));};return 0 if $@ || ref($value) ne 'HASH';
+ return 0 unless join(',',sort keys %$value) eq 'enabled,reason,schema';
+ return 0 unless $value->{schema}==1 && $value->{reason} eq 'stability-diagnosis' && JSON::PP::is_bool($value->{enabled}) && $value->{enabled};
+ return 1;
+}
+my $usb_diagnostic_hold=usb_diagnostic_hold();
+$ports='off' if $usb_diagnostic_hold;
+
+my $rt=pref('hw_audio_rt','on');
+my (%controllers,%usb_cards);
+for my $card(glob("$sys/class/sound/card[0-9]*")){
+ next unless basename($card) =~ /^card(\d+)$/;my $number=$1;
+ my @playback=glob("$sys/class/sound/pcmC${number}D*p");next unless @playback;
+ my $device=abs_path("$card/device") || next;my $usb=$device;
+ while($usb ne dirname($usb) && !-f "$usb/idVendor"){$usb=dirname($usb);}
+ next unless -f "$usb/idVendor";
+ push @dacs,{alsa_card=>0+$number,usb_path=>basename($usb),vendor=>readval("$usb/idVendor"),product=>readval("$usb/idProduct"),name=>readval("$usb/product"),speed=>readval("$usb/speed"),device=>$usb};
+ my $ancestor=$usb;
+ while($ancestor ne dirname($ancestor)){
+  if(-f "$ancestor/idVendor" || basename($ancestor) =~ /^usb\d+$/){
+   change("$ancestor/power/control",'on','DAC or upstream hub: prevent runtime suspend');
+   change("$ancestor/power/autosuspend_delay_ms",'-1','DAC or upstream hub: prevent runtime suspend');
+   change("$ancestor/power/usb2_hardware_lpm",'0','DAC path: prevent L1 transition');
+   change("$ancestor/power/usb3_hardware_lpm_u1",'disable','DAC path: prevent U1 transition');
+   change("$ancestor/power/usb3_hardware_lpm_u2",'disable','DAC path: prevent U2 transition');
+  }
+  if(basename($ancestor) =~ /^usb\d+$/){
+   my $controller=dirname($ancestor);$controllers{$controller}=1;$usb_cards{$number}=$controller;
+   change("$controller/power/control",'on','DAC controller: prevent runtime suspend');
+  }$ancestor=dirname($ancestor);
+ }
+}
+
+# HP t630 firmware reports most physical ports as unknown, not hotplug.
+# Restrict this fallback to the verified onboard root hubs and AMD 0438:7900
+# per-port-switched hub. External hubs and other computer models stay unchanged.
+sub boot_empty_port_supported {
+ my ($port)=@_;
+ my $kind=readval("$port/connect_type");
+ return 0 unless readval("$port/state") eq 'not attached';
+ return 1 if $kind eq 'hotplug';
+ return 0 unless readval("$sys/class/dmi/id/product_name") eq 'HP t630 Thin Client';
+ return 0 unless $kind =~ /^(unknown|hardwired|not used)$/;
+ my $path=abs_path($port) || return 0;
+ my $hub=dirname(dirname($path));
+ my $vendor=readval("$hub/idVendor");my $product=readval("$hub/idProduct");
+ return 0 unless ($vendor eq '1d6b' && ($product eq '0002' || $product eq '0003'))
+                 || ($vendor eq '0438' && $product eq '7900');
+ my $controller=$hub;
+ while($controller ne dirname($controller) && !-f "$controller/class"){$controller=dirname($controller);}
+ return 0 unless readval("$controller/class") =~ /^0x0c03/;
+ my $address=basename($controller);my $driver=basename(abs_path("$controller/driver") || '');
+ return 0 unless ($address eq '0000:00:10.0' && $driver eq 'xhci_hcd')
+                 || ($address eq '0000:00:12.0' && $driver eq 'ehci-pci');
+ # The t630 EHCI root's second logical port accepts the write but always
+ # reports disable=0. This was measured on the real host; never report it off.
+ if($address eq '0000:00:12.0' && $vendor eq '1d6b' && basename($port) =~ /^usb[0-9]+-port2$/){
+  push @unsupported_ports,{path=>$path,reason=>'Il controllo della seconda porta logica EHCI non conferma la disattivazione su questo hardware'};
+  return 0;
+ }
+ # Recheck both logical halves immediately before the existing write path.
+ my $peer=abs_path("$port/peer");
+ return 0 if -e "$port/device" || ($peer && -e "$peer/device");
+ return 1;
+}
+
+if($boot && @dacs && $ports eq 'on'){
+ for my $port(glob("$sys/bus/usb/devices/*/*-port*")){
+  next unless -d $port;my $peer=abs_path("$port/peer");
+  next if -e "$port/device" || ($peer && -e "$peer/device");
+  next unless boot_empty_port_supported($port);
+  if(-f "$port/disable"){change("$port/disable",'1','unused external port; preserve occupied peers');}
+  else {change("$port/power/pm_qos_no_power_off",'0','unused port: allow power-off when supported');}
+ }
+}
+my %irqs;
+for my $c(keys %controllers){
+ for my $p(glob("$c/msi_irqs/*")){$irqs{basename($p)}=$c if basename($p) =~ /^\d+$/;}
+ my $n=readval("$c/irq");$irqs{$n}=$c if $n =~ /^[1-9]\d*$/;
+}
+
+# Deferral applies solely to a live, root-owned AutoTune RT claim. Native
+# USB suspend/LPM protection above continues to run on every invocation.
+my $autotune_rt_token='';
+sub autotune_rt_owner {
+ my $path="$run/autotune-rt.json";
+ return '' unless -f $path && !-l $path;
+ my @meta=stat($path);return '' unless @meta && $meta[4]==0 && ($meta[2]&0777)==0600 && $meta[7]<16384;
+ my $s;eval {$s=decode_json(readval($path));};return '' if $@ || ref($s) ne 'HASH';
+ my @keys=qw(schema token kind boot_id pid start audio_pid audio_start usb_path vendor product native_sha256 player_preferences player_sha256 issued expires);
+ return '' unless join(',',sort keys %$s) eq join(',',sort @keys) && $s->{schema}==1;
+ return '' unless $s->{token}=~/^[a-f0-9]{32}$/ && $s->{kind}=~/^(measurement|verified-policy)$/;
+ return '' unless @dacs==1 && $s->{usb_path} eq $dacs[0]{usb_path} && $s->{vendor} eq $dacs[0]{vendor} && $s->{product} eq $dacs[0]{product};
+ return '' unless $s->{native_sha256}=~/^[a-f0-9]{64}$/ && $s->{player_sha256}=~/^[a-f0-9]{64}$/;
+ return '' unless length($s->{player_preferences})<=4096 && $s->{player_preferences}=~m{\A/mnt/hdd/system/spac/(?:(?!\.{1,2}/)[^/\x00-\x1f\x7f]+/)+volume\.conf\z};
+ return '' unless $s->{boot_id} eq readval("$proc/sys/kernel/random/boot_id");
+ for my $which (['pid','start'],['audio_pid','audio_start']) {
+  my ($pid,$start)=@{$s}{@$which};return '' unless $pid=~/^[1-9][0-9]+$/ && defined $start && $start=~/^[0-9]+$/;
+  my $v=readval("$proc/$pid/stat");return '' unless $v=~/^\d+ \(.*\) (.*)$/;
+  my @f=split /\s+/,$1;return '' unless @f>19 && $f[19] eq $start;
+ }
+ return '' unless $s->{issued}=~/^[0-9]+(?:\.[0-9]+)?$/ && $s->{expires}=~/^[0-9]+(?:\.[0-9]+)?$/;
+ my $now=Time::HiRes::clock_gettime(Time::HiRes::CLOCK_MONOTONIC());
+ return '' unless $s->{issued}<=$now && $now<$s->{expires} && $s->{expires}<=$s->{issued}+60;
+ return '' unless Digest::SHA::sha256_hex(readval_raw("$test/var/daphile/conf/config.sys")) eq $s->{native_sha256};
+ return '' unless Digest::SHA::sha256_hex(readval_raw("$test$s->{player_preferences}")) eq $s->{player_sha256};
+ $autotune_rt_token=$s->{token};return $s->{kind};
+}
+sub readval_raw { my ($p)=@_;open my $f,'<',$p or return '';binmode $f;local $/;return <$f>; }
+my $autotune_rt_owner=autotune_rt_owner();
+
+if(!$ports_only && $rt eq 'on' && @dacs && !$autotune_rt_owner){
+ my @work;my %ready;
+ for my $pid(glob("$proc/[0-9]*")){
+  my @argv=split /\0/,readval("$pid/cmdline");my $usb_player=0;
+  for my $i(0..$#argv-1){
+   if($argv[$i] eq '-o' && $argv[$i+1] =~ /^hw:(\d+)(?:,|$)/){$usb_player=$usb_cards{$1} || 0;}
+  }
+  for my $task(glob("$pid/task/[0-9]*")){
+   my $comm=readval("$task/comm");my $s=readval("$task/stat");next unless $s =~ /^\d+ \(.*\) (.*)$/;
+   my @fields=split /\s+/,$1;next unless @fields>38;
+   my ($priority,$policy)=@fields[37,38];next unless $policy eq '1';
+   my ($desired,$controller);
+   if($comm =~ /^irq\/(\d+)-/ && $irqs{$1}){$desired=$priority>80?$priority:80;$controller=$irqs{$1};}
+   elsif($usb_player && $comm eq 'squeezelite' && $priority>=40 && $priority<=60){$desired=60;}
+   next unless defined $desired;
+   push @work,{tid=>basename($task),comm=>$comm,priority=>$priority,desired=>$desired,controller=>$controller,usb_player=>$usb_player,start=>$fields[19]};
+  }
+ }
+ for my $w(sort {$b->{desired}<=>$a->{desired}} @work){
+  my ($tid,$comm,$priority,$desired)=@{$w}{qw(tid comm priority desired)};
+  next if !$w->{controller} && !$ready{$w->{usb_player}};
+  $saved_threads{$tid}={priority=>0+$priority,start=>$w->{start}} unless exists $saved_threads{$tid};
+  next unless save_json("$run/thread-original.json",\%saved_threads);
+  my $code=$test?0:system('/usr/bin/chrt','-f','-p',$desired,$tid);
+  push @errors,"set priority for TID $tid failed" if $code!=0;
+  $ready{$w->{controller}}=1 if $w->{controller} && $code==0;
+  push @threads,{tid=>0+$tid,name=>$comm,before=>0+$priority,requested=>$desired,applied=>($code==0?JSON::PP::true:JSON::PP::false)};
+ }
+}
+my $report={time=>time(),unsupported_ports=>\@unsupported_ports,dacs=>\@dacs,actions=>\@actions,threads=>\@threads,errors=>\@errors,usb_policy=>$ports,usb_diagnostic_hold=>($usb_diagnostic_hold?JSON::PP::true:JSON::PP::false),rt_policy=>$rt,rt_coordinator=>$autotune_rt_owner,rt_coordinator_token=>$autotune_rt_token,rt_runtime_us=>readval("$proc/sys/kernel/sched_rt_runtime_us"),occupied_ports=>'preserved',empty_ports_without_dac=>'preserved'};
+open my $f,'>',"$run/status.json" or die $!;print $f JSON::PP->new->canonical->pretty->encode($report);close $f;
+print encode_json($report),"\n" if $test || $json;
+exit(@errors?1:0);

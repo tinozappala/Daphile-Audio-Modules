@@ -1,0 +1,12 @@
+{
+  "name": "default",
+  "version": 3,
+  "autostart": false,
+  "activatable": true,
+  "status": "restore captured pre-AutoTune state",
+  "factory_meaning": "pre-AutoTune custom Daphile state; not an official firmware factory reset",
+  "validation": "controlled runtime trial; physical full-format matrix pending",
+  "scope": "Restore original AutoTune values",
+  "descriptor_only": true,
+  "decision_implementation": "lib/engine.py:recommend and lib/advanced.py:plan; JSON is not executed"
+}

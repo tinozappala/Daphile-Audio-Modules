@@ -1,0 +1,89 @@
+{
+  "additional_ninth_root_observation_sha256": "57004209c62e3730d63e22cf971ccc46eb51892accc918d26dae90a82bf3e6c5",
+  "grants_authority": false,
+  "images": {
+    "/etc/init.d/mediaserver": {
+      "bytes": 1618,
+      "mode": 493,
+      "sha256": "d1fab77c44e4ceab46f27abb49ed6fdd6d4612cc93c5adfc3bc298d7187210de"
+    },
+    "/opt/mediaserver/Slim/Control/Commands.pm": {
+      "bytes": 97660,
+      "mode": 420,
+      "sha256": "78f5411c3e058945b546431369debd1449989875d443c632493fb85889ab7949"
+    },
+    "/opt/mediaserver/Slim/Control/Queries.pm": {
+      "bytes": 206040,
+      "mode": 420,
+      "sha256": "10e0c4c5698fc3bb4b19123e105e9a72d201e6b9ff3550537eece585156c4f97"
+    },
+    "/opt/mediaserver/Slim/Control/Request.pm": {
+      "bytes": 94962,
+      "mode": 420,
+      "sha256": "a8faaf05abb7aa1ffe906380980e83086277c95fe37614ebf164c0dd3355a1b7"
+    },
+    "/opt/mediaserver/Slim/Player/Client.pm": {
+      "bytes": 33595,
+      "mode": 420,
+      "sha256": "751431d37b42711fcadf7dbff83b30539081fc5ee864863fa15a90cd0433b82c"
+    },
+    "/opt/mediaserver/Slim/Player/Playlist.pm": {
+      "bytes": 31781,
+      "mode": 420,
+      "sha256": "205c36b9561e61417dc99271fc8572e7bab6599f68185e47b1a7b339be65e789"
+    },
+    "/opt/mediaserver/Slim/Player/Song.pm": {
+      "bytes": 26369,
+      "mode": 420,
+      "sha256": "e31f8093139ffae5e4e6626e42e97e8d2ab798f9791b68a69d6a8bae99708e57"
+    },
+    "/opt/mediaserver/Slim/Player/Source.pm": {
+      "bytes": 11877,
+      "mode": 420,
+      "sha256": "38478a08386e277db71fcb5bc6dd9ec9100d876434d39586361eaf970c0e11be"
+    },
+    "/opt/mediaserver/Slim/Player/StreamingController.pm": {
+      "bytes": 73432,
+      "mode": 420,
+      "sha256": "1e31177baa93f61328db30a1ab6cd2d289d70778e515adab9c503b3c10b3e215"
+    },
+    "/opt/mediaserver/Slim/Player/Sync.pm": {
+      "bytes": 3272,
+      "mode": 420,
+      "sha256": "958fae520dba8174dc98c6a84bd0bb35b92883d8ce6f23b5e0dfc38a1500a080"
+    },
+    "/opt/mediaserver/Slim/Web/JSONRPC.pm": {
+      "bytes": 16137,
+      "mode": 420,
+      "sha256": "0a400e61a792d31871f24b18a997fe8f5cad197174c7ab0ed5f164ade1389014"
+    },
+    "/opt/mediaserver/slimserver.pl": {
+      "bytes": 30867,
+      "mode": 493,
+      "sha256": "9063df4b9000d0893f0a22f6fb2272b732565c31fce7922de4be8cfeed54b891"
+    },
+    "/usr/bin/perl": {
+      "bytes": 14344,
+      "mode": 493,
+      "sha256": "f5595714ac096958723986b4ba0a61534f57eef0cb03cf177e81281a0bdad5a6"
+    },
+    "/usr/bin/start-stop-daemon": {
+      "bytes": 55384,
+      "mode": 493,
+      "sha256": "b90d186ef6d8383082c778027ab02afc1fb13e721f608a24c9d58dd16fb438de"
+    },
+    "/usr/libexec/rc/sh/openrc-run.sh": {
+      "bytes": 9286,
+      "mode": 493,
+      "sha256": "b981be09b4fcff42d9c9ad2b37d79cc56630dfbd488a8694b7c58d8cbc310679"
+    }
+  },
+  "init_argv_sha256": "6112fce36004b2ca0222595be084116c81145292609a22170d5587a84287b403",
+  "init_sha256": "27fe061bacfb96610ab98272a8231dc254bc1181e2186511ba439fdc2aaf8c01",
+  "kernel": "6.12.111-rt21-daphile-v6",
+  "native_argv_sha256": "101a76ab390f677f9b53c8361ed70de4cdb93965b5b9d55641b7d0a527c39abb",
+  "observation_source_sha256": "d0fa3b61745d29d84c4d986717c96c5c38aba45523e3e5d96cdd01ca93ee7cd4",
+  "observed_boot_sha256": "499f07f40a62916be14f2d9323246781ff1228daea6cc7b29e35476199dc96b2",
+  "qualified": false,
+  "source_profile": "STOCK0509_A3_NATIVE_OBSERVED_NOT_QEMU"
+}

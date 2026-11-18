@@ -1,0 +1,163 @@
+{
+  "status": "PASS",
+  "scope": "local fixtures only; production untouched",
+  "platform": "Linux-6.12.117-rt23-daphile-v6-x86_64-AMD_GX-415GA_SOC_with_Radeon-tm-_HD_Graphics-with-glibc2.40",
+  "python": "3.13.18 (main, Nov 17 2026, 21:06:02) [GCC 14.2.0]",
+  "checks": {
+    "pcm-s32": true,
+    "pcm-S16_LE": true,
+    "pcm-S24_LE": true,
+    "pcm-S24_3LE": true,
+    "pcm-S24_3_LE": true,
+    "rate-96000": true,
+    "rate-192000": true,
+    "parentheses-in-comm": true,
+    "rational-rate-suffix": true,
+    "closed-hardware": true,
+    "prepared": true,
+    "paused": true,
+    "xrun": true,
+    "running-substring-refused": true,
+    "different-owner": true,
+    "missing-owner": true,
+    "pid-reused": true,
+    "malformed-stat": true,
+    "incomplete-hardware": true,
+    "unsupported-rate": true,
+    "mono": true,
+    "native-dsd-container": true,
+    "unsupported-float-container": true,
+    "card-replaced": true,
+    "empty-card-id": true,
+    "missing-card": true,
+    "missing-status": true,
+    "missing-process": true,
+    "missing-hardware": true,
+    "invalid-text-hardware": true,
+    "unknown-session-refused": true,
+    "different-target-refused": true,
+    "four-fresh-opens-all-closed": true,
+    "partial-reads-continue-until-real-eof": true,
+    "oversized-observation-fails-closed": true,
+    "read-error-closes-descriptor": true,
+    "next-poll-reopens-replaced-process-file": true,
+    "pipeline-stable": true,
+    "pipeline-rate-changed": true,
+    "pipeline-format-changed": true,
+    "pipeline-writer-changed": true,
+    "pipeline-birth-changed": true,
+    "pipeline-device-removed": true,
+    "pipeline-dsd-format": true,
+    "pipeline-closed-idempotent": true
+  },
+  "benchmark": {
+    "kind": "regular-file-fixture-only",
+    "iterations_per_round": 1000,
+    "rounds": 6,
+    "output_checksums_equal": true,
+    "median_cpu_ns_per_call": {
+      "old": 1899072.814,
+      "new": 559171.2925
+    },
+    "median_cpu_reduction_percent": 70.55556330553631,
+    "rows": [
+      {
+        "round": 1,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1906611143,
+        "wall_ns": 1934538557,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 1,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 553569901,
+        "wall_ns": 561383473,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 2,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 512190111,
+        "wall_ns": 520650633,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 2,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1936954479,
+        "wall_ns": 1964219299,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 3,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1888372121,
+        "wall_ns": 1917266479,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 3,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 573613730,
+        "wall_ns": 581964305,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 4,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 574865336,
+        "wall_ns": 582509785,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 4,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1875478177,
+        "wall_ns": 1903675038,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 5,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1891534485,
+        "wall_ns": 1921333437,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 5,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 564772684,
+        "wall_ns": 571974263,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 6,
+        "variant": "new",
+        "iterations": 1000,
+        "cpu_ns": 521907209,
+        "wall_ns": 529304534,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      },
+      {
+        "round": 6,
+        "variant": "old",
+        "iterations": 1000,
+        "cpu_ns": 1908168759,
+        "wall_ns": 1936059566,
+        "output_sha256": "d41c5cc5d121d900fe8669b5ac0bd8439c681c2ceab0c2db6065b3606d445ec0"
+      }
+    ],
+    "qualifier": "No live procfs/audio or whole-worker CPU qualification; JSON/checksum overhead included equally"
+  }
+}
