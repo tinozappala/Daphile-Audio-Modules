@@ -1,0 +1,93 @@
+{
+  "formato": "Daphile firme ISO v1",
+  "firma_nominativa": "Tino Zappala, Milano - 2026",
+  "algoritmo": "Ed25519",
+  "chiave_pubblica_base64": "bVuhF+wh+75TndXPyd3CyQo7J3ZZQvd5sPZDt56GOKc=",
+  "file": [
+    {
+      "percorso": "AutoTune-B4f-avvio-guidato.zip",
+      "byte": 69548,
+      "sha256": "6a2f4e5951b98d405ac963dba171c7adbc30de6d745b2371a4754d8883929b1c",
+      "ed25519": "wXWXhy+tN5A7gm/JCOXy+DvnbFUzUtA3Rg+JaGbbVOzTjYaf66mBpI0WzwjseOlDj2iS8rhmzaIghVqPMgHKCA=="
+    },
+    {
+      "percorso": "BUILD_REPORT.json",
+      "byte": 4350,
+      "sha256": "bf7a0bd8e05dbcd46ec113529ed61565538866a60a0f54e59eb6ebf012bc09ac",
+      "ed25519": "ng2jJrcI5N75+68+b38qAORSoMjIBcLRGSAK+HWomfcvemrGhq4G6WdEyMYskOvqVcRsNUWP3Tbdpp3BlPo7Aw=="
+    },
+    {
+      "percorso": "COLLAUDO.json",
+      "byte": 7332,
+      "sha256": "09e54954bc28fd8cb3873ba267e8b700d10a267d3a85e24c7960b2d327746600",
+      "ed25519": "qyKiIfIbXbl0TMweY8s2C2J0y9biLt1Y5MW2qu9NHVKhfWFAp46FCBzMB93cu6f6W1Qha6i0a0XF4HidVFvQBA=="
+    },
+    {
+      "percorso": "Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso",
+      "byte": 438140928,
+      "sha256": "62c907d438a2be83987f417faff73d98cc82373cf8339e7e42e0e7f3106d1dda",
+      "ed25519": "NqDldA7KuxRpsaaFmlfZXXiNeaMtEkc+5zGgxu+TTtUl0W0W2XuUrBloKLn3kEmIUiSSfBzRLXVtF3XABRVnAg=="
+    },
+    {
+      "percorso": "ISO/Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso.part0001",
+      "byte": 100663296,
+      "sha256": "5919e62a51e31d1b4bb000f330660be6cb97ef4125886f571408015bb59437b8",
+      "ed25519": "YLVggT953zUnQTbl1vbK6FrwqbIupprCJ6gpVkeA/4ld/bNTa0WgAGkStFc3wmCQQoWU3LGZgG61g1L40Vs7CQ=="
+    },
+    {
+      "percorso": "ISO/Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso.part0002",
+      "byte": 100663296,
+      "sha256": "e355521faf764fd854f9e0d04379363fe727f18a4cd8d81954c4a8f61b82f51a",
+      "ed25519": "tl4k4NasxMojN2wFqTDkYy1LY9nJG75GMcP+d9uccwXG3FAaHTTMpd1YR0tD4TJVyzfin/ItMim5jJhqOKEfAg=="
+    },
+    {
+      "percorso": "ISO/Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso.part0003",
+      "byte": 100663296,
+      "sha256": "fd6c45c7b1a26349828b5ec492f7b94a5c69b827a6f52d8f312169f0437595d2",
+      "ed25519": "gwUFLNZ7nOQur+qbw0f4OWszLrq0HD8U3uO0j8BtunUGSRflgesxCvWA4q+LSqsC8oAI3O3HvkZMRegBP0gRCw=="
+    },
+    {
+      "percorso": "ISO/Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso.part0004",
+      "byte": 100663296,
+      "sha256": "a9fa810730bdaeeba42a3cf6ee22b7ef1ddeb080655dbc2b4db0212201d3cf77",
+      "ed25519": "NfVKIkCB7jsokjBiwathJCVGcZi1msotYdTMb+ICRLZt+6JWbEUoGqj/vr6HmJ+6A833Yq54T+b7gUktWyTsDA=="
+    },
+    {
+      "percorso": "ISO/Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso.part0005",
+      "byte": 35487744,
+      "sha256": "e1715999b83b802d22cc55847d10f1dbd6b276b44ff1b8a0e877d273678c0c39",
+      "ed25519": "+nm2SiJ5pQu86YxXAAAQnQmrlRoZYf0huNVXJ1XjPCz7vsqMRV2v/VPqQFdNIG6Yu/9JMf0Mn4XwvU3jFnPNCw=="
+    },
+    {
+      "percorso": "ISO/MANIFEST_PARTI.json",
+      "byte": 1351,
+      "sha256": "a69ebc5f0459f89cde7f9478a10d8dfc8ec8152dd1da2fb92bae4dfe60119d07",
+      "ed25519": "8kiaeNKQvR7Spp1CVguR7uKUbnZXI/E5Sbgj1AXZ3y2/nycvopJgV/JBT9LjLfGJImTH2k/Mx4nT9z9MQpPgCw=="
+    },
+    {
+      "percorso": "ISO/RICOMPONI.py",
+      "byte": 3484,
+      "sha256": "0fcbebb510aa2e6d32160bbb17a09c650a03c4b75f6fb1ab18770310e06aefec",
+      "ed25519": "83O1YIN6kIw561/4atefAiO3AlvV/8zaM8YT02p5inAoPwjW9hGZBCdhoPpNpDMqkkqEqbxOUNsQt6Ys/BPTBA=="
+    },
+    {
+      "percorso": "LEGGIMI_RC7_IT.md",
+      "byte": 4700,
+      "sha256": "e32b498aeafcbf4893fa6ff6b95118382009921a2e3ca3991c58045b6781b326",
+      "ed25519": "hjT9RBNtv+Hl09zArwfH4I6r0M+4MganwYAOeBz5X8pUvDSigvNM9RDqdU8xmyIgLTHdEzvNtPSl1huSMGB4DQ=="
+    },
+    {
+      "percorso": "RICETTA_RC7.zip",
+      "byte": 21790,
+      "sha256": "a29edf392f7766c5c8a8016e365eecbbdda6f8bd94e27e63a1a5668f6de76301",
+      "ed25519": "83fP5f3np4EWK4uI/S8s3YhHrhr2YuZm69W96jrxH4uyatisMn8DtLImUwTUSK//ry5LxmpckFj6KspRfIqKCw=="
+    },
+    {
+      "percorso": "firme_consegna.py",
+      "byte": 4534,
+      "sha256": "0daf98c6836b24b3929dbb1d19a1a41db8a68024f613c3f894eec53afcc488ca",
+      "ed25519": "61rdOSZDth+CEBKrnscRr/4wF+Yq9nK+oOF4a4xIIDk1EeGQWqIqL4JIzBMrQssOUfpJNsQzmp56yOz4FG1wCw=="
+    }
+  ],
+  "firma_catalogo": "q/v6HgEAY+7I6v0i2IDcsX/9JPAGQIt9Av3/ZEFdeFM2MOZsmiyyV/Rb0B/jTGP1QXp9/OnUuBMCklIs7j21Dw=="
+}

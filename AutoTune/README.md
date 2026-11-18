@@ -1,5 +1,7 @@
 # AutoTune
 
+L’[aggiornamento con avvio a un clic](../ISO-RC7/autotune/) si applica a B4f ed è incluso nella [ISO RC7](../ISO-RC7/).
+
 L’edizione attuale è **[B4f del 18 novembre 2026](B4f-20261118/)**. La cartella contiene tutti i file dello ZIP finale, inclusi sorgenti completi, installer, prove, guida e rapporto.
 
 - [Guida all’aggiornamento](B4f-20261118/LEGGIMI_AUTOTUNE_B4F_IT.md)

@@ -2,6 +2,8 @@
 
 Estensioni audio mantenute da Tino Zappala per Daphile. La versione RC6 comprende **RME 0.5.7** e **Camilla 0.4.47**. La successiva **Camilla 0.4.48** introduce le viste Ascolto e Taratura, il confronto fra due regolazioni e l’importazione guidata dei filtri REW.
 
+La [ISO RC7](ISO-RC7/) integra AutoTune B4f con avvio a un clic e Camilla 0.4.49 con l’interfaccia classica. La guida include ricetta, collaudo, firme e il collegamento alla ISO sul Drive.
+
 ## Scarica i moduli
 
 | Scelta | Scaricamento |

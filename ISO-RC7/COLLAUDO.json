@@ -1,0 +1,203 @@
+{
+  "status": "UEFI_LIVE_PASS_CAMILLA_START_LIMITATION",
+  "date": "2026-11-18",
+  "ISO": "Daphile-RAM-A7-Camilla049-RME057-AutoTuneB4f-RC7-20261118.iso",
+  "ISO_bytes": 438140928,
+  "ISO_sha256": "62c907d438a2be83987f417faff73d98cc82373cf8339e7e42e0e7f3106d1dda",
+  "verified_squashfs_sha256": "0661cffee3ebc8919163c0ff58f1b99b408a5eac747a1515d3710d05717e82f2",
+  "contents": {
+    "AutoTune": "B4f with one-click guided start",
+    "Camilla": "0.4.49 classic interface",
+    "CamillaDSP engine": "4.1.3",
+    "RAM": "A7",
+    "RME": "0.5.7",
+    "LMS": "9.1.1"
+  },
+  "integration": {
+    "filesystem_nodes_verified": 31240,
+    "BIOS_and_UEFI_boot_catalog": true,
+    "input_RC6_SHA256": "c11c16fe07466af293c437d7eaaaa5a514e586c913e4b64b1197f8f979f63ed3",
+    "kernel_sha256": "de89025b35c1ea5c567d06d89a196777fce7153c9aa99d964a100b642ec3d843",
+    "initrd_sha256": "6a551bcb3cc378dda333eb352a1dc4d454334c43a93725166dd3780a082278f4",
+    "build_seconds": 263.96,
+    "instance_DATA_included": false
+  },
+  "exact_UEFI_boot": {
+    "status": "REVIEW",
+    "mode": "uefi",
+    "iso_sha256": "62c907d438a2be83987f417faff73d98cc82373cf8339e7e42e0e7f3106d1dda",
+    "DATA": "new ext4 fixture with observer only",
+    "last_web_error": "TimeoutError: timed out",
+    "guest": {
+      "scope": "Fresh ext4 DATA with observer only. ISO is read-only.",
+      "efi": true,
+      "kernel": "6.12.117-rt23-daphile-v6",
+      "python": "3.13.18",
+      "checks": {
+        "versions_and_files": {
+          "AutoTune": "B4f",
+          "Camilla": "0.4.49",
+          "AutoTune_files_verified": 125
+        },
+        "LMS": "9.1.1",
+        "AutoTune_HTTP": {
+          "panel_http": 200,
+          "javascript_sha256": "6662f65dc1564c6e90c9af8aef949db3e25cb083c3aa707ea8251bcf29f85b39",
+          "broker_idle": true
+        },
+        "Camilla_factory": {
+          "version": "0.4.49",
+          "release": "64427d58da63f8383148fd8c5742fcb559186d9fdbce56806b5ba061096dfb27",
+          "LMS_files_verified": 39
+        },
+        "mounted_RC7_root": "0661cffee3ebc8919163c0ff58f1b99b408a5eac747a1515d3710d05717e82f2"
+      },
+      "cold_Camilla_API": {
+        "result": "UNAVAILABLE",
+        "error": "FileNotFoundError: [Errno 2] No such file or directory: '/mnt/hdd/system/daphile-audio-host/modules/DaphileCamillaDSP/current.json'",
+        "diagnostics": {
+          "daphile-modules": {
+            "exit": 0,
+            "status": "*   status: started"
+          },
+          "daphile-audio-host": {
+            "exit": 3,
+            "status": "*   status: stopped"
+          },
+          "daphile-autotune-gui": {
+            "exit": 0,
+            "status": "*   status: started"
+          },
+          "mediaserver": {
+            "exit": 0,
+            "status": "*   status: started"
+          },
+          "host": {},
+          "Camilla": {},
+          "RME": {},
+          "native_enabled": {
+            "DaphileCamillaDSP": "enabled",
+            "DaphileRME": "enabled"
+          },
+          "host_socket_present": false
+        }
+      },
+      "Camilla_diagnostic_retry": {
+        "command": "/sbin/rc-service daphile-audio-host start",
+        "exit": 0
+      },
+      "seconds_since_observer": 361.656,
+      "status": "REVIEW",
+      "errors": {
+        "Camilla_API": "FileNotFoundError: [Errno 2] No such file or directory: '/mnt/hdd/system/daphile-audio-host/modules/DaphileCamillaDSP/process.json'"
+      },
+      "diagnostics": {
+        "daphile-modules": {
+          "exit": 0,
+          "status": "*   status: started"
+        },
+        "daphile-audio-host": {
+          "exit": 0,
+          "status": "*   status: started"
+        },
+        "daphile-autotune-gui": {
+          "exit": 0,
+          "status": "*   status: started"
+        },
+        "mediaserver": {
+          "exit": 0,
+          "status": "*   status: started"
+        },
+        "host": {
+          "status.json": {
+            "errors": {
+              "DaphileRME": "Backend failed to become ready; inspect private controller log",
+              "DaphileCamillaDSP": "Backend failed to become ready; inspect private controller log"
+            }
+          }
+        },
+        "Camilla": {
+          "current.json": {
+            "version": "0.4.49",
+            "status": "failed-start"
+          }
+        },
+        "RME": {
+          "current.json": {
+            "version": "0.5.7",
+            "status": "failed-start"
+          }
+        },
+        "native_enabled": {
+          "DaphileCamillaDSP": "enabled",
+          "DaphileRME": "enabled"
+        },
+        "host_socket_present": true
+      }
+    },
+    "web_core": {
+      "AutoTune_JS_sha256": "6662f65dc1564c6e90c9af8aef949db3e25cb083c3aa707ea8251bcf29f85b39",
+      "Camilla_catalog_version": "0.4.49",
+      "Camilla_catalog_sha1": "9cbaadfb091ec318d54edf1072d7cb55fe731ae2",
+      "LMS": "9.1.1"
+    },
+    "web_AutoTune_broker": "PASS",
+    "boot_seconds": 985.33,
+    "cleanup": {
+      "pid_exited": true,
+      "acpi_requested": true,
+      "qmp_quit": true
+    },
+    "ISO_byte_verified_after_boot": true
+  },
+  "BIOS_reference": {
+    "scope": "Earlier build before the guided-start code. Final ISO has the verified hybrid catalog.",
+    "iso_sha256": "db0a77cea80e34ba273f45a7b857daaa97da51b8475352fda233233387360fd7",
+    "web_core": {
+      "AutoTune_JS_sha256": "1a6dce606565086def78a88dd64cb78c4e9aeb0ceb52d2591826c0fe4248ce57",
+      "Camilla_catalog_version": "0.4.49",
+      "Camilla_catalog_sha1": "9cbaadfb091ec318d54edf1072d7cb55fe731ae2",
+      "LMS": "9.1.1"
+    },
+    "AutoTune_broker": "PASS",
+    "Camilla_API": "HTTPError: HTTP Error 404: Not Found",
+    "cleanup": {
+      "pid_exited": true,
+      "acpi_requested": true,
+      "qmp_quit": true
+    }
+  },
+  "native_Camilla": {
+    "status": "PASS",
+    "environment": "t620, fresh synthetic data in a separate network namespace",
+    "bundle": "64427d58da63f8383148fd8c5742fcb559186d9fdbce56806b5ba061096dfb27",
+    "session_HTTP": 200,
+    "status_HTTP": 200,
+    "seconds": 2.095,
+    "temporary_worker_stopped": true
+  },
+  "migration_fixtures": {
+    "scope": "only synthetic DATA, actual consolidation function and package bytes",
+    "RC6_to_049_and_idempotent_repeat": "PASS",
+    "custom_source_preserved": "PASS",
+    "newer_release_preserved": "PASS"
+  },
+  "guided_start": {
+    "native_runtime_fixture_cases": 20,
+    "result": "PASS",
+    "UI_fixture": "One click emits one request without a modal; actionable Italian notices; technical diagnostics in advanced controls.",
+    "installed_live_t620": true,
+    "updated_files_verified": 10,
+    "read_only_panel_probe": "PASS while music was playing; can_prepare true",
+    "unconfirmed_API_request_refused": true,
+    "production_playback_queue_and_presets_preserved_during_update": true,
+    "physical_calibration_after_UI_change": "Not initiated against the user's actual queue by this test"
+  },
+  "prior_physical_B4f": {
+    "scope": "Same audio measurement workflow before guided preparation",
+    "t620_RME": "PASS retained-current",
+    "valid_windows": 18,
+    "complete_comparisons": 3,
+    "errors": 0
+  }
+}
