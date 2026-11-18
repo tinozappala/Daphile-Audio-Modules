@@ -1,0 +1,25 @@
+{
+  "version": "RC6",
+  "archive": "AudioHost-RC6-sorgenti.zip",
+  "sha256": "73533e1df7cdfdec7cf33aa5d99ffdd224be5edd229187bfc551d4258987a200",
+  "files": {
+    "LICENSE": "cfc56074eef91b5afbf3ac246386bf001446c19c1d2a5b8f2c81ef6f3b41992e",
+    "etc/init.d/daphile-audio-host": "10c705a0de690b6ed50938ea76c48d6252a60a55756fb8b997b20f66e9fe168f",
+    "etc/init.d/daphile-identity": "8eb63ef5af0477881cec3a3d174e7cb7c8b11e5c9d1a9da6df68842308abe2b0",
+    "etc/init.d/daphile-modules": "4bc3b7fedb02f43e05f011f764188907f22757654d8d15c0c139894dcb09bd42",
+    "opt/daphile-ram/bootstrap_release.py": "f80dddae12851a05b22246dd4df370326352d5e218c4d4d58cce274095dba5fe",
+    "opt/daphile-ram/consolidate_camilla.py": "3cc1e96a6c57b1237f301aff849f6a5e4eb5a7224dcf9a73a5283393ea287301",
+    "usr/local/share/daphile-release/audio-host/code/audio_context.py": "5a501a931608cb14d05f0d6df6b556a6f0866ac68f917f56afcdc2a91114a419",
+    "usr/local/share/daphile-release/audio-host/code/broker.py": "fe5116dd1449ba442ee6bd81672d201f32f338af6c78676c88c0d59de72700eb",
+    "usr/local/share/daphile-release/audio-host/code/common.py": "66fa2caba8dd1efd2c17df015ed33fc3daaa90e911848a0f50eb4122f5eae8c6",
+    "usr/local/share/daphile-release/audio-host/code/host_config_transaction_a7.py": "aa3f14916b8d93494a9f5ce37e6593274d7bbf7e3283014bb09bbafb11d30165",
+    "usr/local/share/daphile-release/audio-host/code/host_fresh_transaction_j3.py": "0f42364133fafa6f34a5a57df694bc53d71881cfd09ec2eb8b3d7bdbab6dfe47",
+    "usr/local/share/daphile-release/audio-host/code/host_transaction.py": "f1d40db775d3f256007848f0256ed5de16f9e30f263208623ffd096b0486fad9",
+    "usr/local/share/daphile-release/audio-host/code/hostctl.py": "a006a9cc1ebf85ca1e6b1e420f8db01a1b9f481eb7b11fa9f09722b8d4615006",
+    "usr/local/share/daphile-release/audio-host/code/menu.py": "5c8c0a3b6d3db06a85497829f346124d7a02726796ee8dc69c5761096bd62b0c",
+    "usr/local/share/daphile-release/audio-host/code/native_host_existing_update_a6.py": "4b3f9c9fce8662f1121f34b830c7ec78f4b28c877e408b0c72cc76ea47f4941d",
+    "usr/local/share/daphile-release/audio-host/code/repository.py": "98cd0ce3f03dadede327074b798e5fface65097d831a4397390a56c3b136c179",
+    "usr/local/share/daphile-release/audio-host/code/sidebar.py": "858764a9a05e9b05c9fd88493cce3c5ea09d71d0e8e15720ef52f3f28355d62f",
+    "usr/local/share/daphile-release/audio-host/code/worker.py": "ecb3b9264a3b9e3ef4660a9c8ecd7bd8c49e0e4e0bd779599203aaf592024182"
+  }
+}

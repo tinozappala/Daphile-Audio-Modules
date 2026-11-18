@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "data": "2026-11-18",
+  "firmware": "fw261118b7rc6",
+  "iso_sha256": "c11c16fe07466af293c437d7eaaaa5a514e586c913e4b64b1197f8f979f63ed3",
+  "fonti_rc6_sha256": "c9c5c7486459ff565c015d37749b834928c077b21c4bea497781cf08ba61ce20",
+  "motore": {
+    "nome": "CamillaDSP",
+    "versione": "4.1.3",
+    "commit": "05e9cfcdf43c0dfe078ed3feb8af4c8bd701fd74",
+    "eseguibile_sha256": "e69090287d9af87eeb5720d59cf8ebf8cab1ed3adbe24de1dd60b66a47f5385b"
+  },
+  "pacchetti": [
+    {
+      "nome": "DaphileCamillaDSP",
+      "versione": "0.4.47",
+      "tipo": "plugin-lms",
+      "collocazione": "Nella ISO RC6",
+      "file": "plugin/DaphileCamillaDSP-0.4.47.zip",
+      "byte": 3116734,
+      "sha256": "f0194ae2b1aeba2303f9ccf3c5a923aaf35534aade8c24626e6e9833a6cb5729",
+      "voci": 39,
+      "inventario": "inventari/DaphileCamillaDSP-0.4.47.json",
+      "riferimento": "Bundle e inventario della ricetta RC6"
+    },
+    {
+      "nome": "DaphileRME",
+      "versione": "0.5.7",
+      "tipo": "plugin-lms",
+      "collocazione": "Nella ISO RC6",
+      "file": "plugin/DaphileRME-0.5.7.zip",
+      "byte": 93308,
+      "sha256": "6593f7d98dcf1d38aba28ecbbce310f9fb160e28a6d09ccffd3a80f42f23fa88",
+      "voci": 34,
+      "inventario": "inventari/DaphileRME-0.5.7.json",
+      "riferimento": "Catalogo Audio Host, bundle RME e tabella di filesystem ereditata dalla RC6"
+    },
+    {
+      "nome": "DaphileCamillaDSP",
+      "versione": "0.4.48",
+      "tipo": "plugin-lms",
+      "collocazione": "Candidata successiva alla RC6",
+      "file": "plugin/DaphileCamillaDSP-0.4.48.zip",
+      "byte": 3045661,
+      "sha256": "f2692711eaa8ce884ae7a66bc4ca50a7539f4e4ea4e6b0331715dedef42cf8f0",
+      "voci": 39,
+      "inventario": "inventari/DaphileCamillaDSP-0.4.48.json",
+      "riferimento": "Pacchetto e inventario del collaudo 0.4.48"
+    },
+    {
+      "nome": "RAM",
+      "versione": "A7",
+      "tipo": "sorgenti-di-sistema",
+      "collocazione": "Componente integrato nella RC6",
+      "file": "sistema/RAM-A7-sorgenti.zip",
+      "byte": 48454,
+      "sha256": "886bf230cc3eaae087a7b0ace8b69b6cad6dfc50028b2fbd633b78142a8a1d75",
+      "voci": 21,
+      "inventario": "inventari/RAM-A7-sorgenti.json",
+      "componenti_verificati": {
+        "runtime_rc5_ereditato": 13,
+        "ricetta_rc6": 0,
+        "integrazione_e_test": 7
+      }
+    },
+    {
+      "nome": "AutoTune",
+      "versione": "B4e",
+      "tipo": "sorgenti-di-sistema",
+      "collocazione": "Componente integrato nella RC6",
+      "file": "sistema/AutoTune-B4e-sorgenti.zip",
+      "byte": 323017,
+      "sha256": "05b200bc0224c6467eb111171171c78b1c6d5a3a0839d829d5a9d811c10e99f0",
+      "voci": 116,
+      "inventario": "inventari/AutoTune-B4e-sorgenti.json",
+      "componenti_verificati": {
+        "runtime_rc5_ereditato": 115,
+        "ricetta_rc6": 0,
+        "integrazione_e_test": 0
+      }
+    },
+    {
+      "nome": "AudioHost",
+      "versione": "RC6",
+      "tipo": "sorgenti-di-sistema",
+      "collocazione": "Componente integrato nella RC6",
+      "file": "sistema/AudioHost-RC6-sorgenti.zip",
+      "byte": 78983,
+      "sha256": "73533e1df7cdfdec7cf33aa5d99ffdd224be5edd229187bfc551d4258987a200",
+      "voci": 18,
+      "inventario": "inventari/AudioHost-RC6-sorgenti.json",
+      "componenti_verificati": {
+        "runtime_rc5_ereditato": 15,
+        "ricetta_rc6": 2,
+        "integrazione_e_test": 0
+      }
+    }
+  ]
+}

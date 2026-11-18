@@ -1,0 +1,32 @@
+[
+  {
+    "bytes": 4761698,
+    "file": "builder/SDK_LINK_PYTHON_RC5_COMPLETO.zip",
+    "sha256": "7391cbab5c31b47ea59bf5e573338fc4ba78c31f157ea6b4f9af9653613cd2b9"
+  },
+  {
+    "bytes": 291998,
+    "file": "CURL_RC5_LINK_SDK.zip",
+    "sha256": "9597926939c84c1778d15fd05a725bd023114934583c6bda962fa99328f0d4e0"
+  },
+  {
+    "bytes": 105366,
+    "file": "inputs/OPENSSH_RC5_LINK_SDK.zip",
+    "sha256": "89cef90e96b3f218eca844719143a09d680ae4bed1f21e40fb225def0a3984b4"
+  },
+  {
+    "bytes": 1073977,
+    "file": "inputs/FFMPEG_RC5_LINK_SDK.zip",
+    "sha256": "f409451905718ac4eb1a9c3bf1a304d18fddcefcd8fb72c4bbfae5b2d8dd336a"
+  },
+  {
+    "bytes": 5246090,
+    "file": "inputs/PERL_LMS_RC5_PUBLIC_FIXTURE.zip",
+    "sha256": "fd12c054ef38ef4e3a7e134bfc6a61bd10af7472278bdef7deb838b5b398b3f7"
+  },
+  {
+    "bytes": 416207,
+    "file": "PYYAML_RC5_PUBLIC_TEST_INPUT.zip",
+    "sha256": "427adba19353636fe87d8dee4a7d04d6763d644034b3076cd44dcbe8295ba152"
+  }
+]

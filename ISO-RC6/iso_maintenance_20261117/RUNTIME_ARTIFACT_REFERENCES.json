@@ -1,0 +1,51 @@
+[
+  {
+    "bytes": 477656,
+    "component": "lighttpd",
+    "file": "lighttpd-1.4.85-daphile-x86_64-cloud.tar.gz",
+    "sha256": "7bb967537c5abc42177b77ec302cf902dd6878c9e449cb61540bc69ea66f859f",
+    "version": "1.4.85+daphile1"
+  },
+  {
+    "bytes": 6272421,
+    "component": "python",
+    "file": "python-3.13.18-daphile-x86_64-cloud.tar.gz",
+    "sha256": "763da87f90333e2cbdf867d4c1671af494be66db2c00dee5615dc0b6b92150d2",
+    "version": "3.13.18"
+  },
+  {
+    "bytes": 785769,
+    "component": "curl",
+    "file": "curl-8.23.0-daphile-x86_64-cloud.tar.gz",
+    "sha256": "6415d7b5e431feea78bab0dad3d69b9beb92edbab001512dd91182a0f0ccffad",
+    "version": "8.23.0"
+  },
+  {
+    "bytes": 43180629,
+    "component": "kernel",
+    "file": "kernel-6.12.117-rt23-daphile-v6-cloud.tar.gz",
+    "sha256": "83f289b04020d449150e1b6357ab4f494055d5a302eef6c43ba6612d6e108273",
+    "version": "6.12.117-rt23-daphile-v6"
+  },
+  {
+    "bytes": 20300312,
+    "component": "ffmpeg",
+    "file": "ffmpeg-6.1.6-daphile-x86_64-cloud.tar.gz",
+    "sha256": "fbc8dbfe5f4f26dd9c504fbeddd08f7d47bccc39c2c98fb8747216b365723776",
+    "version": "6.1.6"
+  },
+  {
+    "bytes": 3721391,
+    "component": "openssh",
+    "file": "openssh-10.6p2-daphile-x86_64-cloud.tar.gz",
+    "sha256": "3652bc69143f2ebfb108f887164066738b5f9e7447ba0afce47f0dc66c47074d",
+    "version": "10.6p2"
+  },
+  {
+    "bytes": 13705794,
+    "component": "perl",
+    "file": "perl-5.40.5-daphile-x86_64-cloud-r3.tar.gz",
+    "sha256": "d904e309ef6546cff6b252215cfc922dcaf6f8ba8b8e2a9357004e29fa6261e8",
+    "version": "5.40.5"
+  }
+]

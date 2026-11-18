@@ -1,0 +1,27 @@
+{
+  "sorgenti": {
+    "file": "SORGENTI_E_RICETTE_RC6_CAM47_20261118.zip",
+    "bytes": 374262796,
+    "sha256": "c9c5c7486459ff565c015d37749b834928c077b21c4bea497781cf08ba61ce20"
+  },
+  "base": {
+    "file": "Daphile-fw2610191845-RAM-A7-Camilla042-RME057-AutoTuneB4e-RC5-20261117.iso",
+    "bytes": 431949824,
+    "sha256": "863e583550f354bd88244ede28beae3fee43bf379189afcb8c3cee5715547fcc"
+  },
+  "iso": {
+    "file": "Daphile-RAM-A7-Camilla047-RME057-AutoTuneB4e-RC6-20261118.iso",
+    "bytes": 438124544,
+    "sha256": "c11c16fe07466af293c437d7eaaaa5a514e586c913e4b64b1197f8f979f63ed3"
+  },
+  "camilla": {
+    "file": "DaphileCamillaDSP-0.4.47.zip",
+    "bytes": 3116734,
+    "sha256": "f0194ae2b1aeba2303f9ccf3c5a923aaf35534aade8c24626e6e9833a6cb5729"
+  },
+  "rme": {
+    "file": "DaphileRME-0.5.7.zip",
+    "bytes": 93308,
+    "sha256": "6593f7d98dcf1d38aba28ecbbce310f9fb160e28a6d09ccffd3a80f42f23fa88"
+  }
+}

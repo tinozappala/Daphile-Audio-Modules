@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+base=$(cd "$(dirname "$0")" && pwd)
+exec apt-get -o Dir::Etc::parts=- -o Dir::Etc::sourcelist="$base/apt/sources.list" -o Dir::Etc::sourceparts=- -o Dir::State::lists="$base/apt/lists" -o Dir::Cache="$base/apt/cache" -o Acquire::Languages=none -o Acquire::Retries=0 -o Acquire::https::Timeout=20 "$@"

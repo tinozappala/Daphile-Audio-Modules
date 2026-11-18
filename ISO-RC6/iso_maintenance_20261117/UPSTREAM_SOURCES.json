@@ -1,0 +1,92 @@
+[
+  {
+    "file": "c-ares-1.34.5.tar.gz",
+    "bytes": 1009261,
+    "sha256": "7d935790e9af081c25c495fd13c2cfcda4792983418e96358ef6e7320ee06346",
+    "url": "https://github.com/c-ares/c-ares/releases/download/v1.34.5/c-ares-1.34.5.tar.gz"
+  },
+  {
+    "file": "curl-8.23.0.tar.xz",
+    "bytes": 2990916,
+    "sha256": "8dadd7d2536a314f982ad05a651b713f426bf7d02cc2c76cffb9796f2218e6c5",
+    "url": "https://curl.se/download/curl-8.23.0.tar.xz"
+  },
+  {
+    "file": "ffmpeg-6.1.6.tar.xz",
+    "bytes": 10497884,
+    "sha256": "d4fcb164028dd3beee5d92c0ac72e46aac6973c75ea12dc14de07bf8f407370a",
+    "url": "https://ffmpeg.org/releases/ffmpeg-6.1.6.tar.xz"
+  },
+  {
+    "file": "libpsl-0.21.5.tar.gz",
+    "bytes": 7624251,
+    "sha256": "1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208",
+    "url": "https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz"
+  },
+  {
+    "file": "lighttpd-1.4.85.tar.xz",
+    "bytes": 897120,
+    "sha256": "18de51b393bac4a6827879e1a7ff377c169e414bae92cd245091d80fc2601d13",
+    "url": "https://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-1.4.85.tar.xz"
+  },
+  {
+    "file": "linux-6.12.117.tar.xz",
+    "bytes": 148959092,
+    "sha256": "74e99aa5e60e242e0a165fed8cb2ea0d054bf7a401f01861d403d75733456613",
+    "url": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.117.tar.xz"
+  },
+  {
+    "file": "nghttp2-1.65.0.tar.xz",
+    "bytes": 1604848,
+    "sha256": "f1b9df5f02e9942b31247e3d415483553bc4ac501c87aa39340b6d19c92a9331",
+    "url": "https://github.com/nghttp2/nghttp2/releases/download/v1.65.0/nghttp2-1.65.0.tar.xz"
+  },
+  {
+    "file": "nghttp3-1.8.0.tar.xz",
+    "bytes": 398640,
+    "sha256": "a9dd28970977e6802a3eaf2cfaeae6d0fae60c8d2c0f2c4ce600036a7998ee9a",
+    "url": "https://github.com/ngtcp2/nghttp3/releases/download/v1.8.0/nghttp3-1.8.0.tar.xz"
+  },
+  {
+    "file": "ngtcp2-1.26.0.tar.xz",
+    "bytes": 733792,
+    "sha256": "7804aa0fa1c39942ba322a90805824c37231f7675b08d0c3cc4332858a7b085e",
+    "url": "https://github.com/ngtcp2/ngtcp2/releases/download/v1.26.0/ngtcp2-1.26.0.tar.xz"
+  },
+  {
+    "file": "openssh-10.6p2.tar.gz",
+    "bytes": 2355372,
+    "sha256": "9ae44872090cf2f06b3cf9ff147e7f16f309671340763ed2f99248398ae29d5b",
+    "url": "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p2.tar.gz"
+  },
+  {
+    "file": "openssl-3.5.9.tar.gz",
+    "bytes": 53279637,
+    "sha256": "603f5602e2eef00d77fbd429d34dcd5822bb301757a1bc9cdb24c670f1eb859a",
+    "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.9/openssl-3.5.9.tar.gz"
+  },
+  {
+    "file": "patch-6.12.117-rt23.patch.xz",
+    "bytes": 18180,
+    "sha256": "b243f72ec92f7e7653f896738d11307190f3c1af12b1123e5b7138e1a748c31c",
+    "url": "https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.117-rt23.patch.xz"
+  },
+  {
+    "file": "perl-5.40.5.tar.xz",
+    "bytes": 13950656,
+    "sha256": "1fe6f825b487d26c35aa51a35f52fe494d4cfc77b8051f8b1ee3391bf0289bc6",
+    "url": "https://www.cpan.org/src/5.0/perl-5.40.5.tar.xz"
+  },
+  {
+    "file": "Python-3.13.18.tar.xz",
+    "bytes": 23243936,
+    "sha256": "abb0102e6d4ae027509bcb82327d9dd85515b44a3ba8ad538cfc5e9847029f68",
+    "url": "https://www.python.org/ftp/python/3.13.18/Python-3.13.18.tar.xz"
+  },
+  {
+    "file": "zlib-1.3.1.tar.gz",
+    "bytes": 1512791,
+    "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+    "url": "https://zlib.net/fossils/zlib-1.3.1.tar.gz"
+  }
+]

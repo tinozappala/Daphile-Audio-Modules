@@ -1,0 +1,11 @@
+# Licenze e provenienza
+
+| Componente | Titolare e condizioni |
+| --- | --- |
+| Integrazioni DaphileCamillaDSP, DaphileRME, RAM, AutoTune e Audio Host | Il codice originale di Tino Zappala è distribuito sotto [licenza MIT](licenze/MIT-Tino-Zappala.txt). La licenza deve accompagnare le copie. |
+| Motore CamillaDSP 4.1.3 | Henrik Enquist e contributori. L’eseguibile distribuito è la versione Linux x86-64 con ALSA e WebSocket. Il progetto offre [GPL versione 3](licenze/LICENSE_GPLv3.txt) oppure [MPL versione 2.0](licenze/LICENSE_MPL2.0.txt). Il sorgente corrispondente è disponibile pubblicamente al commit `05e9cfcdf43c0dfe078ed3feb8af4c8bd701fd74`. [Sorgenti dell’eseguibile in archivio](https://github.com/HEnquist/camilladsp/archive/05e9cfcdf43c0dfe078ed3feb8af4c8bd701fd74.tar.gz) · [Revisione e licenze](https://github.com/HEnquist/camilladsp/tree/05e9cfcdf43c0dfe078ed3feb8af4c8bd701fd74) · [Binari pubblicati dal progetto](https://github.com/HEnquist/camilladsp/releases/tag/v4.1.3) |
+| Parti grafiche derivate da CamillaEQ nella 0.4.48 | AlfredJKwack, [licenza MIT](licenze/CamillaEQ-MIT.txt). Gli asset del plugin conservano l’avviso originale. [Revisione di riferimento](https://github.com/AlfredJKwack/camillaEQ/tree/e8afd8de351b1d759c5a7b6a93aa2a7e8418d64c) |
+| Patch di Lyrion Music Server in RAM | Il contesto dei file di Logitech e della Lyrion Community è distribuito sotto GPL versione 2. Il testo è incluso nello ZIP RAM in `patches-lms/COPYING`. [Sorgenti LMS](https://github.com/LMS-Community/slimserver) |
+| Protocollo RME e distribuzione Daphile | L’integrazione RME del progetto usa il protocollo documentato per ADI-2. Il produttore fornisce manuali e firmware del dispositivo. I nomi Daphile e RME appartengono ai rispettivi titolari. [Download RME](https://rme-audio.de/downloads.html) · [Daphile](https://www.daphile.com/) |
+
+La ricetta della RC6 identifica Camilla 0.4.47 e RME 0.5.7. I tre pacchetti di plugin sono copie degli archivi di riferimento e conservano i rispettivi hash. L’archivio della 0.4.48 corrisponde alla candidata collaudata dopo la RC6. L’inventario generale identifica la ISO con la sua impronta e dichiara separatamente la provenienza della candidata. [Manifest](manifest.json)

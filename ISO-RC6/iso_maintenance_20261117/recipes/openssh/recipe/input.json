@@ -1,0 +1,24 @@
+{
+  "source": {
+    "component": "OpenSSH",
+    "version": "10.6p2",
+    "file": "openssh-10.6p2.tar.gz",
+    "url": "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p2.tar.gz",
+    "bytes": 2355372,
+    "sha256": "9ae44872090cf2f06b3cf9ff147e7f16f309671340763ed2f99248398ae29d5b",
+    "license": "BSD-style and other included permissive notices",
+    "license_member": "openssh-10.6p2/LICENCE",
+    "license_sha256": "5bb5b160726ef5756e4f32fe95b35249c294962419650f48d05134b486d27ccb",
+    "signature_file": "openssh-10.6p2.tar.gz.asc",
+    "signature_url": "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-10.6p2.tar.gz.asc",
+    "gpg_exit_code": 0,
+    "signature": "VALIDSIG",
+    "signing_fingerprint": "7168B983815A5EEF59A4ADFD2A3F414E736060BA",
+    "primary_fingerprint": "7168B983815A5EEF59A4ADFD2A3F414E736060BA",
+    "publisher_identity_source": "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/RELEASE_KEY.asc",
+    "expected_publisher_key_fingerprint": null,
+    "signature_log": "openssh-10.6p2.tar.gz.verify.txt",
+    "published_sha256_source": "https://www.openssh.org/releasenotes.html",
+    "published_sha256_matches": true
+  }
+}

@@ -9,3 +9,5 @@
 | Motore CamillaDSP 4.1.3 | Dipendenza esterna. Si applicano le licenze dei relativi sorgenti e dipendenze. [Progetto originario e licenze](https://github.com/HEnquist/camilladsp/tree/v4.1.3). |
 
 Il modulo RME contiene codice di integrazione del progetto. Usa il protocollo del produttore, descritto nella tabella MIDI RME 0.2 del 30 settembre 2023. I marchi Daphile e RME appartengono ai rispettivi titolari. Il firmware di base e la documentazione commerciale non sono distribuiti in questo repository.
+
+I [pacchetti dei moduli](Pacchetti/LICENZE.md) conservano gli avvisi delle versioni distribuite. Le [ricette RC6](ISO-RC6/README.md) indicano le fonti dei componenti esterni. La firma di Tino Zappala accompagna la distribuzione della raccolta. Ogni componente conserva la propria attribuzione e le rispettive condizioni di licenza.

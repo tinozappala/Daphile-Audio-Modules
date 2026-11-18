@@ -1,0 +1,28 @@
+{
+  "version": "A7",
+  "archive": "RAM-A7-sorgenti.zip",
+  "sha256": "886bf230cc3eaae087a7b0ace8b69b6cad6dfc50028b2fbd633b78142a8a1d75",
+  "files": {
+    "LICENSE": "cfc56074eef91b5afbf3ac246386bf001446c19c1d2a5b8f2c81ef6f3b41992e",
+    "etc/init.d/ramcache-control": "32e7472c998dabbd01577f1f82d473bf8798291438dcd960e091bed111dc518e",
+    "etc/init.d/ramcache-prepare": "d140e37ddb534071747a4bb7b81a4e469bbc556583d158b11064fa0cb0daf326",
+    "opt/daphile-ram/boot_logs.py": "b5e82a7059e87cde062cc9f566ab4d72a005abbe1eb3b2c93ca7387b44995b4c",
+    "opt/daphile-ram/live_switch.py": "ee23f292a2a6f8739bf5d840fdf2ac7a65fa95193012782323212ee93f4ec311",
+    "opt/daphile-ram/ram-navigation.js": "c8957baaaa36a74925f73096e46ce15101203b775a55e26d11e91110c1944a4e",
+    "opt/daphile-ram/ram_navigation.py": "d53486bde4c6ad0290253a8c0f1b89df00f7ae4d765876dd117baa73b803dd48",
+    "opt/daphile-ram/ram_read_status.py": "b5cbbd45047ca71fc3af6067bcbdcdf0fc746508b937ec218eca0055469fcb1d",
+    "opt/daphile-ram/ramcache.py": "730275b143b3d6d61cfedce008d14f9fe8c8cac7f0bab728aca9d64eaa9aeea9",
+    "opt/daphile-ram/rolling.py": "6e39345079d9b45d1be840e74b13528f34e062e3a5eba067aaf7da84c594f876",
+    "opt/mediaserver/Daphile/Ram/Continuous.pm": "d9cf3a91b379ca6ca37943f538d3dc78a06e047d45a2db5d94731f2270b77ec0",
+    "opt/mediaserver/Daphile/Ram/DevModeHTTP.pm": "4941f4c6293420caa90073cc1f6fc271810db7237aa66ca15ecafc2f27239f90",
+    "patches-lms/COPYING": "f6b78c087c3ebdf0f3c13415070dd480a3f35d8fc76f3d02180a407c1c812f79",
+    "patches-lms/Song.pm.patch": "023311184e33a99890c4aeccb7d0dd84d57ed75e439569a7fec3152f0dae3060",
+    "patches-lms/StreamingController.pm.patch": "063449d00496c1c3f48dac7585380b02387722ccfacc6012a789c6a4994525a5",
+    "patches-lms/slimserver.pl.patch": "7dcd8e7ecebe686a585db0b8297400d4fd38d95324babd8223f07ffc40e1494d",
+    "platform/boot-changes.json": "d0d86ca3dacfb337ac6f687a0b3e567d7fd4f2595dbebe4973afd42dab26ee35",
+    "tests/test_boot_logs.py": "ec4187b87eaf379c6857351c43863c6e09fcb18934d919ec7c287559b3d01c7d",
+    "tests/test_rolling.py": "474dc01eee8c8fde2400cf91dc5e0ca70b414309ce12165d9d28e0601315c4c0",
+    "var/www/localhost/cgi-bin/RamNavigation": "441d01e32167760dd4eff2c0255e672c04a6bade6eedb01cd97d9b8f70127ab4",
+    "var/www/localhost/cgi-bin/RamReadStatus": "2a991d4ad37241dc4f2ae10763145e3d104814f7dfe1d53a4d6239f91d349b3b"
+  }
+}
