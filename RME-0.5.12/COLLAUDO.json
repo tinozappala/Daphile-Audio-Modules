@@ -1,0 +1,78 @@
+{
+  "version": "0.5.12",
+  "release": "868cc26a3b04dd9b422741f49f344e471949a1246fbdc2375a5dab2358950ce8",
+  "dac_unchanged": true,
+  "camilla_process_unchanged": true,
+  "initial_status_seconds": 0.498,
+  "first_read_seconds": 5.505,
+  "richiamo_IEM": {
+    "baseline": {
+      "recall_seconds": 3.755,
+      "phases": [
+        {
+          "phase": "full-read",
+          "seconds": 1.165,
+          "completion": "qualified-inventory-quiescence"
+        },
+        {
+          "phase": "bank-read",
+          "seconds": 0.365,
+          "completion": null
+        },
+        {
+          "phase": "watchdog-start",
+          "seconds": 0.571,
+          "completion": null
+        },
+        {
+          "phase": "set",
+          "seconds": 0.134,
+          "completion": null
+        },
+        {
+          "phase": "full-read",
+          "seconds": 0.753,
+          "completion": "qualified-inventory-quiescence"
+        }
+      ],
+      "status": "applied-verified",
+      "restore_status": "restored-verified",
+      "all_registers_restored": true,
+      "slot_20_unchanged": true
+    },
+    "candidate": {
+      "recall_seconds": 3.021,
+      "phases": [
+        {
+          "phase": "full-read",
+          "seconds": 0.742,
+          "completion": "configuration-quiescence"
+        },
+        {
+          "phase": "bank-read",
+          "seconds": 0.365,
+          "completion": null
+        },
+        {
+          "phase": "watchdog-start",
+          "seconds": 0.571,
+          "completion": null
+        },
+        {
+          "phase": "set",
+          "seconds": 0.131,
+          "completion": null
+        },
+        {
+          "phase": "full-read",
+          "seconds": 0.812,
+          "completion": "configuration-quiescence"
+        }
+      ],
+      "status": "applied-verified",
+      "restore_status": "restored-verified",
+      "all_registers_restored": true,
+      "slot_20_unchanged": true
+    }
+  }
+}
