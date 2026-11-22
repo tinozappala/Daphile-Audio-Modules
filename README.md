@@ -4,6 +4,8 @@ Estensioni audio mantenute da Tino Zappala per Daphile. La versione RC6 comprend
 
 La [ISO RC7](ISO-RC7/) integra AutoTune B4f con avvio a un clic e Camilla 0.4.49 con l’interfaccia classica. La guida include ricetta, collaudo, firme e il collegamento alla ISO sul Drive.
 
+La [consegna per il t620 con Daphile originale 25.05](T620-Daphile-25.05/) comprende RME 0.5.22 e Camilla 0.4.51, sorgenti, pacchetti e prove dei profili cuffie.
+
 ## Scarica i moduli
 
 | Scelta | Scaricamento |

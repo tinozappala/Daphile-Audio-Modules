@@ -1,0 +1,60 @@
+DAPHILE ORIGINALE SUL T620
+Consegna consolidata del 21 novembre 2026
+
+Firmware 25.05-b251550 x86_64 RT, slot fw2505251550. GRUB avvia questa
+versione come predefinita e offre RC6 fw261118b7rc6 per sei secondi.
+La ISO originale rimane nei quattro volumi .zip.001–.004 della cartella
+superiore. Parti da .001, estrai la ISO e confronta SHA-256 prima di usarla.
+
+623dd475a6cb3f8528bbdb7d2234dfb1fbd582becdd1458d97ec845eeb6b0c15
+
+Contenuto della consegna
+
+- DaphileRME-0.5.16.zip contiene il pacchetto completo, inclusi i sorgenti.
+- DaphileCamillaDSP-0.4.49.zip contiene il pacchetto classico completo,
+  inclusi i sorgenti e il motore CamillaDSP 4.1.3.
+- SORGENTI_DOCUMENTAZIONE_E_PROVE_T620.zip contiene il broker e gli agganci
+  in uso, il codice di integrazione, i builder, le basi per la ricostruzione,
+  la documentazione e le prove. SHA256SUMS_CONTENUTO.txt elenca i file interni.
+- SHA256SUMS.txt permette di controllare i file consegnati in questa cartella.
+
+Uso e compatibilità
+
+Su questa ISO i pulsanti RME e CamillaDSP nella barra di Audio Player
+aprono i pannelli del broker audio. La riproduzione usa il LMS 9.0.3
+distribuito nella ISO. I manifest dei pacchetti dichiarano LMS 9.1.1.
+Su 9.0.3 il punto di accesso collaudato è il pannello Daphile via CGI.
+
+RME 0.5.16 riconosce la commutazione associata di EQ e toni con Load B/T
+with Preset. Il controllo Toni attivi è disponibile anche con un preset
+hardware selezionato. Sul DAC reale sono stati spenti i toni su Line e
+riletti tutti i 220 registri. L’EQ è rimasto acceso e il preset 1 è rimasto
+attivo. Il pulsante di recupero compare accanto alla segnalazione quando
+il modulo rileva una transazione da recuperare.
+
+Camilla è stata provata con un FLAC dal NAS sul DAC RME in PCM stereo
+S32_LE a 44,1 kHz. La riproduzione DSD è stata provata sul percorso nativo
+del DAC. Il broker convalida lo stato processing restituito da Camilla.
+Il primo riavvio ha incontrato la protezione del segnalibro con LMS in pausa.
+Lo STOP controllato ha liberato il percorso. Sono stati confermati la ripresa
+dello stesso brano dalla posizione salvata e il DSP operativo a 44,1 kHz.
+Il rapporto distingue le prove fisiche dallo stato letto nell’ultimo controllo.
+
+I file di controllo privati, le preferenze, la coda e la configurazione
+Storage risiedono sul T620. Le credenziali della ISO restano nel file
+originale della cartella superiore. Per recuperare il firmware precedente,
+seleziona RC6 nel menu GRUB. Il backup della migrazione sul T620 è in
+/mnt/hdd/system/stock-2505251550-private.
+
+Ricostruzione e verifica locale
+
+Estrai l’archivio dei sorgenti in una cartella. Il builder RME usa la base
+0.5.7 inclusa e i delta correnti. Dalla radice estratta esegui
+python -B rme_review_20261119/deploy_t620.py per ricostruire il pacchetto.
+I test sono in rme_review_20261119. Per Camilla segui il file RIPRODUCIBILITA_IT.md
+nella cartella camilla_riproducibilita, con la base 0.4.47 inclusa.
+
+Gli operatori T620 documentano l’installazione e il collaudo sul sistema
+reale. Presuppongono l’accesso amministrativo già configurato e verificano
+i percorsi e lo stato del T620. Eseguili in una finestra di manutenzione
+solo dopo aver controllato le precondizioni dell’operazione specifica.

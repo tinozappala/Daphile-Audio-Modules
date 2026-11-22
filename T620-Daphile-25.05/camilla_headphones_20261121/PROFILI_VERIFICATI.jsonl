@@ -1,0 +1,5 @@
+CREATED Denon AH-D9200 bands 10 pre_gain -7.2
+CREATED HiFiMAN Edition XS bands 10 pre_gain -5.8
+DELETE_BLOCKED_AND_EDIT_VERIFIED Denon AH-D9200
+DELETE_BLOCKED_AND_EDIT_VERIFIED HiFiMAN Edition XS
+{"status": "PASS", "original_presets_preserved": true, "active_profile_unchanged": true, "protected_ids": ["headphones-denon-ah-d9200", "headphones-hifiman-edition-xs"], "count": 5, "native_audio_mode": "native-bypass"}

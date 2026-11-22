@@ -1,0 +1,55 @@
+{
+  "firmware": "25.05-b251550 RT",
+  "kernel": "6.12.30-daphile",
+  "boot_default": "fw2505251550",
+  "boot_recovery": "fw261118b7rc6",
+  "boot_files_md5_verified": true,
+  "audio_host": {
+    "broker_sha256": "0a88a0df6fd87a17724d3aecf0c69b982aabdbc4820e5cf9e6b55d95fb0b4f95"
+  },
+  "modules": {
+    "DaphileRME": {
+      "version": "0.5.16",
+      "sha256": "867475209a3bd52c62be7c9eaa6d0e3a7d52f69563509957e207a77e89f3939c",
+      "package_files_verified": 32
+    },
+    "DaphileCamillaDSP": {
+      "version": "0.4.49",
+      "sha256": "64427d58da63f8383148fd8c5742fcb559186d9fdbce56806b5ba061096dfb27",
+      "package_files_verified": 39,
+      "engine": "CamillaDSP 4.1.3 (05e9cfc)"
+    }
+  },
+  "rme_panel": {
+    "snapshot_seconds": 5.24,
+    "hardware_memory_20_read": true,
+    "pending": false,
+    "line_tones_enabled": true,
+    "line_eq_enabled": true,
+    "line_selector": 2
+  },
+  "camilla_panel": {
+    "mode": "pcm-active",
+    "processing": true,
+    "sample_rate": 44100,
+    "native_observation": "operational"
+  },
+  "navigation_modules": [
+    "DaphileRME",
+    "DaphileCamillaDSP"
+  ],
+  "lms": {
+    "version": "9.0.3",
+    "connected_players": 1,
+    "indexed_tracks": 22828,
+    "scanning": false,
+    "queue_tracks": 10,
+    "mode": "play",
+    "nas_queued_media_read": true
+  },
+  "nas_mount_count": 1,
+  "disk_free_bytes": {
+    "boot": 521887744,
+    "data": 18186174464
+  }
+}

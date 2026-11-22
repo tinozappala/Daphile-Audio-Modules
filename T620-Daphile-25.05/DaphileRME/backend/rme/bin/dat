@@ -1,0 +1,37 @@
+"""Standalone CLI and watchdog entry point; no imports from installed AutoTune."""
+import argparse
+import json
+from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'lib'))
+
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--state',type=Path,required=True)
+    parser.add_argument('module',choices=['rme-peq','rme-audio','rme-control'])
+    parser.add_argument('action',choices=['read','apply','restore','recover','watchdog'])
+    parser.add_argument('identifier',nargs='?');parser.add_argument('--patch-json');parser.add_argument('--output');parser.add_argument('--expected')
+    parser.add_argument('--confirm',action='store_true');args=parser.parse_args()
+    import rme_peq,rme_audio
+    if args.module=='rme-control':
+        import rme_control
+        if args.action=='watchdog':rme_control.watchdog(args.state,args.identifier);return
+        if args.action=='read':result=rme_control.snapshot(args.state)
+        else:
+            if not args.confirm:raise ValueError('Explicit modification acknowledgement required')
+            if args.action=='apply':result=rme_control.apply(args.state,json.loads(args.patch_json))
+            elif args.action=='restore':result=rme_control.restore(args.state,args.output,args.expected)
+            else:result=rme_control.recover(args.state)
+        print(json.dumps(result));return
+    module=rme_peq if args.module=='rme-peq' else rme_audio
+    if args.action=='read': result=module.read(args.state)
+    elif args.action=='watchdog': module.watchdog(args.state,args.identifier);return
+    else:
+        if not args.confirm: raise ValueError('Explicit modification acknowledgement required')
+        if args.action=='apply': result=module.apply(json.loads(args.patch_json),args.state)
+        elif args.action=='restore': result=module.restore(args.output,args.expected,args.state)
+        else: result=module.recover(args.state)
+    print(json.dumps(result))
+
+
+if __name__=='__main__':main()

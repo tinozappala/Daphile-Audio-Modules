@@ -1,0 +1,6 @@
+PLUGIN_DAPHILERME
+	EN	RME · EQ Studio
+	IT	RME · EQ Studio
+PLUGIN_DAPHILERME_DESC
+	EN	ADI-2 DAC controls, interactive equalizer, output levels and presets.
+	IT	Controlli ADI-2 DAC, equalizzatore interattivo, livelli e preset.

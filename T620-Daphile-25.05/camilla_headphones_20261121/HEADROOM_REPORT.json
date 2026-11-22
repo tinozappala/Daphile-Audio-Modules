@@ -1,0 +1,76 @@
+{
+  "Denon AH-D9200": [
+    {
+      "rate": 44100,
+      "max_boost_db": 6.1909,
+      "net_peak_db": -1.0091
+    },
+    {
+      "rate": 48000,
+      "max_boost_db": 6.1914,
+      "net_peak_db": -1.0086
+    },
+    {
+      "rate": 88200,
+      "max_boost_db": 6.1932,
+      "net_peak_db": -1.0068
+    },
+    {
+      "rate": 96000,
+      "max_boost_db": 6.1933,
+      "net_peak_db": -1.0067
+    },
+    {
+      "rate": 176400,
+      "max_boost_db": 6.1937,
+      "net_peak_db": -1.0063
+    },
+    {
+      "rate": 192000,
+      "max_boost_db": 6.1937,
+      "net_peak_db": -1.0063
+    },
+    {
+      "rate": 384000,
+      "max_boost_db": 6.1938,
+      "net_peak_db": -1.0062
+    }
+  ],
+  "HiFiMAN Edition XS": [
+    {
+      "rate": 44100,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 48000,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 88200,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 96000,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 176400,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 192000,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    },
+    {
+      "rate": 384000,
+      "max_boost_db": 4.798,
+      "net_peak_db": -1.002
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<extension>
+  <name>PLUGIN_DAPHILECAMILLADSP</name>
+  <module>Plugins::DaphileCamillaDSP::Plugin</module>
+  <version>0.4.51</version>
+  <description>PLUGIN_DAPHILECAMILLADSP_DESC</description>
+  <creator>Daphile custom project</creator>
+  <defaultState>enabled</defaultState>
+  <type>2</type>
+  <targetPlatform>linux-x86_64</targetPlatform>
+  <targetApplication>
+    <id>SlimServer</id><minVersion>9.1.1</minVersion><maxVersion>9.1.1</maxVersion>
+  </targetApplication>
+</extension>

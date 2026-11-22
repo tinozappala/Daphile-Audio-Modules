@@ -1,0 +1,1 @@
+Same track and queue in play; position delta: 3.353 s; Camilla operational at 44100 Hz

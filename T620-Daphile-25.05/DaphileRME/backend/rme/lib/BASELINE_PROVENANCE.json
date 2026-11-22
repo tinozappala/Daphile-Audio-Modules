@@ -1,0 +1,11 @@
+{
+  "source_package": "DaphileRME-0.4.32.zip",
+  "source_package_sha256": "9e735177e77668205e4351674094531440a65c2a7848498867b2aeecc60f7a9a",
+  "files": {
+    "rme.py": "daf6cbb0de58189f0671e0b568b1f2921029760e771cae1d853268f9da1041a9",
+    "rme_peq.py": "46f5e2a779ccfd4832be4afa385159735044c2ff6b907a369572acade669bbf4",
+    "rme_audio.py": "12f54e55aba2050bccaa136b49dd7a40e5836c094af5d1a1789b5c030b50faab",
+    "rme_verify.py": "a5f68959109751efc5dfee7b59a036b2255f2cd1ce79df36a098176f636f37eb"
+  },
+  "purpose": "Canonical standalone library baseline; upstream vendor files remain immutable"
+}

@@ -1,0 +1,170 @@
+{
+  "Denon AH-D9200": {
+    "before": {
+      "bands": [
+        {
+          "kind": "low",
+          "frequency": 105,
+          "gain": 1.5,
+          "q": 0.7
+        },
+        {
+          "kind": "peak",
+          "frequency": 190,
+          "gain": -4.0,
+          "q": 0.8
+        },
+        {
+          "kind": "peak",
+          "frequency": 420,
+          "gain": 2.0,
+          "q": 2.1
+        },
+        {
+          "kind": "peak",
+          "frequency": 1036,
+          "gain": -2.5,
+          "q": 1.4
+        },
+        {
+          "kind": "peak",
+          "frequency": 2180,
+          "gain": 6.5,
+          "q": 2.0
+        }
+      ],
+      "metrics": {
+        "20_16000_hz_rms_db": 0.9346861842099644,
+        "20_8000_hz_rms_db": 0.78663139214669,
+        "8000_16000_hz_rms_db": 1.7609087640517715,
+        "maximum_boost_db": 6.071362000403042,
+        "weighted_rms_db": 0.8528899084400012
+      }
+    },
+    "after": {
+      "bands": [
+        {
+          "kind": "low",
+          "frequency": 35,
+          "gain": 2.5,
+          "q": 0.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 184,
+          "gain": -4.0,
+          "q": 1.3
+        },
+        {
+          "kind": "peak",
+          "frequency": 1098,
+          "gain": -3.0,
+          "q": 1.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 2180,
+          "gain": 6.5,
+          "q": 1.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 5320,
+          "gain": -4.0,
+          "q": 5.0
+        }
+      ],
+      "metrics": {
+        "20_16000_hz_rms_db": 0.8032056588961308,
+        "20_8000_hz_rms_db": 0.601941623479392,
+        "8000_16000_hz_rms_db": 1.7653935722623704,
+        "maximum_boost_db": 5.948853057718901,
+        "weighted_rms_db": 0.694897573417888
+      }
+    }
+  },
+  "HiFiMAN Edition XS": {
+    "before": {
+      "bands": [
+        {
+          "kind": "low",
+          "frequency": 105,
+          "gain": 6.0,
+          "q": 0.7
+        },
+        {
+          "kind": "peak",
+          "frequency": 87,
+          "gain": -3.0,
+          "q": 0.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 1420,
+          "gain": 1.5,
+          "q": 3.9
+        },
+        {
+          "kind": "peak",
+          "frequency": 1896,
+          "gain": 4.0,
+          "q": 1.9
+        },
+        {
+          "kind": "peak",
+          "frequency": 2900,
+          "gain": -3.5,
+          "q": 3.1
+        }
+      ],
+      "metrics": {
+        "20_16000_hz_rms_db": 1.1372018737939316,
+        "20_8000_hz_rms_db": 0.49538996213867537,
+        "8000_16000_hz_rms_db": 3.232682562598792,
+        "maximum_boost_db": 5.409343238010934,
+        "weighted_rms_db": 0.8318980578609249
+      }
+    },
+    "after": {
+      "bands": [
+        {
+          "kind": "low",
+          "frequency": 62,
+          "gain": 5.5,
+          "q": 0.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 204,
+          "gain": -2.0,
+          "q": 0.5
+        },
+        {
+          "kind": "peak",
+          "frequency": 1804,
+          "gain": 4.0,
+          "q": 1.6
+        },
+        {
+          "kind": "peak",
+          "frequency": 2910,
+          "gain": -4.0,
+          "q": 3.2
+        },
+        {
+          "kind": "high",
+          "frequency": 12550,
+          "gain": -7.0,
+          "q": 0.8
+        }
+      ],
+      "metrics": {
+        "20_16000_hz_rms_db": 0.35943117782640094,
+        "20_8000_hz_rms_db": 0.37259962924556417,
+        "8000_16000_hz_rms_db": 0.2120095988887869,
+        "maximum_boost_db": 4.899420428932914,
+        "weighted_rms_db": 0.3670442115581076
+      }
+    }
+  }
+}
