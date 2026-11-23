@@ -1,0 +1,11 @@
+[% PROCESS settings/header.html %]
+<h2>Daphile CamillaDSP</h2>
+<p>PEQ software con backend CamillaDSP autonomo. Il pannello si avvia dopo l'installazione; il DSP richiede un percorso PCM preparato esplicitamente.</p>
+[% IF native_panel_present %]
+<p><a id="daphile-camilla-panel" href="/cgi-bin/CamillaPlugin/" target="_blank" rel="noopener noreferrer">Apri il pannello</a></p>
+<script src="[% webroot %]plugins/DaphileCamillaDSP/panel.js"></script>
+[% ELSE %]
+<p>Il servizio audio locale non risulta installato. Occorre il supporto Daphile Audio Host della build compatibile.</p>
+[% END %]
+<p>La presenza del pannello non certifica il percorso audio o il collegamento del DAC.</p>
+[% PROCESS settings/footer.html %]
