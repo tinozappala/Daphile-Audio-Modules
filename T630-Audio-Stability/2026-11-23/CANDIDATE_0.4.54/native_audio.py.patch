@@ -1,0 +1,33 @@
+--- a/CamillaDSP_0.4.53/native_audio.py
++++ b/CamillaDSP_0.4.53/native_audio.py
+@@ -504,15 +504,28 @@
+                 self.info=dict(mode='waiting-pcm',message='Flusso PCM terminato o cambiato; DSP sospeso',rate=None)
+                 self.journal('waiting-pcm')
+ 
++    @staticmethod
++    def pcm_guard_interval(rate):
++        """Bound monitoring delay below one common ALSA capture period.
++        High-rate audio retains the previous 2 ms behavior.
++        """
++        if type(rate) is not int or rate<=0:return .002
++        if rate>=352800:return .002
++        if rate>=176400:return .003
++        if rate>=88200:return .004
++        return .006
++
+     def monitor_pcm(self):
+         # Source/format RPC may take seconds; ALSA playback buffers can drain
+         # in milliseconds. This local guard never waits for the LMS server.
+         self.event('local-guard-started');observed_session=None
+         while not self.stopping.is_set():
+-            with self.lock:active=self.info['mode']=='pcm-active'
++            with self.lock:
++                active=self.info['mode']=='pcm-active'
++                rate=self.info.get('rate')
+             if not active:
+                 observed_session=None;self.pcm_wake.wait(.5);self.pcm_wake.clear();continue
+-            if self.stopping.wait(.002):break
++            if self.stopping.wait(self.pcm_guard_interval(rate)):break
+             with self.lock:
+                 target=self.target
+                 if self.current is not observed_session:
