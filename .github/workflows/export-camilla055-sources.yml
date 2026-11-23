@@ -1,0 +1,56 @@
+name: Export verified Daphile T630 source v0.4.55
+on:
+  push:
+    paths:
+      - .github/workflows/export-camilla055-sources.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the 0.4.55 full source manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, zipfile
+          root=Path('T630-Audio-Stability/2026-11-23')
+          release=root/'CamillaDSP_0.4.55'
+          manifest=(release/'MANIFEST.sha256').read_text().splitlines()
+          assert len(manifest)==37, f'Expected 37 source text files, got {len(manifest)}'
+          expected=set()
+          for line in manifest:
+              sha,relative=line.split(maxsplit=1)
+              file=release/relative
+              assert file.is_file() and not file.is_symlink(), f'Missing: {relative}'
+              assert hashlib.sha256(file.read_bytes()).hexdigest()==sha, f'SHA-256 mismatch: {relative}'
+              expected.add(relative)
+          meta={'MANIFEST.sha256','README.md','VALIDAZIONE.md','ROLLBACK.md','release.json','tests/offline_test.py'}
+          actual={p.relative_to(release).as_posix() for p in release.rglob('*') if p.is_file()}-meta
+          assert actual==expected, f'Source set differs: missing {expected-actual}, extra {actual-expected}'
+          assert (root/'CPU_Affinity'/'audio_affinity_guard.py').is_file()
+          assert (root/'CPU_Affinity'/'daphile-audio-affinity.openrc').is_file()
+          out=Path('DAPHILE_T630_SORGENTI_COMPLETI_V0455.zip')
+          files=sorted(p for p in root.rglob('*') if p.is_file())
+          with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in files:z.write(f,f.as_posix())
+          with zipfile.ZipFile(out) as z:
+              assert z.testzip() is None
+              assert len(z.namelist())==len(files)
+          digest=hashlib.sha256(out.read_bytes()).hexdigest()
+          Path('SHA256SUMS.txt').write_text(digest+'  '+out.name+'\n')
+          print('SOURCE_RELEASE',release,'FILES',len(manifest),'ALL_FILES',len(files),'ZIP_BYTES',out.stat().st_size,'ZIP_SHA256',digest)
+          PY
+      - name: Publish self-contained archive and digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAPHILE_T630_SORGENTI_COMPLETI_V0455
+          path: |
+            DAPHILE_T630_SORGENTI_COMPLETI_V0455.zip
+            SHA256SUMS.txt
+          retention-days: 14
+          if-no-files-found: error
