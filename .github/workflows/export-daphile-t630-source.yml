@@ -1,0 +1,53 @@
+name: Export Daphile T630 source snapshot
+on:
+  push:
+    paths:
+      - .github/workflows/export-daphile-t630-source.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout versioned sources
+        uses: actions/checkout@v4
+      - name: Validate complete 0.4.54 source manifest and prepare ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="T630-Audio-Stability/2026-11-23"
+          test -f "$root/CamillaDSP_0.4.54/MANIFEST.sha256"
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, zipfile
+          root=Path("T630-Audio-Stability/2026-11-23")
+          version=root/"CamillaDSP_0.4.54"
+          manifest=(version/"MANIFEST.sha256").read_text().splitlines()
+          assert len(manifest)==37, f"Expected 37 source files, found {len(manifest)}"
+          for line in manifest:
+              digest,relative=line.split(None,1)
+              relative=relative.strip()
+              file=version/relative
+              assert file.is_file(), f"Missing {relative}"
+              assert hashlib.sha256(file.read_bytes()).hexdigest()==digest, f"Checksum mismatch {relative}"
+          assert (root/"CPU_Affinity"/"audio_affinity_guard.py").is_file()
+          assert (root/"CPU_Affinity"/"daphile-audio-affinity.openrc").is_file()
+          out=Path("DAPHILE_T630_SORGENTI_INTEGRALI_20261123.zip")
+          all_files=sorted(p for p in root.rglob("*") if p.is_file())
+          assert len(all_files)>=40, f"Unexpected file count {len(all_files)}"
+          with zipfile.ZipFile(out,"w",zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in all_files:
+                  z.write(f,str(f))
+          with zipfile.ZipFile(out) as z:
+              assert z.testzip() is None
+              assert len(z.namelist())==len(all_files)
+          print(f"Verified {len(manifest)} CamillaDSP v0.4.54 files, archived {len(all_files)} total source/documentation files, {out.stat().st_size} bytes")
+          PY
+      - name: Upload complete source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAPHILE_T630_SORGENTI_INTEGRALI_20261123
+          path: DAPHILE_T630_SORGENTI_INTEGRALI_20261123.zip
+          retention-days: 14
+          if-no-files-found: error
