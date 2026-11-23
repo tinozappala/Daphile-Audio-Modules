@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+description="Daphile t630 audio-first CPU affinity guard"
+command="/usr/bin/python3"
+command_args="/mnt/hdd/system/audio-cpu-profile-20261123/audio_affinity_guard.py"
+command_background="yes"
+pidfile="/run/daphile-audio-affinity.pid"
+depend() {
+    need diskmount
+    after spacd daphile-audio-host
+}
