@@ -1,0 +1,448 @@
+[
+  {
+    "schema_version": 1,
+    "id": "headphones-denon-ah-d9200",
+    "name": "Denon AH-D9200",
+    "mode": "linked",
+    "enabled": true,
+    "bypass": false,
+    "peq": {
+      "L": [
+        {
+          "id": "2da3cf12905e4f319d2fbe4323c70a4d",
+          "type": "Lowshelf",
+          "freq": 105,
+          "gain": 1.4,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "cc7cb62664e6426697035ed2eaa4ff00",
+          "type": "Peaking",
+          "freq": 190,
+          "gain": -3.8,
+          "q": 0.77,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "c881640e5ae64bb6b51d3e9033b3e8cc",
+          "type": "Peaking",
+          "freq": 2176,
+          "gain": 6.6,
+          "q": 1.99,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "e8ad4d17404940349b8bc34725c8888e",
+          "type": "Peaking",
+          "freq": 1036,
+          "gain": -2.7,
+          "q": 1.43,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "5c6e95ff2f534829b6320fe95cc92ddd",
+          "type": "Peaking",
+          "freq": 420,
+          "gain": 2.1,
+          "q": 2.13,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "ab6a09ad3c7d4c208ba62916da730c0e",
+          "type": "Highshelf",
+          "freq": 10000,
+          "gain": -3.4,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "f369cfea2ca2486e952d1afca90fa58b",
+          "type": "Peaking",
+          "freq": 7028,
+          "gain": 3.5,
+          "q": 1.56,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "77b720865ea447e79725ffc2011a9406",
+          "type": "Peaking",
+          "freq": 5420,
+          "gain": -6.3,
+          "q": 3.42,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "13a34002f6c44ea2903ecaebc7fc0105",
+          "type": "Peaking",
+          "freq": 4317,
+          "gain": 1.9,
+          "q": 5.76,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "1f87b34e9046411f84369bd9dc4e84a7",
+          "type": "Peaking",
+          "freq": 42,
+          "gain": -0.4,
+          "q": 2.39,
+          "enabled": true,
+          "label": ""
+        }
+      ],
+      "R": [
+        {
+          "id": "5a712b79fe6c4ab082e45a720210f5d9",
+          "type": "Lowshelf",
+          "freq": 105,
+          "gain": 1.4,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "911f3cbb4fc34bd7bbaa2515ff7559d0",
+          "type": "Peaking",
+          "freq": 190,
+          "gain": -3.8,
+          "q": 0.77,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "6408211286ce43759eff3540270d7673",
+          "type": "Peaking",
+          "freq": 2176,
+          "gain": 6.6,
+          "q": 1.99,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "eeb9060a27c445f780f626057848b9d4",
+          "type": "Peaking",
+          "freq": 1036,
+          "gain": -2.7,
+          "q": 1.43,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "a96a99803df24589857b4e23aae13a4b",
+          "type": "Peaking",
+          "freq": 420,
+          "gain": 2.1,
+          "q": 2.13,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "222bc272019b4297a12b60e46c0c4a6f",
+          "type": "Highshelf",
+          "freq": 10000,
+          "gain": -3.4,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "7c11c2cac93b427d86451ab5dff8ac31",
+          "type": "Peaking",
+          "freq": 7028,
+          "gain": 3.5,
+          "q": 1.56,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "c9d3cac2b043434780d61825876fc179",
+          "type": "Peaking",
+          "freq": 5420,
+          "gain": -6.3,
+          "q": 3.42,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "fd265c5b639a49759382d0176c2e48ba",
+          "type": "Peaking",
+          "freq": 4317,
+          "gain": 1.9,
+          "q": 5.76,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "870bfa5f09d04aae8d9acab399c51ad9",
+          "type": "Peaking",
+          "freq": 42,
+          "gain": -0.4,
+          "q": 2.39,
+          "enabled": true,
+          "label": ""
+        }
+      ]
+    },
+    "channel_bypass": {
+      "L": false,
+      "R": false
+    },
+    "levels": {
+      "pre_gain": -7.2,
+      "L": 0.0,
+      "R": 0.0,
+      "auto_headroom": false,
+      "margin_db": 1.0
+    },
+    "routing": {
+      "format": "PCM"
+    },
+    "drc": {
+      "enabled": false,
+      "fir_refs": []
+    },
+    "compatibility": {
+      "rates": [
+        44100,
+        48000,
+        88200,
+        96000,
+        176400,
+        192000,
+        384000
+      ]
+    }
+  },
+  {
+    "schema_version": 1,
+    "id": "headphones-hifiman-edition-xs",
+    "name": "HiFiMAN Edition XS",
+    "mode": "linked",
+    "enabled": true,
+    "bypass": false,
+    "peq": {
+      "L": [
+        {
+          "id": "3f09f495ad8e4187b68a9b5735cb67f8",
+          "type": "Lowshelf",
+          "freq": 105,
+          "gain": 5.8,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "dd4bb1562aa743d7a42848d10d676d40",
+          "type": "Peaking",
+          "freq": 87,
+          "gain": -2.8,
+          "q": 0.33,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "3ec2854bca2f4600bb30611f99172965",
+          "type": "Peaking",
+          "freq": 1896,
+          "gain": 4,
+          "q": 1.92,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "875135d497da4368a20b682d26cbf659",
+          "type": "Peaking",
+          "freq": 2896,
+          "gain": -3.7,
+          "q": 3.11,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "408e885ba5854ae398f3c4fb2fb26189",
+          "type": "Peaking",
+          "freq": 1420,
+          "gain": 1.3,
+          "q": 3.89,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "16e2b0407f394ae2bbf0453abe7d3b0c",
+          "type": "Highshelf",
+          "freq": 10000,
+          "gain": -5.8,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "fb15ddc3d85a4eea87535d756922a9f5",
+          "type": "Peaking",
+          "freq": 5585,
+          "gain": 1.7,
+          "q": 6,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "9dd94b8db20f4bb28ec1a2c9f4ffe302",
+          "type": "Peaking",
+          "freq": 70,
+          "gain": -0.4,
+          "q": 2.12,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "b824108d6e884173a33488cdd3dff40a",
+          "type": "Peaking",
+          "freq": 111,
+          "gain": 0.4,
+          "q": 1.64,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "5aa577716ab54d4cbac82db0c807df76",
+          "type": "Peaking",
+          "freq": 927,
+          "gain": -0.9,
+          "q": 6,
+          "enabled": true,
+          "label": ""
+        }
+      ],
+      "R": [
+        {
+          "id": "65a99bd64d99489abc3f4bec6a20f8ad",
+          "type": "Lowshelf",
+          "freq": 105,
+          "gain": 5.8,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "1baaf9bab6774534a91fce63ecf9823b",
+          "type": "Peaking",
+          "freq": 87,
+          "gain": -2.8,
+          "q": 0.33,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "b474eba28d3849d49d7ed04818420804",
+          "type": "Peaking",
+          "freq": 1896,
+          "gain": 4,
+          "q": 1.92,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "05916453b8b4493cb7c98d7680220081",
+          "type": "Peaking",
+          "freq": 2896,
+          "gain": -3.7,
+          "q": 3.11,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "dc7cc200423b4382b8143bd62921f385",
+          "type": "Peaking",
+          "freq": 1420,
+          "gain": 1.3,
+          "q": 3.89,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "39625fd46bc14469abb57a232878786d",
+          "type": "Highshelf",
+          "freq": 10000,
+          "gain": -5.8,
+          "q": 0.7,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "336ff0368e3b477bb0e2857c9f619b51",
+          "type": "Peaking",
+          "freq": 5585,
+          "gain": 1.7,
+          "q": 6,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "35fe876c10a745e09fabaa89fb4dd2c9",
+          "type": "Peaking",
+          "freq": 70,
+          "gain": -0.4,
+          "q": 2.12,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "ad913746136143d09ddf2d0f4f66bffe",
+          "type": "Peaking",
+          "freq": 111,
+          "gain": 0.4,
+          "q": 1.64,
+          "enabled": true,
+          "label": ""
+        },
+        {
+          "id": "04b26668659147718b0d1128fc46c9de",
+          "type": "Peaking",
+          "freq": 927,
+          "gain": -0.9,
+          "q": 6,
+          "enabled": true,
+          "label": ""
+        }
+      ]
+    },
+    "channel_bypass": {
+      "L": false,
+      "R": false
+    },
+    "levels": {
+      "pre_gain": -5.8,
+      "L": 0.0,
+      "R": 0.0,
+      "auto_headroom": false,
+      "margin_db": 1.0
+    },
+    "routing": {
+      "format": "PCM"
+    },
+    "drc": {
+      "enabled": false,
+      "fir_refs": []
+    },
+    "compatibility": {
+      "rates": [
+        44100,
+        48000,
+        88200,
+        96000,
+        176400,
+        192000,
+        384000
+      ]
+    }
+  }
+]

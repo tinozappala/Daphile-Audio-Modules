@@ -1,0 +1,6 @@
+PLUGIN_DAPHILECAMILLADSP
+	EN	Daphile CamillaDSP (development)
+	IT	Daphile CamillaDSP (sviluppo)
+PLUGIN_DAPHILECAMILLADSP_DESC
+	EN	Standalone CamillaDSP controller and engine. Enabling the plugin does not activate DSP.
+	IT	Controller e motore CamillaDSP autonomi. Abilitare il plugin non attiva il DSP.
