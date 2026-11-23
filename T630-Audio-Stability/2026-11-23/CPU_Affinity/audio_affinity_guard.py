@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Daphile t630 audio-first CPU affinity guard. No audio settings changed."""
-import os, fcntl, signal, time
+import os, fcntl, signal, time, subprocess
 from pathlib import Path
 running=True
 def stop(sig, frame):
@@ -31,6 +31,28 @@ def classify(args):
 def record(s):
     with open("/run/daphile-audio-affinity.log","a") as f:
         f.write(time.strftime("%Y-%m-%dT%H:%M:%S%z ")+s+"\n")
+_scanner_seen=set()
+def tune_scanner(pid):
+    """Lower only scanner.pl, not slimserver.pl or external audio decoders."""
+    pid=int(pid)
+    status=Path("/proc")/str(pid)/"stat"
+    start=status.read_text().rsplit(")",1)[1].split()[19]
+    key=(pid,start)
+    if key in _scanner_seen:return
+    if os.getpriority(os.PRIO_PROCESS,pid)<10:
+        os.setpriority(os.PRIO_PROCESS,pid,10)
+    cmd=["/usr/bin/ionice","-c2","-n7","-p",str(pid)]
+    result=subprocess.run(cmd,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,timeout=2)
+    if result.returncode:
+        raise OSError("scanner ionice rejected: "+result.stderr.decode(errors="replace")[:80])
+    verification=subprocess.run(["/usr/bin/ionice","-p",str(pid)],capture_output=True,text=True,timeout=2)
+    if verification.returncode or "best-effort" not in verification.stdout or "prio 7" not in verification.stdout:
+        raise OSError("scanner I/O priority not verified")
+    if os.getpriority(os.PRIO_PROCESS,pid)<10:
+        raise OSError("scanner nice level not verified")
+    _scanner_seen.add(key)
+    record("scanner-throttled pid=%s nice=10 ionice=best-effort/7 cpu=0"%pid)
+
 def sweep():
     # The PCI legacy IRQ can differ from the actual xHCI MSI-X thread.
     # Derive the IRQ(s) from the PCI MSI directory; never hardcode IRQ 27.
@@ -53,6 +75,10 @@ def sweep():
                 except OSError:
                     pass
             if mask is None: continue
+            if mask=={0}:
+                try:tune_scanner(pid)
+                except (OSError,subprocess.TimeoutExpired) as error:
+                    record("scanner-throttle-pending pid=%s type=%s"%(pid,type(error).__name__))
             for name in os.listdir("/proc/"+pid+"/task"):
                 if not name.isdigit(): continue
                 tid=int(name)
