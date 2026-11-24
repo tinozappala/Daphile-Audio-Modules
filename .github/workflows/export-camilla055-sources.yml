@@ -1,4 +1,4 @@
-name: Export verified Daphile T630 source v0.4.55
+name: Export verified Daphile T630 sources and docs v0.4.55
 on:
   push:
     paths:
@@ -17,7 +17,7 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import hashlib, zipfile
+          import hashlib, zipfile, json, subprocess
           root=Path('T630-Audio-Stability/2026-11-23')
           release=root/'CamillaDSP_0.4.55'
           manifest=(release/'MANIFEST.sha256').read_text().splitlines()
@@ -29,28 +29,54 @@ jobs:
               assert file.is_file() and not file.is_symlink(), f'Missing: {relative}'
               assert hashlib.sha256(file.read_bytes()).hexdigest()==sha, f'SHA-256 mismatch: {relative}'
               expected.add(relative)
-          meta={'MANIFEST.sha256','README.md','VALIDAZIONE.md','ROLLBACK.md','release.json','tests/offline_test.py'}
+          meta={
+              'MANIFEST.sha256','README.md','VALIDAZIONE.md',
+              'VALIDAZIONE_DAC_REALE_20261124.md','ROLLBACK.md',
+              'CONSOLIDAMENTO_20261124.md','release.json','tests/offline_test.py'
+          }
+          assert all((release/p).is_file() for p in meta), 'Required documentation missing'
+          approved=json.loads((release/'release.json').read_text())
+          assert approved['version']=='0.4.55'
+          assert approved['sha256']=='2271a32f1bb271cc74776042bcf5b0fc889df6edbf110009d5bfe57357937c95'
+          assert len(approved['files'])==38
           actual={p.relative_to(release).as_posix() for p in release.rglob('*') if p.is_file()}-meta
           assert actual==expected, f'Source set differs: missing {expected-actual}, extra {actual-expected}'
           assert (root/'CPU_Affinity'/'audio_affinity_guard.py').is_file()
           assert (root/'CPU_Affinity'/'daphile-audio-affinity.openrc').is_file()
-          out=Path('DAPHILE_T630_SORGENTI_COMPLETI_V0455.zip')
+          assert (root/'INDICE_CONSOLIDATO_20261124.md').is_file()
+          out=Path('DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0455_20261124.zip')
           files=sorted(p for p in root.rglob('*') if p.is_file())
+          forbidden={'access.token','private-settings.before-0455','original_queue_private.json',
+                     'active_profile.json','peq-intent.json','passwords.json'}
+          assert not any(f.name in forbidden or f.suffix in {'.key','.pem'} for f in files), 'Private file present'
+          assert not any(p.name=='camilladsp' and p.is_file() for p in files), 'Upstream binary must be excluded'
+          commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
           with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
               for f in files:z.write(f,f.as_posix())
+              z.writestr('SOURCE_GITHUB_COMMIT.txt',commit+'\n')
           with zipfile.ZipFile(out) as z:
               assert z.testzip() is None
-              assert len(z.namelist())==len(files)
+              assert len(z.namelist())==len(files)+1
           digest=hashlib.sha256(out.read_bytes()).hexdigest()
           Path('SHA256SUMS.txt').write_text(digest+'  '+out.name+'\n')
+          Path('EXPORT_METADATA.txt').write_text(
+              'Tino Zappala, Milano - 2026\n'
+              +'Github commit: '+commit+'\n'
+              +'DaphileCamillaDSP release: 0.4.55\n'
+              +'Source text files verified: 37\n'
+              +'Other project source/documentation files: '+str(len(files)-37)+'\n'
+              +'Original approved plugin SHA-256: '+approved['sha256']+'\n'
+              +'ZIP SHA-256: '+digest+'\n'
+              +'Notes: source/docs only; upstream binary, secrets, personal library excluded.\n')
           print('SOURCE_RELEASE',release,'FILES',len(manifest),'ALL_FILES',len(files),'ZIP_BYTES',out.stat().st_size,'ZIP_SHA256',digest)
           PY
       - name: Publish self-contained archive and digest
         uses: actions/upload-artifact@v4
         with:
-          name: DAPHILE_T630_SORGENTI_COMPLETI_V0455
+          name: DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0455_20261124
           path: |
-            DAPHILE_T630_SORGENTI_COMPLETI_V0455.zip
+            DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0455_20261124.zip
             SHA256SUMS.txt
+            EXPORT_METADATA.txt
           retention-days: 14
           if-no-files-found: error
