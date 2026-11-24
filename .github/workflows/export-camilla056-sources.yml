@@ -1,0 +1,89 @@
+name: Export verified Daphile T630 sources and documentation v0.4.56
+on:
+  push:
+    paths:
+      - .github/workflows/export-camilla056-sources.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify source integrity and exercise player-scoped restart test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib, json, zipfile, subprocess
+          root=Path('T630-Audio-Stability')
+          version=root/'2026-11-24'/'CamillaDSP_0.4.56'
+          assert (root/'2026-11-24'/'INDICE_CONSOLIDATO_20261124.md').is_file()
+          info=json.loads((version/'release.json').read_text())
+          assert info['version']=='0.4.56'
+          assert info['sha256']=='71b783d1d86cd16d4e0a91b206c3f1a4f3788550f8f87fc005df3823146f309e'
+          assert len(info['files'])==38
+          lines=(version/'MANIFEST.sha256').read_text().splitlines()
+          assert len(lines)==37
+          names=set()
+          for line in lines:
+              digest,rel=line.split(maxsplit=1)
+              f=version/rel
+              assert f.is_file() and not f.is_symlink(),rel
+              assert hashlib.sha256(f.read_bytes()).hexdigest()==digest,rel
+              source_key=rel if rel.startswith('HTML/') or rel in ('install.xml','Plugin.pm','Settings.pm','strings.txt') else 'backend/'+rel
+              assert info['files'][source_key]==digest,(rel,source_key)
+              names.add(rel)
+          meta={'README.md','MANIFEST.sha256','release.json','CONSOLIDAMENTO_20261124.md',
+                'VALIDAZIONE_DAC_REALE_20261124.md','ROLLBACK.md','tests/test_player_restart_scope.py'}
+          actual={p.relative_to(version).as_posix() for p in version.rglob('*') if p.is_file()}-meta
+          assert actual==names, (names-actual,actual-names)
+          assert (root/'2026-11-23'/'CPU_Affinity'/'audio_affinity_guard.py').is_file()
+          assert (root/'2026-11-23'/'CamillaDSP_0.4.55'/'MANIFEST.sha256').is_file()
+          PY
+          python3 T630-Audio-Stability/2026-11-24/CamillaDSP_0.4.56/tests/test_player_restart_scope.py
+      - name: Produce deterministic-source snapshot with commit and SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,json,subprocess,zipfile
+          base=Path('T630-Audio-Stability')
+          files=sorted(p for p in base.rglob('*') if p.is_file())
+          forbidden={'access.token','active_profile.json','peq-intent.json',
+                     'original_queue_private.json','private-settings.before-0455'}
+          assert not any(p.name in forbidden or p.suffix in ('.pem','.key') for p in files)
+          assert not any(p.name=='camilladsp' and p.is_file() for p in files)
+          sha=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+          target=Path('DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0456_20261124.zip')
+          with zipfile.ZipFile(target,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in files:z.write(f,f.as_posix())
+              z.writestr('SOURCE_GITHUB_COMMIT.txt',sha+'\n')
+          with zipfile.ZipFile(target) as z:
+              assert z.testzip() is None
+              assert len(z.namelist())==len(files)+1
+          digest=hashlib.sha256(target.read_bytes()).hexdigest()
+          Path('SHA256SUMS.txt').write_text(digest+'  '+target.name+'\n')
+          Path('EXPORT_METADATA.txt').write_text('Tino Zappala, Milano - 2026\n'
+             'Repository: tinozappala/Daphile-Audio-Modules\n'
+             'Git commit: '+sha+'\n'
+             'Plugin version: 0.4.56\n'
+             'Approved plugin SHA-256: 71b783d1d86cd16d4e0a91b206c3f1a4f3788550f8f87fc005df3823146f309e\n'
+             'Source ZIP SHA-256: '+digest+'\n'
+             'File count: '+str(len(files)+1)+'\n'
+             'Excluded: third-party CamillaDSP executable, personal profiles, secrets.\n')
+          print('ZIP',target.stat().st_size,'FILES',len(files)+1,'SHA256',digest)
+          PY
+      - name: Save complete source package and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0456_20261124
+          path: |
+            DAPHILE_T630_SORGENTI_DOCUMENTAZIONE_V0456_20261124.zip
+            SHA256SUMS.txt
+            EXPORT_METADATA.txt
+          retention-days: 14
+          if-no-files-found: error
