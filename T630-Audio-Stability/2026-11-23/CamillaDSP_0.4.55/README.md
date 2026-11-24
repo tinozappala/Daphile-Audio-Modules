@@ -12,3 +12,12 @@ Release realmente installata sul Daphile HP t630 (23 novembre 2026). Il motore C
 - Le licenze upstream GPL/MPL restano applicabili; la firma Tino Zappala riguarda le modifiche originali.
 
 Sono presenti `MANIFEST.sha256`, `release.json`, `VALIDAZIONE.md` e `ROLLBACK.md`.
+
+## Stato finale del collaudo e degli archivi (24 novembre 2026)
+
+- [Consolidamento della release 0.4.55](CONSOLIDAMENTO_20261124.md): provenienza, checksum, ambito, archivio Drive e limitazioni.
+- [Collaudo effettivo sul DAC RME](VALIDAZIONE_DAC_REALE_20261124.md): sei cambi frequenza PCM senza riavviare CamillaDSP; DSF/DFF in bypass DoP; **due reset USB durante PCM↔DSD ancora da approfondire**.
+- [Validazione isolata](VALIDAZIONE.md), [rollback](ROLLBACK.md), [manifest SHA-256 dei 37 sorgenti](MANIFEST.sha256).
+- ZIP completo dei sorgenti versionati, generato mediante workflow GitHub Actions con controllo integrità: consultare il riferimento Drive in `CONSOLIDAMENTO_20261124.md`.
+
+**Nota:** i test PCM sul dispositivo reale hanno esito positivo, ma non costituiscono misure analogiche del DAC né dimostrano assenza assoluta di xrun. La commutazione PCM↔DSD conserva il bypass nativo e richiede un intervento successivo sui reset USB.
