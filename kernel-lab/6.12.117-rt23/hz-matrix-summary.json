@@ -1,0 +1,46 @@
+{
+  "1000-jiffies": {
+    "passed_guests": 3,
+    "guests": 3,
+    "probes": 57,
+    "passed_probes": 57,
+    "integrity_errors": 0,
+    "late_intervals": 1043,
+    "total_intervals": 43449,
+    "median_qemu_cpu_s": 5.396203999999997,
+    "median_guest_ctxt": 71209
+  },
+  "1000-hrtimer": {
+    "passed_guests": 3,
+    "guests": 3,
+    "probes": 57,
+    "passed_probes": 57,
+    "integrity_errors": 0,
+    "late_intervals": 1541,
+    "total_intervals": 43449,
+    "median_qemu_cpu_s": 5.986615000000002,
+    "median_guest_ctxt": 82534
+  },
+  "300-jiffies": {
+    "passed_guests": 3,
+    "guests": 3,
+    "probes": 57,
+    "passed_probes": 57,
+    "integrity_errors": 0,
+    "late_intervals": 8833,
+    "total_intervals": 43449,
+    "median_qemu_cpu_s": 4.022341000000001,
+    "median_guest_ctxt": 32814
+  },
+  "300-hrtimer": {
+    "passed_guests": 3,
+    "guests": 3,
+    "probes": 57,
+    "passed_probes": 57,
+    "integrity_errors": 0,
+    "late_intervals": 11902,
+    "total_intervals": 43449,
+    "median_qemu_cpu_s": 4.076955999999999,
+    "median_guest_ctxt": 46931
+  }
+}
