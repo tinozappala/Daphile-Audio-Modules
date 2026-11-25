@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "HZ",
+    "hz1000": "1000",
+    "hz300": "300"
+  },
+  {
+    "symbol": "HZ_1000",
+    "hz1000": "y",
+    "hz300": "n"
+  },
+  {
+    "symbol": "HZ_300",
+    "hz1000": "n",
+    "hz300": "y"
+  },
+  {
+    "symbol": "LOCALVERSION",
+    "hz1000": "\"-daphile-v6-hrtimer-lab\"",
+    "hz300": "\"-daphile-v6-hrtimer-hz300-lab\""
+  }
+]
