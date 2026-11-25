@@ -1,0 +1,328 @@
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -55,7 +55,7 @@
+ module_param_array(pcm_notify, int, NULL, 0444);
+ MODULE_PARM_DESC(pcm_notify, "Break capture when PCM format/rate/channels changes.");
+ module_param_array(timer_source, charp, NULL, 0444);
+-MODULE_PARM_DESC(timer_source, "Sound card name or number and device/subdevice number of timer to be used. Empty string for jiffies timer [default], 'hrtimer' for high-resolution timer.");
++MODULE_PARM_DESC(timer_source, "Sound card name or number and device/subdevice number of timer to be used. Empty string for jiffies timer [default], 'hrtimer' for tick-based high-resolution timer, 'hrtimer-ns' for experimental nanosecond frame accounting.");
+ 
+ #define NO_PITCH 100000
+ 
+@@ -167,6 +167,13 @@
+ #ifdef CONFIG_HIGH_RES_TIMERS
+ 	struct hrtimer hrtimer;
+ #endif
++	/* Independent nanosecond clock, used only by hrtimer-ns. */
++	bool ns_mode;
++	bool ns_xrun;
++	u64 ns_last;
++	u64 ns_frac;
++	unsigned int ns_shift;
++	unsigned int ns_period_pos;
+ 
+ 	/* size of per channel buffer in case of non-interleaved access */
+ 	unsigned int channel_buf_n;
+@@ -484,6 +491,10 @@
+ 		dpcm->pcm_rate_shift = 0;
+ 		dpcm->last_drift = 0;
+ 		spin_lock(&cable->lock);	
++		if (dpcm->ns_mode) {
++			dpcm->ns_last = ktime_get_ns();
++			dpcm->ns_shift = READ_ONCE(get_setup(dpcm)->rate_shift);
++		}
+ 		cable->running |= stream;
+ 		cable->pause &= ~stream;
+ 		err = cable->ops->start(dpcm);
+@@ -493,6 +504,8 @@
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 		spin_lock(&cable->lock);	
++		if (dpcm->ns_mode)
++			cable->ops->pos_update(cable);
+ 		cable->running &= ~stream;
+ 		cable->pause &= ~stream;
+ 		err = cable->ops->stop(dpcm);
+@@ -503,6 +516,8 @@
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 		spin_lock(&cable->lock);	
++		if (dpcm->ns_mode)
++			cable->ops->pos_update(cable);
+ 		cable->pause |= stream;
+ 		err = cable->ops->stop(dpcm);
+ 		spin_unlock(&cable->lock);
+@@ -513,6 +528,8 @@
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 		spin_lock(&cable->lock);
+ 		dpcm->last_jiffies = jiffies;
++		if (dpcm->ns_mode)
++			dpcm->ns_last = ktime_get_ns();
+ 		cable->pause &= ~stream;
+ 		err = cable->ops->start(dpcm);
+ 		spin_unlock(&cable->lock);
+@@ -575,6 +592,11 @@
+ 	}
+ 
+ 	dpcm->irq_pos = 0;
++	dpcm->ns_frac = 0;
++	dpcm->ns_period_pos = 0;
++	dpcm->ns_xrun = false;
++	if (dpcm->ns_mode)
++		dpcm->last_drift = 0;
+ 	dpcm->period_update_pending = 0;
+ 	dpcm->pcm_bps = bps;
+ 	dpcm->pcm_salign = salign;
+@@ -766,6 +788,196 @@
+  unlock:
+ 	return running;
+ }
++
++#ifdef CONFIG_HIGH_RES_TIMERS
++/*
++ * Experimental independent monotonic clock. Account in whole PCM frames,
++ * carrying the exact fractional numerator across updates. The denominator
++ * is NSEC_PER_SEC * pitch; the numerator per ns is rate * NO_PITCH.
++ * No HZ conversion. All state below is protected by cable->lock.
++ */
++static u64 loopback_ns_den(const struct loopback_pcm *dpcm)
++{
++	return (u64)NSEC_PER_SEC * dpcm->ns_shift;
++}
++
++static u64 loopback_ns_step(const struct loopback_pcm *dpcm)
++{
++	return (u64)(dpcm->pcm_bps / dpcm->pcm_salign) * NO_PITCH;
++}
++
++static void loopback_ns_rebase(struct loopback_pcm *dpcm, unsigned int shift)
++{
++	if (shift == dpcm->ns_shift)
++		return;
++	/* Preserve fractional-frame phase across pitch changes. */
++	dpcm->ns_frac = mul_u64_u64_div_u64(dpcm->ns_frac, shift,
++					    dpcm->ns_shift);
++	dpcm->ns_shift = shift;
++}
++
++static bool loopback_ns_delta(struct loopback_pcm *dpcm, u64 elapsed,
++			      unsigned int *bytes)
++{
++	u64 den = loopback_ns_den(dpcm), step = loopback_ns_step(dpcm);
++	u64 frames, rem;
++	unsigned int count;
++
++	*bytes = 0;
++	/* rate/pitch constraints guarantee step < den, hence quotient fits. */
++	frames = mul_u64_u64_div_u64(elapsed, step, den);
++	/* Unsigned modular product is exact for remainder < 2^64. */
++	rem = elapsed * step - frames * den + dpcm->ns_frac;
++	if (rem >= den) {
++		frames++;
++		rem -= den;
++	}
++	dpcm->ns_frac = rem;
++	if (frames > dpcm->pcm_buffer_size / dpcm->pcm_salign)
++		return false;
++	count = (unsigned int)frames * dpcm->pcm_salign;
++	/* Keep outstanding peer-rounding debt until fully consumed. */
++	if (count < dpcm->last_drift) {
++		dpcm->last_drift -= count;
++		count = 0;
++	} else {
++		count -= dpcm->last_drift;
++		dpcm->last_drift = 0;
++	}
++	*bytes = count;
++	return true;
++}
++
++static void loopback_ns_finish(struct loopback_pcm *dpcm, unsigned int bytes)
++{
++	dpcm->ns_period_pos += bytes;
++	if (dpcm->ns_period_pos >= dpcm->pcm_period_size) {
++		dpcm->ns_period_pos %= dpcm->pcm_period_size;
++		dpcm->period_update_pending = 1;
++	}
++	bytepos_finish(dpcm, bytes);
++}
++
++static unsigned int loopback_ns_pos_update(struct loopback_cable *cable)
++{
++	struct loopback_pcm *p = cable->streams[SNDRV_PCM_STREAM_PLAYBACK];
++	struct loopback_pcm *c = cable->streams[SNDRV_PCM_STREAM_CAPTURE];
++	unsigned int running = cable->running ^ cable->pause;
++	u64 now = ktime_get_ns(), dp = 0, dc = 0;
++	unsigned int a, b, count, prefix_p = 0, prefix_c = 0;
++
++	if (running & (1 << SNDRV_PCM_STREAM_PLAYBACK)) {
++		if (p->ns_xrun)
++			goto xrun;
++		dp = now - p->ns_last;
++		p->ns_last = now;
++	}
++	if (running & (1 << SNDRV_PCM_STREAM_CAPTURE)) {
++		if (c->ns_xrun)
++			goto xrun;
++		dc = now - c->ns_last;
++		c->ns_last = now;
++	}
++	/* Advance only the unmatched prefix before copying the common span. */
++	if (dp > dc) {
++		if (!loopback_ns_delta(p, dp - dc, &a))
++			goto xrun;
++		loopback_ns_finish(p, a);
++		prefix_p = a;
++		dp = dc;
++	} else if (dc > dp) {
++		if (!loopback_ns_delta(c, dc - dp, &a))
++			goto xrun;
++		clear_capture_buf(c, a);
++		loopback_ns_finish(c, a);
++		prefix_c = a;
++		dc = dp;
++	}
++	if (dp) {
++		if (!loopback_ns_delta(p, dp, &a) ||
++		    !loopback_ns_delta(c, dc, &b))
++			goto xrun;
++		count = max(a, b);
++		/* Both negotiated rings must cover the copy. Never loop over
++		 * arbitrarily large elapsed time while holding the spinlock. */
++		if (count > p->pcm_buffer_size - prefix_p ||
++		    count > c->pcm_buffer_size - prefix_c)
++			goto xrun;
++		if (a > b) {
++			if ((u64)c->last_drift + a - b > c->pcm_buffer_size)
++				goto xrun;
++			c->last_drift += a - b;
++		} else {
++			if ((u64)p->last_drift + b - a > p->pcm_buffer_size)
++				goto xrun;
++			p->last_drift += b - a;
++		}
++		/* A stream advanced beyond its calculated frame position owes
++		 * the excess on its next update. */
++		if (count)
++			copy_play_buf(p, c, count);
++		loopback_ns_finish(p, count);
++		loopback_ns_finish(c, count);
++	}
++	if (running & (1 << SNDRV_PCM_STREAM_PLAYBACK))
++		loopback_ns_rebase(p, READ_ONCE(get_setup(p)->rate_shift));
++	if (running & (1 << SNDRV_PCM_STREAM_CAPTURE))
++		loopback_ns_rebase(c, READ_ONCE(get_setup(c)->rate_shift));
++	return running;
++xrun:
++	/* Pointer callback reports XRUN; the respective timer emits one
++	 * final notification outside cable->lock and does not rearm. */
++	if (running & (1 << SNDRV_PCM_STREAM_PLAYBACK)) {
++		p->ns_xrun = true;
++		p->period_update_pending = 1;
++	}
++	if (running & (1 << SNDRV_PCM_STREAM_CAPTURE)) {
++		c->ns_xrun = true;
++		c->period_update_pending = 1;
++	}
++	return running;
++}
++
++static int loopback_ns_start(struct loopback_pcm *dpcm)
++{
++	u64 den, step, frames, q, rem, delay;
++
++	if (dpcm->ns_xrun)
++		return 0;
++	den = loopback_ns_den(dpcm);
++	step = loopback_ns_step(dpcm);
++	frames = (dpcm->pcm_period_size - dpcm->ns_period_pos +
++		  (u64)dpcm->last_drift) / dpcm->pcm_salign;
++	/* ceil((frames * den - fractional carry) / step), without overflow. */
++	q = mul_u64_u64_div_u64(frames, den, step);
++	rem = frames * den - q * step;
++	if (rem >= dpcm->ns_frac)
++		delay = q + div64_u64(rem - dpcm->ns_frac + step - 1, step);
++	else
++		delay = q - div64_u64(dpcm->ns_frac - rem, step);
++	hrtimer_start(&dpcm->hrtimer, ns_to_ktime(dpcm->ns_last + max_t(u64, delay, 1)),
++		      HRTIMER_MODE_ABS_SOFT);
++	return 0;
++}
++
++static enum hrtimer_restart loopback_ns_function(struct hrtimer *t)
++{
++	struct loopback_pcm *dpcm = container_of(t, struct loopback_pcm, hrtimer);
++	bool notify = false;
++
++	scoped_guard(spinlock_irqsave, &dpcm->cable->lock) {
++		if (loopback_ns_pos_update(dpcm->cable) &
++		    (1 << dpcm->substream->stream)) {
++			loopback_ns_start(dpcm);
++			notify = dpcm->period_update_pending;
++			dpcm->period_update_pending = 0;
++		}
++	}
++	if (notify)
++		snd_pcm_period_elapsed(dpcm->substream);
++	return HRTIMER_NORESTART;
++}
++#endif
+ 
+ static void loopback_jiffies_timer_function(struct timer_list *t)
+ {
+@@ -1021,6 +1233,10 @@
+ 	spin_lock(&dpcm->cable->lock);
+ 	if (dpcm->cable->ops->pos_update)
+ 		dpcm->cable->ops->pos_update(dpcm->cable);
++	if (dpcm->ns_mode && dpcm->ns_xrun) {
++		spin_unlock(&dpcm->cable->lock);
++		return SNDRV_PCM_POS_XRUN;
++	}
+ 	pos = dpcm->buf_pos;
+ 	spin_unlock(&dpcm->cable->lock);
+ 	return bytes_to_frames(runtime, pos);
+@@ -1200,6 +1416,33 @@
+ 	return 0;
+ }
+ 
++static int loopback_ns_open(struct loopback_pcm *dpcm)
++{
++	dpcm->ns_mode = true;
++	hrtimer_init(&dpcm->hrtimer, CLOCK_MONOTONIC, HRTIMER_MODE_ABS_SOFT);
++	dpcm->hrtimer.function = loopback_ns_function;
++	return 0;
++}
++
++static void loopback_ns_info(struct loopback_pcm *dpcm,
++			     struct snd_info_buffer *buffer)
++{
++	snd_iprintf(buffer, "    ns_period_pos:\t%u\n", dpcm->ns_period_pos);
++	snd_iprintf(buffer, "    ns_frac:\t%llu\n", dpcm->ns_frac);
++	snd_iprintf(buffer, "    ns_last:\t%llu\n", dpcm->ns_last);
++	snd_iprintf(buffer, "    ns_xrun:\t%u\n", dpcm->ns_xrun);
++}
++
++static const struct loopback_ops loopback_ns_ops = {
++	.open = loopback_ns_open,
++	.start = loopback_ns_start,
++	.stop = loopback_hrtimer_stop,
++	.stop_sync = loopback_hrtimer_stop_sync,
++	.close_substream = loopback_hrtimer_stop_sync,
++	.pos_update = loopback_ns_pos_update,
++	.dpcm_info = loopback_ns_info,
++};
++
+ static const struct loopback_ops loopback_hrtimer_ops = {
+ 	.open = loopback_hrtimer_open,
+ 	.start = loopback_hrtimer_start,
+@@ -1392,7 +1635,9 @@
+ 		init_waitqueue_head(&cable->stop_wait);
+ 		cable->hw = loopback_pcm_hardware;
+ #ifdef CONFIG_HIGH_RES_TIMERS
+-		if (loopback->timer_source && !strcmp(loopback->timer_source, "hrtimer"))
++		if (loopback->timer_source && !strcmp(loopback->timer_source, "hrtimer-ns"))
++			cable->ops = &loopback_ns_ops;
++		else if (loopback->timer_source && !strcmp(loopback->timer_source, "hrtimer"))
+ 			cable->ops = &loopback_hrtimer_ops;
+ 		else
+ #endif
