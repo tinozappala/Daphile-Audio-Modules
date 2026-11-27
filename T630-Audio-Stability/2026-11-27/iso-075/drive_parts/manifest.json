@@ -1,0 +1,47 @@
+{
+  "name": "Daphile-0.4.75-live-install-candidate.iso",
+  "size": 808290304,
+  "sha256": "76081f0321226e3dac8a8d6fd7f821a340a640c7e35ff2a24497f12742c5abd8",
+  "parts": [
+    {
+      "name": "image.001",
+      "size": 101035776,
+      "sha256": "52fdef0fef48ccf6269fe34c59c6bb42cbd7a1e5b514b085794201c1cdb534b0"
+    },
+    {
+      "name": "image.002",
+      "size": 101035776,
+      "sha256": "dc1914a71001e4cf249d039e27a34b3abe554ac6f673fa97385d6150867087dd"
+    },
+    {
+      "name": "image.003",
+      "size": 101035776,
+      "sha256": "f805800418d8a05f7cfeae504c861c12fb998e58498d30412f61ed651607ed8a"
+    },
+    {
+      "name": "image.004",
+      "size": 101035776,
+      "sha256": "04af4b995cc8ecd50e2d2843bcb9373eccd06921b3d99d225a81b36edff7e5da"
+    },
+    {
+      "name": "image.005",
+      "size": 101035776,
+      "sha256": "d8fcc01508126fe21c6ab95d4543b19e695581a62067263669902919868d2561"
+    },
+    {
+      "name": "image.006",
+      "size": 101035776,
+      "sha256": "15edcdb826211861b87639aeed6b80b9e1376f046c9addc2f3a25e31fdadbd03"
+    },
+    {
+      "name": "image.007",
+      "size": 101035776,
+      "sha256": "a511cfc6094318f8b34299f08bbbbff03cf409dd24d6d107df35c04c24c4efb5"
+    },
+    {
+      "name": "image.008",
+      "size": 101039872,
+      "sha256": "9294b480decbb3a09de4731b46b5340aa46a1274e9b00e532af350c61623fe70"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "parts": [
+    {
+      "name": "image.001",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "6b85513167ed875e5dce2ab165ac778b61574c46299ed0b31c7cb891517a55bd"
+    },
+    {
+      "name": "image.002",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "dc1914a71001e4cf249d039e27a34b3abe554ac6f673fa97385d6150867087dd"
+    },
+    {
+      "name": "image.003",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "f805800418d8a05f7cfeae504c861c12fb998e58498d30412f61ed651607ed8a"
+    },
+    {
+      "name": "image.004",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "04af4b995cc8ecd50e2d2843bcb9373eccd06921b3d99d225a81b36edff7e5da"
+    },
+    {
+      "name": "image.005",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "51aefd17529a3119ffb6f82e4f9003397457644847e12b0b928a4f162fc9972b"
+    },
+    {
+      "name": "image.006",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "a10deb09e4059250341d405db187905186b8061ffe4e3cb1e00a82be6e00e801"
+    },
+    {
+      "name": "image.007",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "d201ef5486f298c33eec52821d043cb6937baca09dc74196823178e62aceb5a8"
+    },
+    {
+      "name": "image.008",
+      "verified": true,
+      "size": 101035776,
+      "sha256": "9e479b83d65d0d953b09034b16d7320732504cbe8faaff33137896580779aa51"
+    }
+  ],
+  "bytes": 808286208,
+  "sha256": "171c0fba440e98b934bf4157374c5bbbd12f0961a085d270754bf441be581e4d"
+}

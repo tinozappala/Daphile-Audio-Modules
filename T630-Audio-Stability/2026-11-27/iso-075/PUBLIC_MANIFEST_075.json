@@ -1,0 +1,78 @@
+{
+  "status": "KVM_FUNCTIONAL_TESTS_PASS_PHYSICAL_NOT_TESTED",
+  "iso_version": "0.4.75",
+  "module_version": "0.4.74",
+  "firmware_identifier": "fw2611270750",
+  "base_074": {
+    "name": "Daphile-0.4.74-isolated-live-candidate.iso",
+    "sha256": "171c0fba440e98b934bf4157374c5bbbd12f0961a085d270754bf441be581e4d"
+  },
+  "artifact": {
+    "name": "Daphile-0.4.75-live-install-candidate.iso",
+    "sha256": "76081f0321226e3dac8a8d6fd7f821a340a640c7e35ff2a24497f12742c5abd8",
+    "bytes": 808290304
+  },
+  "delta_from_074": {
+    "name": "0.4.74-to-0.4.75.iso.patch.zst",
+    "sha256": "28dc78209e07b57888cfcb8d49fa9baa5282d815f6d9cc9e2f5c463723e238dd",
+    "bytes": 1297422,
+    "reconstruction_option": "zstd -d --long=30 --patch-from=<exact .74 ISO>",
+    "local_reconstruction_sha256": "76081f0321226e3dac8a8d6fd7f821a340a640c7e35ff2a24497f12742c5abd8"
+  },
+  "module_074": {
+    "archive_sha256": "c2ef7df33a91df6b5888e13e150c784946f43e575876c922346e806c848fe508",
+    "native_player_sha256": "d722aa46b602e64bcd1237af2d8dfe67a55f089a187c358ae06d2926b10bfa01",
+    "installed_gui_readback": "PASS"
+  },
+  "rootfs": {
+    "changed_entries_from_074": [
+      "version"
+    ],
+    "complete_readback": "ALL_NODES_AND_HARDLINKS_IDENTICAL_TO_RECIPE",
+    "sha256": "1fe48c2b563dbfaa8bad90f4c4344eb22ca7e1cba841374edd82c6431386da69",
+    "initrd_sha256": "4fbad37af58794245b4ae8da70caf1e80986596e8467124b00cf9c88d42ee5f4"
+  },
+  "checks": {
+    "initrd_offline_fixtures": "5/5 PASS",
+    "new_installation_same_synthetic_removable_usb_uefi_and_bios": "PASS",
+    "uefi_reboot_installed": "PASS",
+    "bios_boot_installed": "PASS",
+    "efi_x64_and_ia32_fallback": "PASS",
+    "installed_rootfs_and_initrd_exact_readback": "PASS",
+    "uefi_boot_entries_and_order_unchanged": "PASS",
+    "internal_sentinel_unchanged": "PASS",
+    "no_live_and_no_installed_marker_uses_tmpfs": "PASS",
+    "stale_uuid_without_installed_marker_uses_tmpfs": "PASS"
+  },
+  "limitations": [
+    "Only virtual devices and firmware were tested; physical USB removability and firmware behavior remain unverified.",
+    "The successful install selected both UEFI and BIOS on a USB reported removable; a non-removable target may cause native fwtoold to change firmware entries.",
+    "Synthetic firmware ID is displayed as 26.11-b270750; the underlying vendor/kernel base remains 25.05. Updater behavior was not qualified.",
+    "No audio performance, DSD wire transport, publication, or physical playback qualification."
+  ],
+  "file_sha256": {
+    "build_075_linux.py": "71587c9716e769881d9e93fd38acba9b888bc3ffc9d573ca40f6498084278d27",
+    "build_074_linux.py": "6a6ca0001cb3f0fb12a3bf86736ccb1e937e2ee8748b455b8984c2cc6763048a",
+    "initrd_dualmode.py": "e59eaeb6ec25fd639b83ab254d0a094026a0caf3cbd96dbcb6400754cc192e93",
+    "protect_live_initrd.py": "489297c7c82e20cb414989120322b84f112d7356c13e1b6ca54ac104514ca382",
+    "test_dualmode.py": "6a5c81c251ce1f29a15ac8cdc95d9d53f95c67273c25c24b6ef931b2b8440379",
+    "efi_vars.py": "dcfb0ac21c116c18a522dc37c6eef732002da7b8cfa8b3d5bf56c31d272bf92b",
+    "probe_gui_075.py": "c270027f98355863cdc0ed490295747aabd66b5f7aa5a5ae1ae66b05e8eebcd4",
+    "run_gui_install_075.py": "9d88aa0fed5f5fb60bb7005a42f8af437f863b2e2a3d47cbcef433bb29015d7a",
+    "verify_installed_gui.py": "1ec56c716a28919202a7c0b5e558db331dea2b77edd4454adf429339e07b49c4",
+    "inspect_installed_disk.py": "d1dab1d59e9593b1cf1781f2d6408fe0477768b6c473e554ce83a9649a4524a1",
+    "bios_installed_test.py": "b88f8d94b1d78e01011039ae1b9f4a487d7e4ee2082b4067e4ce72aead5cb3d8",
+    "make_no_live_fixture.py": "f3b89c88ac1d17b735c1c29000ec7ed2e8c028defe13c1df861b3c0aec75ed69",
+    "kvm_no_live_guard.py": "f075e455e777773414b257301126de696d1ccc59525f061f91a9c73aa071327c",
+    "make_stale_uuid_fixture.py": "f2dfcecb055d74ee7abbbbd9a720b69fff4e9620dd32e51ad3f085886fe9163a",
+    "kvm_stale_uuid_guard.py": "763f447e1a27185a91fc2deb706e409e9026eb533de7b719ba8f6af2e3181070",
+    "BUILD_075_REPORT.json": "20daeb07d3b7a3c23c4120d02fb2b6e5d2d068042b0a6bd71061aa570d038953",
+    "LIVE_INSTALL_VM_RESULT.json": "f71d73b9f5c2910e784a290dbb3a6d666686bdd6aa119b2b4d6f7f3047d263a3",
+    "INSTALL_075_RESULT.json": "58933097e9cf5ad0c0c141b972224e87a1c78d8244f19db10627e0a7e8ae50be",
+    "INSTALLED_GUI_VERIFICATION.json": "6c8064c936154d3871a3ed4200c4d4d281e69c8371430207ccce22aa7753ce70",
+    "DISK_075_INSPECTION.json": "7ed1837d8bc15dc43aa8280347584d661c4c2fa8738ae78723fe84337960fec9",
+    "BIOS_INSTALLED_RESULT.json": "daf7c2e7d9b10cecdc6c3fcf2b9723988e66c9c94cf174a709b4cd1e94ffce37",
+    "NO_LIVE_GUARD_RESULT.json": "e767eaa8b3cd80c0557b972c0524dbb66e92422454b0b9be9dbf38f0cb7fd2ab",
+    "STALE_UUID_GUARD_RESULT.json": "450a2f7a37c19294c2588b16501f3c9f81f4401bd6c0c669db85cfc621bba5b9"
+  }
+}
