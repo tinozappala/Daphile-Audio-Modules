@@ -1,0 +1,170 @@
+{
+  "platform": "HP t630 / RME ADI-2 DAC FS",
+  "date": "2026-11-27",
+  "iso_sha256": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47",
+  "kernel": "6.12.30-daphile",
+  "camilla_module": "0.4.72",
+  "ram_data": true,
+  "internal_disk_mounted": false,
+  "library_tracks": 2,
+  "source": "A Time For Love",
+  "previous_track": "Unstoppable",
+  "file_content_verified_against_nas": true,
+  "library_on_live": "RAM",
+  "stored_eq_profile_matched": true,
+  "matched_rme_functional_settings": true,
+  "sample_rate_hz": 44100,
+  "dsp_requested_buffer_ms": 80,
+  "native_requested_buffer_ms": 100,
+  "live_negotiated_geometry": null,
+  "dsp_cold": {
+    "play_ack_s": 0.0920628,
+    "lms_progress_observed_by_s": 6.1624127,
+    "camilla_running_observation": {
+      "first_bounds_s": [
+        6.1624346,
+        7.0922415
+      ],
+      "third_upper_s": 9.1382663
+    },
+    "transition_observations": [
+      {
+        "request_begin_s": -0.350395,
+        "reply_end_s": 0.863845,
+        "phase": "pause"
+      },
+      {
+        "request_begin_s": 0.890896,
+        "reply_end_s": 1.992816,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 2.003341,
+        "reply_end_s": 2.93085,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 2.941008,
+        "reply_end_s": 3.878684,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 3.888093,
+        "reply_end_s": 4.933921,
+        "phase": "resume"
+      },
+      {
+        "request_begin_s": 4.956906,
+        "reply_end_s": 6.153207,
+        "phase": "open-pipeline"
+      }
+    ]
+  },
+  "dsp_warm": {
+    "play_ack_s": 0.0723953,
+    "lms_progress_observed_by_s": 1.9149162,
+    "camilla_running_observation": {
+      "first_bounds_s": [
+        0.8858321,
+        1.9052562
+      ],
+      "third_upper_s": 3.9622069
+    }
+  },
+  "warm_camilla_running_before_play": true,
+  "native_bypass": {
+    "play_ack_s": 0.074789,
+    "lms_progress_observed_by_s": 1.8038208,
+    "camilla_running_observation": null
+  },
+  "native_bypass_observations": 15,
+  "rme_rate_labels": {
+    "cold": "44,1 kHz",
+    "warm": "44,1 kHz",
+    "native": "44,1 kHz"
+  },
+  "digital_capture": null,
+  "subsequent_stop_empty_queue": {
+    "live_lms_stop_count": 0,
+    "omitted_fields": [
+      "playlist_loop",
+      "playlist_cur_index"
+    ],
+    "result": "fault-paused, bypass HTTP 503",
+    "verified_recovery": "Add one stopped track, verify native bypass, then remove test track"
+  },
+  "restored": {
+    "transport": "STOP at zero",
+    "queue": "original empty",
+    "profile": true,
+    "rme_outputs": true,
+    "native_bypass": true
+  },
+  "scope": "Two cold and two warm trials with EQ on, one fully native EQ-off control. Monotonic HTTP request/response observations. No digital or acoustic onset measurement on the live image.",
+  "repeat_with_bypass_before_emptying_queue": {
+    "cold": {
+      "play_ack_s": 0.0594742,
+      "lms_progress_observed_by_s": 6.2930722,
+      "camilla_running_observation": {
+        "first_bounds_s": [
+          6.2930995,
+          7.1397524
+        ],
+        "third_upper_s": 9.2557241
+      }
+    },
+    "warm": {
+      "play_ack_s": 0.0567851,
+      "lms_progress_observed_by_s": 1.7590201,
+      "camilla_running_observation": {
+        "first_bounds_s": [
+          0.600941,
+          1.7351089
+        ],
+        "third_upper_s": 3.8210365
+      }
+    },
+    "cold_transitions": [
+      {
+        "request_begin_s": -0.350605,
+        "reply_end_s": 0.905536,
+        "phase": "pause"
+      },
+      {
+        "request_begin_s": 0.921058,
+        "reply_end_s": 1.827823,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 1.839074,
+        "reply_end_s": 2.834149,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 2.843822,
+        "reply_end_s": 3.809187,
+        "phase": "restart"
+      },
+      {
+        "request_begin_s": 3.820583,
+        "reply_end_s": 5.015888,
+        "phase": "loopback-stability"
+      },
+      {
+        "request_begin_s": 5.028873,
+        "reply_end_s": 6.277525,
+        "phase": "open-pipeline"
+      }
+    ],
+    "warm_camilla_running_before_play": true,
+    "initial_state_restored_automatically": true,
+    "rme_player_displayed_alsa_fields": [
+      "80",
+      "8",
+      "32",
+      "1",
+      "0"
+    ],
+    "same_fields_on_warm": true
+  }
+}
