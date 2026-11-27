@@ -1,0 +1,21 @@
+{
+  "status": "WARM_STOP_PLAY_WITHIN_5S_IN_OBSERVED_RUN",
+  "system": "HP t630 / kernel stock 6.12.30-daphile / CamillaDSP integration 0.4.72",
+  "prelude": "Unstoppable, 44.1 kHz 24 bit",
+  "target": "A Time For Love, 44.1 kHz 16 bit",
+  "loopback_buffer_ms": 80,
+  "camilla_chunksize": 2048,
+  "target_chunks": 2,
+  "warm_stop": "WARM_ENGINE_DAC_OWNED",
+  "immediately_before_timed_play": "WARM_ENGINE_DAC_OWNED",
+  "processing_proven": true,
+  "pre_play_all_zero": true,
+  "first_nonzero_block_read_upper_s": 3.383518029,
+  "identified_target_upper_s": 4.007797119,
+  "matched_within_5s": true,
+  "prelude_match": "NO_PRELUDE_DETECTED",
+  "cold_identified_target_upper_s": 8.489825549,
+  "eq_off_identified_target_upper_s": 3.043080258,
+  "queue_profile_and_dac_restored": true,
+  "scope": "One warm STOP/PLAY with Camilla still owning the physical DAC, all values from the digital pre-FX capture. Includes 2.511 s of leading silence in the FLAC. No identified remnant of the prelude under the published matching method. Not an analog or universal timing claim."
+}
