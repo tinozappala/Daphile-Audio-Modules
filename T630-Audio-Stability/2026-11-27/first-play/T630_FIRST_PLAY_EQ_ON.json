@@ -1,0 +1,78 @@
+{
+  "status": "FIRST_PLAY_EQ_ON_CAPTURE_AND_MATCHED_CONTROL_COMPLETE",
+  "platform": "HP t630, installed stock 6.12.30-daphile, Camilla module 0.4.72",
+  "loopback_ms": 80,
+  "loopback_periods": 8,
+  "camilla_chunksize": 2048,
+  "camilla_target_chunks": 2,
+  "source": "A Time For Love",
+  "sample_rate_hz": 44100,
+  "source_leading_zero_frames": 110720,
+  "stereo_capture_s": 20,
+  "pcm_bits": 32,
+  "nonzero_before_play": 0,
+  "frames_from_marker_through_last_block_before_5s": 220520,
+  "next_read_with_all_zero_audio_s": 5.167645913,
+  "first_nonzero_frame_in_capture": 467544,
+  "first_nonzero_block_read_upper_s": 7.868031612,
+  "previous_block_read_s": 7.740017021,
+  "source_recognition_upper_s": 8.489825549,
+  "recognition": "stereo spectral features and two waveform windows",
+  "on_capture_software_times_s": {
+    "native_usb": [
+      0.002368115,
+      0.167715175
+    ],
+    "camilla_usb": [
+      6.898317663,
+      7.062252195
+    ],
+    "loopback_producer": [
+      4.144969645,
+      4.30994186
+    ]
+  },
+  "on_control_software_times_s": {
+    "native_usb": [
+      0.023862266,
+      0.214689727
+    ],
+    "camilla_usb": [
+      6.593088929,
+      6.664258726
+    ],
+    "loopback_producer": [
+      3.993369872,
+      4.05879143
+    ]
+  },
+  "capture_route_phases": {
+    "phase_starts_s": {
+      "target": 2.2662999981548637e-05,
+      "queue-snapshot": 0.04644156799997745,
+      "pause": 0.8114529659999903,
+      "bind-router": 2.0320853879999845,
+      "restart": 2.169585425999969,
+      "resume": 3.852668942999969,
+      "loopback-stability": 5.4698290740000175,
+      "open-pipeline": 5.940516694999985
+    },
+    "total_s": 6.740407409999989
+  },
+  "control_route_phases": {
+    "phase_starts_s": {
+      "target": 1.9166000015502505e-05,
+      "queue-snapshot": 0.11886931999993067,
+      "pause": 0.48862602799999877,
+      "bind-router": 2.0271372270000256,
+      "restart": 2.1139568099999906,
+      "resume": 3.8251301889999922,
+      "loopback-stability": 5.413249887999996,
+      "open-pipeline": 5.800926764999986
+    },
+    "total_s": 6.51159772699998
+  },
+  "both_restored": true,
+  "scope": "Digital pre-FX return. Bounds on the host reading blocks, not on analog audibility. Control without recorder confirms ALSA progress only.",
+  "all_captured_frames_zero_through_5s": true
+}
