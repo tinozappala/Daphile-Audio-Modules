@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "mode": "uefi",
+  "boot_media": "usb",
+  "acceleration": "KVM",
+  "iso_sha256": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47",
+  "scope": "ISO readonly; no physical disks or audio; restricted user networking",
+  "sentinels": [
+    {
+      "path": "/mnt/c/Build/Daphile-Kernel/iso_live_generic_qa/uefi-usb-v2-1/internal.raw",
+      "sha256_before": "6fbe16d684e6a732bfa96a4c251d22f22ff122b5535016c0000bd6d8a623fa23",
+      "content_before": "DAPHILE SYNTHETIC SENTINEL internal",
+      "sha256_after": "6fbe16d684e6a732bfa96a4c251d22f22ff122b5535016c0000bd6d8a623fa23",
+      "content_after": "DAPHILE SYNTHETIC SENTINEL internal",
+      "unchanged": true
+    },
+    {
+      "path": "/mnt/c/Build/Daphile-Kernel/iso_live_generic_qa/uefi-usb-v2-1/removable.raw",
+      "sha256_before": "79758e40bb8e3a4303c89ab7837eb287449d246c556a1d02a4bb85e26b3864b1",
+      "content_before": "DAPHILE SYNTHETIC SENTINEL removable",
+      "sha256_after": "79758e40bb8e3a4303c89ab7837eb287449d246c556a1d02a4bb85e26b3864b1",
+      "content_after": "DAPHILE SYNTHETIC SENTINEL removable",
+      "unchanged": true
+    }
+  ],
+  "observations": [
+    {
+      "http": null,
+      "lms": null,
+      "catalog": null,
+      "camilla": null,
+      "rme": null,
+      "elapsed_seconds": 0
+    },
+    {
+      "http": 200,
+      "lms": "9.0.3",
+      "catalog": "0.4.72",
+      "camilla": "HTTP_404",
+      "rme": "HTTP_503",
+      "elapsed_seconds": 55.1
+    },
+    {
+      "http": 200,
+      "lms": "9.0.3",
+      "catalog": "0.4.72",
+      "camilla": "0.4.72",
+      "rme": "READY",
+      "elapsed_seconds": 61.2
+    }
+  ],
+  "pid": 406,
+  "application_status": "APP_PASS",
+  "startup_diagnostics": [],
+  "sentinel_status": "DISKS_UNCHANGED",
+  "iso_sha256_after": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47",
+  "elapsed_seconds": 72.9
+}

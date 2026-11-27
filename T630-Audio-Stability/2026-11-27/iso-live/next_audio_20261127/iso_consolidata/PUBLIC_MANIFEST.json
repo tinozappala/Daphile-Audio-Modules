@@ -1,0 +1,81 @@
+{
+  "status": "QEMU_KVM_PASS_PHYSICAL_NOT_PERFORMED",
+  "artifact": {
+    "name": "Daphile-0.4.72-isolated-live-v2-trial.iso",
+    "bytes": 808286208,
+    "sha256": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47"
+  },
+  "upstream_base": {
+    "release": "25.05-b251550-x86_64-rt",
+    "url": "https://www.daphile.com/firmware/beta/daphile-25.05-b251550-x86_64-rt.iso",
+    "vendor_manifest": "https://www.daphile.com/firmware/beta/latest-x86_64-rt.inf",
+    "vendor_md5": "fff253a66bfa5fdba7e6a13e6f9204e8",
+    "sha256_local": "623dd475a6cb3f8528bbdb7d2234dfb1fbd582becdd1458d97ec845eeb6b0c15",
+    "bytes": 391118848,
+    "kernel_sha256": "225f6522feb3d49aede7da41e04aec288774e5efedc0eaca39e7bb6494b7e312"
+  },
+  "components": {
+    "Camilla_0.4.72_sha256": "acab2f0797c8bc871a2454a411ba68a506a61fd986730889ed00962d0c968b52",
+    "RME_0.5.23_sha256": "2c778d58b5547282c6558650faa7e78c09b1b05170dff245f1a8c07099eea601",
+    "RC6_rootfs_sha256": "8e101c92c9161f5975f2e4c8ae22a85303270e965c0d11a8bbd60309a2b6253e",
+    "rc6_local_git_remote": "https://github.com/tinozappala/Daphile-Audio-Modules",
+    "rc6_local_git_head": "c10404848e02bc9eb14b5017296d1e8480361f17",
+    "rc6_remote_public_access_verified": false
+  },
+  "rootfs": {
+    "sha256": "5938afd7fd2ca305dc437480a2a60e6e2095a7b3b919dd5c151cb603eb6a0e31",
+    "nodes": 30038,
+    "hardlink_groups": 113,
+    "full_readback": "PASS"
+  },
+  "boot_tests": {
+    "BIOS_KVM_RESULT.json": {
+      "status": "PASS",
+      "ready_seconds": 35.4,
+      "total_seconds": 50,
+      "sentinels": "DISKS_UNCHANGED"
+    },
+    "UEFI_KVM_RESULT.json": {
+      "status": "PASS",
+      "ready_seconds": 71.6,
+      "total_seconds": 82.3,
+      "sentinels": "DISKS_UNCHANGED"
+    },
+    "BIOS_USB_KVM_RESULT.json": {
+      "status": "PASS",
+      "ready_seconds": 39.4,
+      "total_seconds": 50.7,
+      "sentinels": "DISKS_UNCHANGED"
+    },
+    "UEFI_USB_KVM_RESULT.json": {
+      "status": "PASS",
+      "ready_seconds": 61.2,
+      "total_seconds": 72.9,
+      "sentinels": "DISKS_UNCHANGED"
+    }
+  },
+  "file_sha256": {
+    "build_iso.py": "01e60849ff36a34a0be4b65150ba69bef979ce706afd4777e09fcf22bc93945f",
+    "protect_live_initrd.py": "489297c7c82e20cb414989120322b84f112d7356c13e1b6ca54ac104514ca382",
+    "routed_default_probe.py": "29fb3d2728c77fbbb9ff60d3fef8ffa5bd3e5d9ff1e9d7ff7f0ba3fcb634838b",
+    "verify_pseudo.py": "04eb5fc64dec558efe231f13a02f1faad47de7ea8157417556ef0e0ffc580c43",
+    "kvm_isolated_boot.py": "d09df900a6c15bbbe8accc506c0222643d87cdc3d4fb7ea040e931b26b045bfe",
+    "test_builder.py": "4cd068933764bc27def8f21ae8fa5031ae6bce70dab5977c9a7d0c4670a6ad9e",
+    "test_kvm_status.py": "a1d802eedad8619fa7be0ef117ca5be8c69763ecee2c6f810c3d991a292b7c55",
+    "test_iso_boot.py": "3da241958aba2e03102bdb994da5165d6fe22af078ee7b6e93c239746783f27a",
+    "BIOS_KVM_RESULT.json": "7a6d6079a49c670f6732a2a52668a55eedd28243aebccdc833236e5e786683fe",
+    "UEFI_KVM_RESULT.json": "f60a7fe4089c8d74c554672350291d91918a2124cd936cb7f4ca0678c790e468",
+    "BIOS_USB_KVM_RESULT.json": "44158e48d086601415d9e9e3d6ad02a18a057fe667309bd24bf13522a36a169b",
+    "UEFI_USB_KVM_RESULT.json": "d36a9983618e0fa49289373772ece7cfffcffc696eff14654c529804ce53384e",
+    "NOTA_TECNICA_PUBBLICA_IT.md": "8806be82da150c68a95d9f0568fa108f5e444f24bca91eee31f9400f3b46fe3f"
+  },
+  "external_support_file_sha256": {
+    "ram_continuous/support/pseudo_fs.py": "36cf9232b7a86bed6c2d240e0faef7aa8eb6c94a9de3ad1efce4d792a798fa7f"
+  },
+  "scope": [
+    "No physical device or audio used in ISO boot tests",
+    "Fresh live DATA is volatile; automatic local disk mounting is disabled",
+    "Actual DAC geometry and t630 real-time performance require separate verification",
+    "Public beta shadow hash retained; SSH password authentication disabled"
+  ]
+}

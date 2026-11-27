@@ -40,10 +40,16 @@ Lo STOP → PLAY è una prova separata. In una prima acquisizione con EQ
 spento mentre il player era già fermo, il modulo ha mantenuto il percorso
 nativo e Squeezelite ha continuato a inviare frame USB a 44,1 kHz anche
 prima del comando PLAY. Il puntatore del DAC non identifica l'inizio
-del brano in questa condizione. Con EQ inizialmente acceso e percorso
+del brano in questa condizione. La successiva prova con registrazione
+RME continua ha riconosciuto «A Time For Love» entro **3,043 s** dal
+marcatore immediatamente precedente all'unico PLAY, con 73 finestre
+stereo identiche al FLAC. Nessuna delle finestre identificate precedeva
+il comando. Il FLAC contiene già 110.720 frame stereo iniziali a zero,
+pari a **2,511 s** a 44,1 kHz. Coda, profilo, mute, loopback RME e
+buffer ripristinati. Con EQ inizialmente acceso e percorso
 ancora da attivare, il primo avanzamento USB di Camilla è stato osservato
 circa 7,4 s dopo il marcatore iniziale. Il target concordato per il primo
 audio riconoscibile da STOP è 5 s.
 
-SHA-256 dello ZIP del modulo .72:
+Lo ZIP del modulo .72 ha SHA-256
 `acab2f0797c8bc871a2454a411ba68a506a61fd986730889ed00962d0c968b52`.
