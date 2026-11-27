@@ -1,0 +1,23 @@
+{
+  "status": "USB_UEFI_BOOT_AND_SERVICES_VERIFIED",
+  "artifact_bytes": 808286208,
+  "sha256_direct_readback": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47",
+  "host_model": "HP t630 Thin Client",
+  "firmware_mode": "UEFI",
+  "release": "fw2611270720",
+  "live_kernel_flag": true,
+  "data_filesystem": "tmpfs",
+  "rootfs": "SquashFS in RAM",
+  "postboot_internal_mounts": [],
+  "services": {
+    "http": 200,
+    "lms": "9.0.3",
+    "catalog": "0.4.72",
+    "camilla": "0.4.72",
+    "rme": "READY"
+  },
+  "physical_RME_control_readback": true,
+  "LMS_RME_player_connected": true,
+  "initial_audio_mode": "native-bypass",
+  "scope": "Boot, service availability and DAC identification. The physical internal disk was checked for mounts, not hashed. No playback in this receipt."
+}
