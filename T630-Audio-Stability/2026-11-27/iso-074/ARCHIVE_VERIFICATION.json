@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "version": "0.4.74",
+  "archive_sha256": "c2ef7df33a91df6b5888e13e150c784946f43e575876c922346e806c848fe508",
+  "zip_members": 51,
+  "installed_files_match_zip": 51,
+  "only_changed_zip_members": [
+    "backend/native_player.py",
+    "backend/peq/__init__.py",
+    "install.xml"
+  ],
+  "all_approval_hashes": "PASS",
+  "release_and_version_metadata": "PASS",
+  "only_changed_members_directly_from_072": [
+    "backend/native_player.py",
+    "backend/peq/__init__.py",
+    "install.xml"
+  ],
+  "image_defaults_sha256": "d0e679cf12914ca44a5d260a7b67e6e699a5e67cf4fd16df227f8126edabc2ea",
+  "missing_usedop_policy": "native-converted-PCM"
+}

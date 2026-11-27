@@ -1,0 +1,106 @@
+{
+  "status": "KVM_USB_UEFI_BOOT_PASS_PHYSICAL_NOT_TESTED",
+  "version": "0.4.74",
+  "artifact": {
+    "name": "Daphile-0.4.74-isolated-live-candidate.iso",
+    "bytes": 808286208,
+    "sha256": "171c0fba440e98b934bf4157374c5bbbd12f0961a085d270754bf441be581e4d"
+  },
+  "derived_from": {
+    "version": "0.4.73",
+    "name": "Daphile-0.4.73-isolated-live-candidate.iso",
+    "sha256": "90dfb2f42e82104e794e52d0650d9539b46c0c23db07e066276c9ddcad3c08eb"
+  },
+  "original_072": {
+    "name": "Daphile-0.4.72-isolated-live-v2-trial.iso",
+    "sha256": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47"
+  },
+  "components": {
+    "Camilla_0.4.74_sha256": "c2ef7df33a91df6b5888e13e150c784946f43e575876c922346e806c848fe508",
+    "Camilla_0.4.74_zip": "DaphileCamillaDSP-0.4.74-candidate.zip",
+    "native_player_sha256": "d722aa46b602e64bcd1237af2d8dfe67a55f089a187c358ae06d2926b10bfa01",
+    "RME_0.5.23_sha256": "2c778d58b5547282c6558650faa7e78c09b1b05170dff245f1a8c07099eea601"
+  },
+  "rootfs": {
+    "sha256": "bdbee7c25096e0e3345892fd486c04f91ee392dadbb20e9d4c7370e6ec37d80e",
+    "firmware": "fw2611270740",
+    "full_readback": "ALL_NODES_AND_HARDLINKS_IDENTICAL_TO_RECIPE",
+    "changed_entries_from_073": [
+      "usr/local/share/daphile-release/audio-host/approvals.json",
+      "usr/local/share/daphile-release/audio-host/bundles/DaphileCamillaDSP-0.4.73.zip",
+      "usr/local/share/daphile-release/audio-host/bundles/DaphileCamillaDSP-0.4.74.zip",
+      "usr/local/share/daphile-release/plugins/DaphileCamillaDSP/backend/native_player.py",
+      "usr/local/share/daphile-release/plugins/DaphileCamillaDSP/backend/peq/__init__.py",
+      "usr/local/share/daphile-release/plugins/DaphileCamillaDSP/install.xml",
+      "usr/local/share/daphile-release/release.json",
+      "usr/local/share/mediaserver-init/plugins/DaphileCamillaDSP-0.4.73.zip",
+      "usr/local/share/mediaserver-init/plugins/DaphileCamillaDSP-0.4.74.zip"
+    ],
+    "changed_archive_members_from_072": [
+      "backend/native_player.py",
+      "backend/peq/__init__.py",
+      "install.xml"
+    ],
+    "archive_members_matching_installed": 51,
+    "native_defaults_sha256": "d0e679cf12914ca44a5d260a7b67e6e699a5e67cf4fd16df227f8126edabc2ea",
+    "missing_usedop_parsed_policy": "native-converted-PCM"
+  },
+  "delta": {
+    "name": "0.4.72-to-0.4.74.iso.patch.zst",
+    "bytes": 235278,
+    "sha256": "ce8dc8e5231a1ada9debe1a9eda526c2305634288d1b301203b0588a11ab2366",
+    "base_version": "0.4.72",
+    "base_sha256": "d5e4c2d90b722a15be0de5814f5a6d71543d36a52dcc407316eb586126bc8c47",
+    "base64_name": "0.4.72-to-0.4.74.iso.patch.zst.b64",
+    "base64_line_width": 76,
+    "base64_roundtrip": "PASS",
+    "reconstructed_iso_sha256": "171c0fba440e98b934bf4157374c5bbbd12f0961a085d270754bf441be581e4d",
+    "source_isos_unchanged": true
+  },
+  "boot_test": {
+    "mode": "UEFI",
+    "media": "virtual USB",
+    "status": "PASS",
+    "ready_seconds": 66,
+    "services": {
+      "http": 200,
+      "lms": "9.0.3",
+      "catalog": "0.4.74",
+      "camilla": "0.4.74",
+      "rme": "READY",
+      "elapsed_seconds": 66
+    },
+    "sentinels": "DISKS_UNCHANGED",
+    "result": "kvm-uefi-usb/RESULT.json"
+  },
+  "offline_tests": {
+    "empty_queue": {
+      "passed": 9,
+      "total": 9
+    },
+    "dsd_default": {
+      "passed": 14,
+      "total": 14
+    },
+    "native_regression": {
+      "passed": 103,
+      "total": 103
+    },
+    "scope": "simulated LMS and native routines on local Python; no audio hardware"
+  },
+  "file_sha256": {
+    "build_074_linux.py": "6a6ca0001cb3f0fb12a3bf86736ccb1e937e2ee8748b455b8984c2cc6763048a",
+    "usedop_default_on_073.patch": "7164670034dc047a35476d4488f3fa770e78bb7b9d06bdb984690835fda5d0a9",
+    "verify_archive_074.py": "d832f30e0651ac1d56034f1ef2cb0378379af4e434daeda421528d649c13b145",
+    "kvm_074.py": "aa66f8a73f1459d96732fc65026b01fbf665da50aab7c786140d5845b261f639",
+    "BUILD_REPORT.json": "789771c001cfb8603d466adf284dbd0519fdabbe03bee5c8a548e987e6c1ef08",
+    "ARCHIVE_VERIFICATION.json": "6966fa38217a11c8a66692673fd25200f60e4c15268331e428c23146bd64f798",
+    "kvm-uefi-usb/RESULT.json": "dea78eacf1d7a82e8c756ade94fb52c53034e3fc2d8b0466d76b178a6d6cd148"
+  },
+  "scope": [
+    "Two fixes: empty STOP queue omissions and absent USEDOP with verified native off default.",
+    "No latency improvement is claimed.",
+    "Virtual startup verifies service readiness; RME READY is application status, not a physical DAC.",
+    "No physical boot, music playback, timing qualification, distribution or external publication."
+  ]
+}

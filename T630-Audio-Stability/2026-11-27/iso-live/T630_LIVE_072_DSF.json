@@ -1,0 +1,268 @@
+{
+  "date": "2026-11-27",
+  "hardware": "HP t630 and RME ADI-2 DAC FS",
+  "image_module": "0.4.72",
+  "kernel": "6.12.30-daphile",
+  "data": "volatile tmpfs",
+  "inputs": "Generated DSF64 and DSF128, two 44.1 kHz FLACs in RAM, file checksums verified",
+  "setup": {
+    "external_outputs_muted_during_play": true,
+    "pcm_loopback_verified_ms": 80,
+    "pcm_loopback_verified_periods": 8,
+    "factory_native_buffer_ms": 100,
+    "native_buffer_after_applying_card_form_ms": 80,
+    "negotiated_pcm_loopback_frames": 3528,
+    "pcm_period_frames": 441
+  },
+  "trials": {
+    "factory_pcm_to_dsf": {
+      "transport_restored": true,
+      "segments": [
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": false,
+          "first_recovery_read_s": 1.517,
+          "last_mode": "fault-paused"
+        }
+      ]
+    },
+    "factory_dsf_first": {
+      "transport_restored": true,
+      "segments": [
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "705,6 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "705600 (705600/1)",
+              "period_size": "23520",
+              "buffer_size": "70560",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "705,6 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "705600 (705600/1)",
+              "period_size": "23520",
+              "buffer_size": "70560",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        }
+      ]
+    },
+    "explicit_default_pcm_to_dsf": {
+      "transport_restored": true,
+      "segments": [
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "705,6 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "705600 (705600/1)",
+              "period_size": "7056",
+              "buffer_size": "56448",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "705,6 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "705600 (705600/1)",
+              "period_size": "7056",
+              "buffer_size": "56448",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        }
+      ]
+    },
+    "explicit_dop_pcm_to_dsf": {
+      "transport_restored": true,
+      "segments": [
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "176,4 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "176400 (176400/1)",
+              "period_size": "1764",
+              "buffer_size": "14112",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "dsf",
+          "observed": true,
+          "camilla_mode": "dsd-bypass",
+          "dac_rate_label": "352,8 kHz",
+          "loopback": [],
+          "rme": [
+            {
+              "rate": "352800 (352800/1)",
+              "period_size": "3528",
+              "buffer_size": "28224",
+              "format": "S32_LE"
+            }
+          ]
+        },
+        {
+          "source_kind": "pcm",
+          "observed": true,
+          "camilla_mode": "pcm-active",
+          "dac_rate_label": "44,1 kHz",
+          "loopback": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "441",
+              "buffer_size": "3528",
+              "format": "S32_LE"
+            }
+          ],
+          "rme": [
+            {
+              "rate": "44100 (44100/1)",
+              "period_size": "1024",
+              "buffer_size": "8192",
+              "format": "S32_LE"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "interpretation": "The native GUI rewrote complete card preferences in RAM. It saved the previous DSD conversion policy explicitly and changed native buffering to 80/8 to preserve the routed setting. The candidate parser was tested separately with identical inputs on a simulated transport. Rates are ALSA readbacks. No digital capture or payload check on this USB live session."
+}

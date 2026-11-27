@@ -1,0 +1,40 @@
+--- a/backend/native_player.py
++++ b/backend/native_player.py
+@@ -241,14 +241,16 @@
+         self.guard(target)
+         status=self.rpc(target['mac'],['status','0','8192','tags:uoTI'])
+         count=observed_integer(status.get('playlist_tracks'),0,8192,'Dimensione della coda')
+-        tracks=observed_tracks(status.get('playlist_loop'))
++        mode=status.get('mode')
++        position=observed_position(status.get('time'))
++        empty_stopped=(count==0 and mode=='stop' and position==0)
++        tracks=observed_tracks([] if empty_stopped and 'playlist_loop' not in status else status.get('playlist_loop'))
+         if len(tracks)!=count:
+             raise RuntimeError('Coda audio non acquisibile integralmente')
+-        index=observed_integer(status.get('playlist_cur_index'),0 if count else -1,count-1 if count else 0,'Indice della coda')
+-        position=observed_position(status.get('time'))
++        index_value=-1 if empty_stopped and 'playlist_cur_index' not in status else status.get('playlist_cur_index')
++        index=observed_integer(index_value,0 if count else -1,count-1 if count else 0,'Indice della coda')
+         repeat=observed_integer(status.get('playlist repeat'),0,2,'Ripetizione')
+         shuffle=observed_integer(status.get('playlist shuffle'),0,2,'Riproduzione casuale')
+-        mode=status.get('mode')
+         if mode not in ('play','pause','stop') or (not count and (mode!='stop' or position!=0)):
+             raise RuntimeError('Stato di riproduzione non verificato')
+         current=tracks[index] if count else {}
+@@ -277,8 +279,15 @@
+         self.guard(target)
+         status=self.rpc(target['mac'],['status','-','1','tags:uoTI'])
+         count=observed_integer(status.get('playlist_tracks'),0,2147483647,'Dimensione della coda')
+-        rows=observed_tracks(status.get('playlist_loop'))
+         mode=status.get('mode')
++        if count==0 and mode=='stop':
++            if 'time' in status and observed_position(status['time'])!=0:
++                raise RuntimeError('Posizione del player non verificata')
++            if 'playlist_cur_index' in status:
++                observed_integer(status['playlist_cur_index'],-1,0,'Indice della coda')
++            rows=[] if 'playlist_loop' not in status else observed_tracks(status.get('playlist_loop'))
++        else:
++            rows=observed_tracks(status.get('playlist_loop'))
+         if len(rows)!=(1 if count else 0) or mode not in ('play','pause','stop') or (not count and mode!='stop'):
+             raise RuntimeError('Sorgente corrente non osservabile integralmente')
+         current=rows[0] if rows else {}

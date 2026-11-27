@@ -1,0 +1,28 @@
+--- a/backend/native_player.py
++++ b/backend/native_player.py
+@@ -441,8 +441,24 @@
+         qualification continues to use require_dsd_transport below.
+         """
+         self.guard(target)
+-        values=re.findall(r'^USEDOP=(.*)$',Path(target['path']).read_text(),re.M)
++        preferences=Path(target['path']).read_text()
++        values=re.findall(r'^USEDOP=(.*)$',preferences,re.M)
++        # Do not silently treat alternate or contradictory shell assignments
++        # as an omitted setting.  The usual file contains plain assignments.
++        mentions=re.findall(r'^(?!\s*#).*?\bUSEDOP\b.*$',preferences,re.M)
++        if len(mentions)!=len(values):
++            raise RuntimeError('Politica DSD nativa ambigua; ripresa DSF annullata')
+         if values==['off']:return 'native-converted-PCM'
++        if not values:
++            # Daphile sources these defaults immediately before volume.conf.
++            # Accept an omitted key only when the effective native default is
++            # an unambiguous, plain USEDOP=off assignment.
++            try:defaults=Path('/opt/spac/share/defaults.conf').read_text()
++            except (OSError,UnicodeError) as error:
++                raise RuntimeError('Default DSD nativo non verificabile') from error
++            declared=re.findall(r'^(?!\s*#).*?\bUSEDOP\b.*$',defaults,re.M)
++            if declared==['USEDOP=off']:return 'native-converted-PCM'
++            raise RuntimeError('Default DSD nativo non verificabile')
+         return self.require_dsd_transport(target)
+ 
+     def require_dsd_transport(self,target):
